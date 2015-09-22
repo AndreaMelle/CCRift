@@ -60,6 +60,39 @@ void Scene::Loop(OGLPlatform& context)
 	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glCullFace(GL_FRONT);
+
+	DWORD dwWaitResult = WaitForSingleObject(frameBufferMutex, 50);
+
+	switch (dwWaitResult)
+	{
+		// The thread got ownership of the mutex
+	case WAIT_OBJECT_0:
+		__try {
+			if (frameDataBufferNewFlag)
+			{
+				Sizei texSize = sphere->Fill->texture->GetSize();
+				GLuint tex = sphere->Fill->texture->texId;
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, tex);
+				glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texSize.w, texSize.h, GL_BGRA, GL_UNSIGNED_BYTE, frameDataBuffer);
+				//glFinish();
+				glBindTexture(GL_TEXTURE_2D, 0);
+				frameDataBufferNewFlag = false;
+			}
+		}
+		__finally {
+			// Release ownership of the mutex object
+			if (!ReleaseMutex(frameBufferMutex))
+			{
+				// Handle error.
+			}
+		}
+		break;
+	case WAIT_ABANDONED:
+		return;
+	}
+
+	
 	
 	Render(view, proj);
 
@@ -72,15 +105,28 @@ void Scene::Render(Matrix4f view, Matrix4f proj)
 	sphere->Render(view, proj);
 }
 
-void Scene::SetFrameData(GLsizei w, GLsizei h, unsigned char * data)
+void Scene::CopyFrameData(unsigned char * data, DWORD timeout)
 {
-	Sizei texSize = sphere->Fill->texture->GetSize();
-	if (w <= texSize.w && h <= texSize.h)
+	DWORD dwWaitResult = WaitForSingleObject(frameBufferMutex, timeout);
+
+	switch (dwWaitResult)
 	{
-		GLuint tex = sphere->Fill->texture->texId;
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, tex);
-		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, w, h, GL_RGB, GL_UNSIGNED_BYTE, data);
+		// The thread got ownership of the mutex
+	case WAIT_OBJECT_0:
+		__try {
+			memcpy(frameDataBuffer, data, frameDataBufferSize);
+			frameDataBufferNewFlag = true;
+		}
+		__finally {
+			// Release ownership of the mutex object
+			if (!ReleaseMutex(frameBufferMutex))
+			{
+				// Handle error.
+			}
+		}
+		break;
+	case WAIT_ABANDONED:
+		return;
 	}
 }
 
@@ -139,21 +185,27 @@ bool Scene::Init(OGLPlatform& context, ovrSizei windowSize)
 	ShaderFill * grid_material;
 	//TextureBuffer * generated_texture = loadBMP_custom("D:/main/Workspace/CCRiftPlugin/Transmitter/StandalonePreview/pano.BMP");
 
-	int dataSize = 200 * 100 * 4;
-	unsigned char *data = new unsigned char[dataSize];
+	frameBufferMutex = CreateMutex(
+		NULL,              // default security attributes
+		FALSE,             // initially not owned
+		NULL);             // unnamed mutex
 
-	memset(data, 0, dataSize);
-
-	for (int i = 0; i < 40000; i++)
+	if (frameBufferMutex == NULL)
 	{
-		data[i] = 255;
+		MessageBoxA(NULL, "CreateMutex error", "Preview", MB_ICONERROR | MB_OK);
+		return false;
 	}
 
-	BasicTexture * generated_texture = new BasicTexture(OVR::Sizei(200, 100), true, false, 1, data);
+	frameDataBufferNewFlag = false;
+	frameDataBufferSize = 1920 * 960 * 4;
+	frameDataBuffer = new unsigned char[frameDataBufferSize];
+
+	memset(frameDataBuffer, 0, frameDataBufferSize);
+
+	BasicTexture * generated_texture = new BasicTexture(OVR::Sizei(1920, 960), true, false, 1, frameDataBuffer);
 
 	grid_material = new ShaderFill(vshader, fshader, generated_texture);
 
-	delete[] data;
 
 	glDeleteShader(vshader);
 	glDeleteShader(fshader);
@@ -190,5 +242,6 @@ Scene::~Scene()
 void Scene::Release(OGLPlatform& context)
 {
 	delete sphere;
+	delete[] frameDataBuffer;
 }
 

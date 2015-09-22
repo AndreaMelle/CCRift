@@ -60,6 +60,14 @@ namespace CCRift
 	class Scene;
 }
 
+struct UIThreadData
+{
+	CCRift::Scene* scene;
+	HINSTANCE hinst;
+	bool uiThreadRunning;
+	bool uiInited;
+};
+
 namespace SDK
 {
 
@@ -122,6 +130,11 @@ private:
 
 	CCRift::OGLPlatform* context;
 	CCRift::Scene* roomScene;
+
+	HANDLE uiThreadHandle;
+	UIThreadData* threadData;
+	//unsigned char *data;
+	//int dataSize;
 
 	//float *						mAudioBuffers[AUDIO_BUFFER_MAX_CHANNELS];
 };

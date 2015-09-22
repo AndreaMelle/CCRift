@@ -23,7 +23,7 @@ namespace CCRift
 		void Render(Matrix4f view, Matrix4f proj);
 		GLuint CreateShader(GLenum type, const GLchar* src);
 
-		void SetFrameData(GLsizei w, GLsizei h, unsigned char * data);
+		void CopyFrameData(unsigned char * data, DWORD timeout = 500);
 		
 		void Release(OGLPlatform& context);
 		bool Init(OGLPlatform& context, ovrSizei windowSize);
@@ -42,6 +42,11 @@ namespace CCRift
 		float mMouseSensitivity;
 		bool wasDown;
 		float aspectRatio;
+
+		unsigned char *frameDataBuffer;
+		GLsizei frameDataBufferSize;
+		bool frameDataBufferNewFlag;
+		HANDLE frameBufferMutex;
 	};
 
 }

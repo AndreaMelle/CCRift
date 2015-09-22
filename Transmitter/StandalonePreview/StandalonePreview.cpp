@@ -7,13 +7,21 @@
 using namespace OVR;
 using namespace CCRift;
 
-HANDLE ghMutex;
-bool uiThreadRunning;
+struct UIThreadData
+{
+	Scene* scene;
+	HINSTANCE hinst;
+	bool uiThreadRunning;
+	bool uiInited;
+};
+
+
 
 //UI thread
 DWORD WINAPI UIThread(LPVOID lpParam)
 {
-	HINSTANCE hinst = *((HINSTANCE*)lpParam);
+	UIThreadData* threadData = ((UIThreadData*)lpParam);
+	HINSTANCE hinst = threadData->hinst;
 
 	OGLPlatform* context = new OGLPlatform();
 
@@ -25,10 +33,9 @@ DWORD WINAPI UIThread(LPVOID lpParam)
 	if (!context->InitDevice(windowSize.w, windowSize.h, reinterpret_cast<LUID*>(&luid)))
 		return (-1);
 
-	Scene* roomScene = nullptr;
-	roomScene = new Scene();
+	Scene* roomScene = threadData->scene;
 
-	roomScene->Init(*context, windowSize);
+	threadData->uiInited = roomScene->Init(*context, windowSize);
 
 	while (context->HandleMessages())
 	{
@@ -43,7 +50,7 @@ DWORD WINAPI UIThread(LPVOID lpParam)
 
 	delete context;
 
-	uiThreadRunning = false;
+	threadData->uiThreadRunning = false;
 
 	return 0;
 }
@@ -53,16 +60,33 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE, LPSTR, int)
 {
 	HANDLE uiThreadHandle = 0;
 
-	uiThreadHandle = CreateThread(NULL, 0, UIThread, &hinst, 0, NULL);
+	UIThreadData* threadData = new UIThreadData();
+	threadData->hinst = hinst;
+	threadData->scene = new Scene();
+	threadData->uiThreadRunning = true;
+	threadData->uiInited = false;
+
+	uiThreadHandle = CreateThread(NULL, 0, UIThread, threadData, 0, NULL);
 
 	if (uiThreadHandle == NULL)
 		ExitProcess(0);
 
-	uiThreadRunning = true;
+	int dataSize = 200 * 100 * 4;
+	unsigned char *data = new unsigned char[dataSize];
 
-	while (uiThreadRunning)
+	memset(data, 0, dataSize);
+
+	while (threadData->uiThreadRunning)
 	{
 		OutputDebugString(L"Hello output\n");
+
+		for (int i = 0; i < dataSize; i++)
+		{
+			data[i] = rand() % 255;
+		}
+
+		if (threadData->scene && threadData->uiInited)
+			threadData->scene->CopyFrameData(data);
 		Sleep(1000);
 	}
 

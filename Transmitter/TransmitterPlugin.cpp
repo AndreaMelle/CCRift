@@ -147,6 +147,43 @@ struct ClockInstanceData {
 		delete(clockInstanceData);
 	}
 
+//UI thread
+DWORD WINAPI UIThread(LPVOID lpParam)
+{
+	UIThreadData* threadData = ((UIThreadData*)lpParam);
+	HINSTANCE hinst = threadData->hinst;
+
+	OGLPlatform* context = new OGLPlatform();
+
+	ovrGraphicsLuid luid;
+	ovrSizei windowSize = { 1920 / 2, 1080 / 2 };
+
+	VALIDATE(context->InitWindow(hinst, L"Preview"), "Failed to open window.");
+
+	if (!context->InitDevice(windowSize.w, windowSize.h, reinterpret_cast<LUID*>(&luid)))
+		return (-1);
+
+	Scene* roomScene = threadData->scene;
+
+	threadData->uiInited = roomScene->Init(*context, windowSize);
+
+	while (context->HandleMessages())
+	{
+		roomScene->Loop(*context);
+	}
+
+	roomScene->Release(*context);
+
+	delete roomScene;
+
+	context->ReleaseDevice();
+
+	delete context;
+
+	threadData->uiThreadRunning = false;
+
+	return 0;
+}
 
 ////
 //// TransmitInstance methods
@@ -184,20 +221,19 @@ struct ClockInstanceData {
 			CLOCKS_PER_SEC);
 #endif
 
-		context = new OGLPlatform();
+		uiThreadHandle = 0;
 
-		ovrGraphicsLuid luid;
-		ovrSizei windowSize = { 1920 / 2, 1080 / 2 };
+		threadData = new UIThreadData();
+		threadData->hinst = NULL;
+		threadData->scene = new Scene();
+		threadData->uiThreadRunning = true;
+		threadData->uiInited = false;
 
-		VALIDATE(context->InitWindow(NULL, L"Preview"), "Failed to open window.");
+		uiThreadHandle = CreateThread(NULL, 0, UIThread, threadData, 0, NULL);
 
-		if (!context->InitDevice(windowSize.w, windowSize.h, reinterpret_cast<LUID*>(&luid)))
+		if (uiThreadHandle == NULL)
 			return;
 
-		roomScene = nullptr;
-		roomScene = new Scene();
-
-		roomScene->Init(*context, windowSize);
 	}
 
 	/* Shutdown is handled here.
@@ -205,10 +241,8 @@ struct ClockInstanceData {
 	*/
 	TransmitInstance::~TransmitInstance()
 	{
-		roomScene->Release(*context);
-		delete roomScene;
-		context->ReleaseDevice();
-		delete context;
+		WaitForSingleObject(uiThreadHandle, INFINITE);
+		CloseHandle(uiThreadHandle);
 	}
 
 	/* We're not picky.  We claim to support any format the host can throw at us (yeah right).
@@ -224,11 +258,11 @@ struct ClockInstanceData {
 
 		outVideoMode->outWidth = 1920;
 		outVideoMode->outHeight = 960;
-		outVideoMode->outPARNum = 0;
-		outVideoMode->outPARDen = 0;
+		outVideoMode->outPARNum = 1;
+		outVideoMode->outPARDen = 1;
 		outVideoMode->outFieldType = prFieldsNone;
 		outVideoMode->outPixelFormat = PrPixelFormat_BGRA_4444_8u;
-		outVideoMode->outLatency = inInstance->inVideoFrameRate * 5; // Ask for 5 frames preroll
+		//outVideoMode->outLatency = inInstance->inVideoFrameRate * 5; // Ask for 5 frames preroll
 
 		mVideoFrameRate = inInstance->inVideoFrameRate;
 
@@ -419,6 +453,8 @@ struct ClockInstanceData {
 		mSuites.PPixSuite->GetPixelAspectRatio(inPushVideo->inFrames[0].inFrame, &parNum, &parDen);
 		mSuites.PPixSuite->GetPixelFormat(inPushVideo->inFrames[0].inFrame, &pixelFormat);
 
+		//mSuites.
+
 		mSuites.SequenceInfoSuite->GetZeroPoint(inInstance->inTimelineID, &zeroPointTime);
 		mSuites.SequenceInfoSuite->GetTimecodeDropFrame(inInstance->inTimelineID, &dropFrame);
 
@@ -426,13 +462,14 @@ struct ClockInstanceData {
 		
 		char outputString[255];
 		sprintf_s(	outputString, 255,
-					"<%i> PushVideo called for time %7.2f, frame size: %d x %d, PAR: %4.3f, pixel format: %#x.",
+					"<%i> PushVideo called for time %7.2f, frame size: %d x %d, PAR: %4.3f, pixel format: %#x. %d",
 					clock(),
 					frameTimeInSeconds,
 					abs(frameBounds.right - frameBounds.left),
 					abs(frameBounds.top - frameBounds.bottom),
 					(float) parNum / parDen,
-					pixelFormat);
+					pixelFormat,
+					inPushVideo->inFrameCount);
 		OutputDebugString(outputString);
 
 		if (inPushVideo->inPlayMode == playmode_Scrubbing)
@@ -466,9 +503,34 @@ struct ClockInstanceData {
 		//
 		// This is where a transmit plug-in could queue up the frame to an actual hardware device.
 		//
-		if(context->HandleMessages())
+
+		LONG w = abs(frameBounds.right - frameBounds.left);
+		LONG h = abs(frameBounds.top - frameBounds.bottom);
+		
+		if(threadData->uiThreadRunning)
 		{
-			roomScene->Loop(*context);
+
+			if (pixelFormat == PrPixelFormat_BGRA_4444_8u
+				&& w == 1920 && h == 960)
+			{
+				char *data;
+
+				for (int i = 0; i < inPushVideo->inFrameCount; i++)
+				{
+					mSuites.PPixSuite->GetPixels(inPushVideo->inFrames[i].inFrame, PrPPixBufferAccess_ReadOnly, &data);
+					break;
+				}
+
+				if (threadData->scene && threadData->uiInited)
+					threadData->scene->CopyFrameData((unsigned char*)data);
+			}
+
+			
+		}
+		else
+		{
+			WaitForSingleObject(uiThreadHandle, INFINITE);
+			CloseHandle(uiThreadHandle);
 		}
 		
 
@@ -523,6 +585,8 @@ struct ClockInstanceData {
 		mSuites.SPBasic->ReleaseSuite(kPrSDKSequenceInfoSuite, kPrSDKSequenceInfoSuiteVersion);
 		mSuites.SPBasic->ReleaseSuite(kPrSDKThreadedWorkSuite, kPrSDKThreadedWorkSuiteVersion3);
 		mSuites.SPBasic->ReleaseSuite(kPrSDKTimeSuite, kPrSDKTimeSuiteVersion);
+
+		
 	}
 	
 	/*
