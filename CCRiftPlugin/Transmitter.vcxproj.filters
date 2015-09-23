@@ -9,44 +9,43 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
-    </Filter>
-    <Filter Include="Utility Files">
-      <UniqueIdentifier>{26b14f43-e182-43a4-a292-6b6c0eff7b19}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\PrSDK">
       <UniqueIdentifier>{c80a5716-92ae-4207-9935-14c19ddc1da0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\PrSDK">
+      <UniqueIdentifier>{1c64e29a-9430-4ade-88f1-5395f9686a32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Transmitter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TransmitterPlugin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AdobePremiereProUtils\SDK_File.cpp">
-      <Filter>Utility Files</Filter>
-    </ClCompile>
     <ClCompile Include="CCRiftOGLPlatform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CCRiftScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CCRiftModel.cpp">
+    <ClCompile Include="CCRiftUVSphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CCRiftUVSphere.cpp">
+    <ClCompile Include="AdobePremiereProUtils\SDK_File.cpp">
+      <Filter>Source Files\PrSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="CCRiftFrameTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CCRiftInstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CCRiftPlugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CCRiftPluginEntryPoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CCRiftWinPreviewDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TransmitterPlugin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Headers\PrSDKErrorSuite.h">
       <Filter>Header Files\PrSDK</Filter>
     </ClInclude>
@@ -74,9 +73,6 @@
     <ClInclude Include="..\..\Headers\PrSDKTypes.h">
       <Filter>Header Files\PrSDK</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Utils\SDK_File.h">
-      <Filter>Utility Files</Filter>
-    </ClInclude>
     <ClInclude Include="CCRiftCommons.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -89,13 +85,25 @@
     <ClInclude Include="CCRiftScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CCRiftModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CCRiftBufferHelpers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CCRiftUVSphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AdobePremiereProUtils\SDK_File.h">
+      <Filter>Header Files\PrSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="CCRiftFrameTexture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CCRiftPlugin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CCRiftInstance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CCRiftWinPreviewDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

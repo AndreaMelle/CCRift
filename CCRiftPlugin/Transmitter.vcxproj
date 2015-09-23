@@ -21,6 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{353F40DF-016A-4C2C-9E73-ADC3EADB3B8A}</ProjectGuid>
     <RootNamespace>ExportController_SamplePlugin</RootNamespace>
+    <ProjectName>CCRiftPlugin</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -87,9 +88,9 @@
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.prm</TargetExt>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TransmitterSDK</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.prm</TargetExt>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TransmitterSDK</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CCRiftPreview</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.prm</TargetExt>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">TransmitterSDK</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CCRiftPreview</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.prm</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -202,12 +203,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AdobePremiereProUtils\SDK_File.cpp" />
-    <ClCompile Include="CCRiftModel.cpp" />
+    <ClCompile Include="CCRiftFrameTexture.cpp" />
     <ClCompile Include="CCRiftOGLPlatform.cpp" />
+    <ClCompile Include="CCRiftPluginEntryPoint.cpp" />
     <ClCompile Include="CCRiftScene.cpp" />
     <ClCompile Include="CCRiftUVSphere.cpp" />
-    <ClCompile Include="Transmitter.cpp" />
-    <ClCompile Include="TransmitterPlugin.cpp" />
+    <ClCompile Include="CCRiftPlugin.cpp" />
+    <ClCompile Include="CCRiftInstance.cpp" />
+    <ClCompile Include="CCRiftWinPreviewDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Headers\PrSDKErrorSuite.h" />
@@ -219,15 +222,17 @@
     <ClInclude Include="..\..\Headers\PrSDKTimeSuite.h" />
     <ClInclude Include="..\..\Headers\PrSDKTransmit.h" />
     <ClInclude Include="..\..\Headers\PrSDKTypes.h" />
-    <ClInclude Include="..\..\Utils\SDK_File.h" />
+    <ClInclude Include="AdobePremiereProUtils\SDK_File.h" />
     <ClInclude Include="CCRiftBufferHelpers.h" />
     <ClInclude Include="CCRiftCommons.h" />
+    <ClInclude Include="CCRiftFrameTexture.h" />
+    <ClInclude Include="CCRiftInstance.h" />
     <ClInclude Include="CCRiftIPlatform.h" />
-    <ClInclude Include="CCRiftModel.h" />
     <ClInclude Include="CCRiftOGLPlatform.h" />
+    <ClInclude Include="CCRiftPlugin.h" />
     <ClInclude Include="CCRiftScene.h" />
     <ClInclude Include="CCRiftUVSphere.h" />
-    <ClInclude Include="TransmitterPlugin.h" />
+    <ClInclude Include="CCRiftWinPreviewDevice.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

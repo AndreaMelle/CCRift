@@ -5,6 +5,7 @@
 #include "Extras/OVR_Math.h"
 #include "Kernel/OVR_Log.h"
 #include "OVR_CAPI_GL.h"
+#include "CCRiftFrameTexture.h"
 
 using namespace OVR;
 
@@ -44,77 +45,13 @@ struct DepthBuffer
 	}
 };
 
-//--------------------------------------------------------------------------
-struct BasicTexture
-{
-	GLuint              texId;
-	Sizei               texSize;
-
-	BasicTexture(Sizei size, bool alpha, bool generateMipMaps, int mipLevels, unsigned char * data) :
-		texId(0),
-		texSize(0, 0)
-	{
-
-		texSize = size;
-
-		glGenTextures(1, &texId);
-		glBindTexture(GL_TEXTURE_2D, texId);
-
-		if (!generateMipMaps)
-		{
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		}
-		else
-		{
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		}
-
-		if (alpha)
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texSize.w, texSize.h, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
-		else
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texSize.w, texSize.h, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
-
-
-		if (generateMipMaps && mipLevels > 1)
-		{
-			glGenerateMipmap(GL_TEXTURE_2D);
-		}
-
-	}
-
-	~BasicTexture()
-	{
-		if (texId)
-		{
-			glDeleteTextures(1, &texId);
-			texId = 0;
-		}
-	}
-
-	Sizei GetSize() const
-	{
-		return texSize;
-	}
-
-};
-
-
-
-
-
 //------------------------------------------------------------------------------
 struct ShaderFill
 {
 	GLuint            program;
-	BasicTexture   * texture;
+	CCRift::FrameTexture   * texture;
 
-	ShaderFill(GLuint vertexShader, GLuint pixelShader, BasicTexture* _texture)
+	ShaderFill(GLuint vertexShader, GLuint pixelShader, CCRift::FrameTexture* _texture)
 	{
 		texture = _texture;
 

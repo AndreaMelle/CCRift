@@ -23,6 +23,7 @@ namespace CCRift
 		bool InitWindow(HINSTANCE hInst, LPCWSTR title);
 		void Stop();
 		void CloseWindow();
+		void BringWindowToFront();
 
 		bool InitDevice(int vpW, int vpH, const LUID* /*pLuid*/, bool windowed = true);
 		bool HandleMessages(void);

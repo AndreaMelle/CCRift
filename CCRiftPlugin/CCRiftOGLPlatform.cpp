@@ -106,6 +106,11 @@ bool OGLPlatform::InitWindow(HINSTANCE hInst, LPCWSTR title)
 	return true;
 }
 
+void OGLPlatform::BringWindowToFront()
+{
+	SetForegroundWindow(Window);
+}
+
 void OGLPlatform::CloseWindow()
 {
 	if (Window)

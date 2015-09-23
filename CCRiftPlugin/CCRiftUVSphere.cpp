@@ -108,7 +108,7 @@ void UVSphere::Render(Matrix4f view, Matrix4f proj)
 	glUniformMatrix4fv(glGetUniformLocation(Fill->program, "matWVP"), 1, GL_TRUE, (FLOAT*)&combined);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Fill->texture->texId);
+	glBindTexture(GL_TEXTURE_2D, Fill->texture->GetTexturePointer());
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer->buffer);
 	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer->buffer);
