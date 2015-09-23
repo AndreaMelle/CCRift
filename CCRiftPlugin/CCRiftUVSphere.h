@@ -7,6 +7,8 @@
 #include "OVR_CAPI_GL.h"
 #include "CCRiftCommons.h"
 #include "CCRiftBufferHelpers.h"
+#include "CCRiftFrameTexture.h"
+#include <vector>
 
 using namespace OVR;
 
@@ -15,6 +17,24 @@ namespace CCRift
 	class UVSphere
 	{
 	public:
+		UVSphere(Vector3f pos, ShaderFill * fill);
+		virtual ~UVSphere();
+
+		Matrix4f& GetMatrix();
+
+		void AllocateBuffers();
+		void AddSolidSphere(float radius, float segments = 32.0f);
+		void Render(Matrix4f view, Matrix4f proj);
+		
+		ShaderFill    * Fill;
+
+		void toggleGrid() { mShowGrid = !mShowGrid; }
+		bool Grid() { return mShowGrid; }
+		void setGridMix(float mix) { mGridMix = mix; }
+		float getGridMix() { return mGridMix; }
+
+	private:
+
 		struct Vertex
 		{
 			Vector3f  Pos;
@@ -25,24 +45,20 @@ namespace CCRift
 		Quatf           Rot;
 		Matrix4f        Mat;
 		int             numVertices;
-		//, numIndices;
-		Vertex          Vertices[2000]; // Note fixed maximum
-		//GLushort        Indices[2000];
-		ShaderFill    * Fill;
+		std::vector<Vertex>          Vertices;
+
+		FrameTexture *mGridTexture;
+
+		GLuint posLoc;
+		GLuint uvLoc;
 		VertexBuffer  * vertexBuffer;
-		//IndexBuffer   * indexBuffer;
 
-		UVSphere(Vector3f pos, ShaderFill * fill);
-		virtual ~UVSphere();
-
-		Matrix4f& GetMatrix();
-
-		void AddVertex(const Vertex& v);
-		//void AddIndex(GLushort a);
-		void AllocateBuffers();
 		void FreeBuffers();
-		void AddSolidSphere(float radius, float segments = 32.0f);
-		void Render(Matrix4f view, Matrix4f proj);
+		void AddVertex(const Vertex& v);
+
+
+		bool mShowGrid;
+		float mGridMix;
 	};
 }
 

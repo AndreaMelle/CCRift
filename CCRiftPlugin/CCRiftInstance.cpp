@@ -68,11 +68,13 @@ tmResult CCRiftInstance::ActivateDeactivate(const tmStdParms* inStdParms,
 	if (inVideoActive)
 	{
 		//	mDevice->StartTransmit();
+		mPreviewDevice->setActive(true);
 		mSelfActive = true;
 	}
 	else
 	{
 		//	mDevice->StopTransmit();
+		mPreviewDevice->setActive(false);
 		mSelfActive = false;
 	}
 

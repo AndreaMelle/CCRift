@@ -28,7 +28,7 @@ namespace CCRift
 		virtual int windowHeight() const override { return mWindowSize.h; }
 		virtual ovrSizei windowSize() const override { return mWindowSize; }
 
-		virtual bool isRunning() const override { return mProcess.mRunning; }
+		virtual bool isRunning() const override { return mDeviceRunning; }
 
 		virtual void pushFrame(const void* data) override;
 		virtual void setActive(bool active) override;
@@ -43,6 +43,8 @@ namespace CCRift
 		HINSTANCE mModuleHandle; //is this the 'module' in win32 lingo?
 
 		Process mProcess;
+
+		std::atomic<bool> mDeviceRunning;
 
 		HRESULT deviceSetup();
 		HRESULT deviceUpdate();

@@ -4,43 +4,52 @@ using namespace CCRift;
 
 UVSphere::UVSphere(Vector3f pos, ShaderFill * fill) :
 	numVertices(0),
-	//numIndices(0),
 	Pos(pos),
-	Rot(),
-	Mat(),
-	Fill(fill),
 	vertexBuffer(nullptr)
-	//,indexBuffer(nullptr)
-{}
+	, mShowGrid(false)
+	, mGridMix(0.5f)
+{
+	Rot.x = 0;
+	Rot.y = 1;
+	Rot.z = 0;
+	Rot.w = 0;
+
+	Mat = Matrix4f(Rot);
+	Mat = Matrix4f::Translation(Pos) * Mat;
+
+	mGridTexture = loadBMPFromResource(IDB_BITMAP1);
+
+	Fill = fill;
+	posLoc = glGetAttribLocation(Fill->program, "Position");
+	uvLoc = glGetAttribLocation(Fill->program, "TexCoord");
+}
 
 UVSphere::~UVSphere()
 {
 	FreeBuffers();
+	delete mGridTexture;
 }
 
 Matrix4f& UVSphere::GetMatrix()
 {
-	Mat = Matrix4f(Rot);
-	Mat = Matrix4f::Translation(Pos) * Mat;
 	return Mat;
 }
 
 void UVSphere::AddVertex(const Vertex& v)
 {
-	Vertices[numVertices++] = v;
+	Vertices.push_back(v);
+	numVertices++;
 }
-//void UVSphere::AddIndex(GLushort a) { Indices[numIndices++] = a; }
 
 void UVSphere::AllocateBuffers()
 {
 	vertexBuffer = new VertexBuffer(&Vertices[0], numVertices * sizeof(Vertices[0]));
-	//indexBuffer = new IndexBuffer(&Indices[0], numIndices * sizeof(Indices[0]));
 }
 
 void UVSphere::FreeBuffers()
 {
-	delete vertexBuffer; vertexBuffer = nullptr;
-	//delete indexBuffer; indexBuffer = nullptr;
+	delete vertexBuffer;
+	vertexBuffer = nullptr;
 }
 
 void UVSphere::AddSolidSphere(float radius, float segments)
@@ -101,7 +110,7 @@ void UVSphere::AddSolidSphere(float radius, float segments)
 
 void UVSphere::Render(Matrix4f view, Matrix4f proj)
 {
-	Matrix4f combined = proj * view * GetMatrix();
+	Matrix4f combined = proj * view * Mat;
 
 	glUseProgram(Fill->program);
 	glUniform1i(glGetUniformLocation(Fill->program, "Texture0"), 0);
@@ -110,29 +119,33 @@ void UVSphere::Render(Matrix4f view, Matrix4f proj)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Fill->texture->GetTexturePointer());
 
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer->buffer);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer->buffer);
+	if (mShowGrid && mGridTexture)
+	{
+		glUniform1i(glGetUniformLocation(Fill->program, "Texture1"), 1);
+		glUniform1f(glGetUniformLocation(Fill->program, "mix"), mGridMix);
 
-	GLuint posLoc = glGetAttribLocation(Fill->program, "Position");
-	//GLuint colorLoc = glGetAttribLocation(Fill->program, "Color");
-	GLuint uvLoc = glGetAttribLocation(Fill->program, "TexCoord");
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, mGridTexture->GetTexturePointer());
+	}
+	else
+	{
+		glUniform1f(glGetUniformLocation(Fill->program, "mix"), 0.0f);
+	}
+
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer->buffer);
 
 	glEnableVertexAttribArray(posLoc);
-	//glEnableVertexAttribArray(colorLoc);
 	glEnableVertexAttribArray(uvLoc);
 
 	glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)OVR_OFFSETOF(Vertex, Pos));
-	//glVertexAttribPointer(colorLoc, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*)OVR_OFFSETOF(Vertex, C));
 	glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)OVR_OFFSETOF(Vertex, U));
 
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, numVertices);
 
 	glDisableVertexAttribArray(posLoc);
-	//glDisableVertexAttribArray(colorLoc);
 	glDisableVertexAttribArray(uvLoc);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glUseProgram(0);
 }

@@ -9,12 +9,12 @@ LRESULT CALLBACK OGLPlatform::WindowProc(_In_ HWND hWnd, _In_ UINT Msg, _In_ WPA
 
 	switch (Msg)
 	{
-	case WM_KEYDOWN:
+	/*case WM_KEYDOWN:
 		p->Key[wParam] = true;
 		break;
 	case WM_KEYUP:
 		p->Key[wParam] = false;
-		break;
+		break;*/
 	case WM_DESTROY:
 		p->Running = false;
 		break;
@@ -35,8 +35,11 @@ LRESULT CALLBACK OGLPlatform::WindowProc(_In_ HWND hWnd, _In_ UINT Msg, _In_ WPA
 	case WM_CONTEXTMENU:
 	{
 		HMENU hPopupMenu = CreatePopupMenu();
+		
 		InsertMenuW(hPopupMenu, 0, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_RESET, L"Reset");
-		InsertMenuW(hPopupMenu, 0, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_ABOUT, L"About");
+		InsertMenuW(hPopupMenu, 1, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_GRIDTOGGLE, L"Toggle Grid");
+		InsertMenuW(hPopupMenu, 2, MF_SEPARATOR | MF_BYPOSITION, 0, NULL);
+		InsertMenuW(hPopupMenu, 3, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_ABOUT, L"About");
 		int sel = TrackPopupMenuEx(hPopupMenu, TPM_TOPALIGN | TPM_LEFTALIGN | TPM_RETURNCMD, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), hWnd, NULL);
 		
 		p->contextualMenuCallback((ContextualMenuOptions)sel);
@@ -49,10 +52,10 @@ LRESULT CALLBACK OGLPlatform::WindowProc(_In_ HWND hWnd, _In_ UINT Msg, _In_ WPA
 		return DefWindowProcW(hWnd, Msg, wParam, lParam);
 	}
 
-	if ((p->Key['Q'] && p->Key[VK_CONTROL]) || p->Key[VK_ESCAPE])
+	/*if ((p->Key['Q'] && p->Key[VK_CONTROL]) || p->Key[VK_ESCAPE])
 	{
 		p->Running = false;
-	}
+	}*/
 
 	return 0;
 }
@@ -70,13 +73,13 @@ OGLPlatform::OGLPlatform() :
 	Running(false),
 	WinSizeW(0),
 	WinSizeH(0),
-	fboId(0),
+	//fboId(0),
 	hInstance(nullptr),
 	contextualMenuCallback([](ContextualMenuOptions){})
 {
 	// Clear input
-	for (int i = 0; i < sizeof(Key) / sizeof(Key[0]); ++i)
-		Key[i] = false;
+	/*for (int i = 0; i < sizeof(Key) / sizeof(Key[0]); ++i)
+		Key[i] = false;*/
 
 	MouseDown = false;
 	MouseDrag = false;
@@ -222,7 +225,7 @@ bool OGLPlatform::InitDevice(int vpW, int vpH, const LUID* /*pLuid*/, bool windo
 	OVR::GLEContext::SetCurrentContext(&GLEContext);
 	GLEContext.Init();
 
-	glGenFramebuffers(1, &fboId);
+	//glGenFramebuffers(1, &fboId);
 
 	glEnable(GL_DEPTH_TEST);
 	glFrontFace(GL_CW);
@@ -256,27 +259,28 @@ bool OGLPlatform::HandleMessages(void)
 	return Running;
 }
 
-void OGLPlatform::Run(bool(*MainLoop)(bool retryCreate, OGLPlatform& context))
-{
-	// false => just fail on any error
-	VALIDATE(MainLoop(false, *this), "Oculus Rift not detected.");
-	while (HandleMessages())
-	{
-		// true => we'll attempt to retry for ovrError_DisplayLost
-		if (!MainLoop(true, *this))
-			break;
-		// Sleep a bit before retrying to reduce CPU load while the HMD is disconnected
-		Sleep(10);
-	}
-}
+//void OGLPlatform::Run(bool(*MainLoop)(bool retryCreate, OGLPlatform& context))
+//{
+//	// false => just fail on any error
+//	VALIDATE(MainLoop(false, *this), "Oculus Rift not detected.");
+//	while (HandleMessages())
+//	{
+//		// true => we'll attempt to retry for ovrError_DisplayLost
+//		if (!MainLoop(true, *this))
+//			break;
+//		// Sleep a bit before retrying to reduce CPU load while the HMD is disconnected
+//		Sleep(10);
+//	}
+//}
 
 void OGLPlatform::ReleaseDevice()
 {
-	if (fboId)
+	/*if (fboId)
 	{
 		glDeleteFramebuffers(1, &fboId);
 		fboId = 0;
-	}
+	}*/
+
 	if (WglContext)
 	{
 		wglMakeCurrent(NULL, NULL);

@@ -62,11 +62,11 @@ tmResult CCRiftPlugin::NeedsReset(
 	const tmStdParms* inStdParms,
 	prBool* outResetModule)
 {
-	// Did the hardware change?
-	// if (it did)
-	//{
-	//	*outResetModule = kPrTrue;
-	//}
+	if (mPreviewDevice && !mPreviewDevice->isRunning())
+	{
+		mPreviewDevice->start();
+	}
+	
 	return tmResult_Success;
 }
 

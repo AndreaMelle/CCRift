@@ -22,8 +22,13 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE, LPSTR, int)
 
 	memset(demoData, 0, demoDataSize);
 
-	while (mDevice->isRunning())
+	while (true)
 	{
+		if (!mDevice->isRunning())
+		{
+			mDevice->start(hinst);
+		}
+
 		for (int i = 0; i < demoDataSize; i++)
 		{
 			demoData[i] = rand() % 255;

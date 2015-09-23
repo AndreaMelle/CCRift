@@ -27,6 +27,8 @@ namespace CCRift
 
 		void render(Matrix4f view, Matrix4f proj);
 
+		UVSphere* getSphere() { return sphere; }
+
 	private:
 		UVSphere *sphere;
 		float aspectRatio;

@@ -21,6 +21,7 @@ namespace CCRift
 			CONTEXTUAL_MENU_NONE,
 			CONTEXTUAL_MENU_RESET,
 			CONTEXTUAL_MENU_ABOUT,
+			CONTEXTUAL_MENU_GRIDTOGGLE,
 			CONTEXTUAL_MENU_LAST
 		};
 
@@ -34,7 +35,7 @@ namespace CCRift
 
 		bool InitDevice(int vpW, int vpH, const LUID* /*pLuid*/, bool windowed = true);
 		bool HandleMessages(void);
-		void Run(bool(*MainLoop)(bool retryCreate, OGLPlatform& context));
+		//void Run(bool(*MainLoop)(bool retryCreate, OGLPlatform& context));
 		void ReleaseDevice();
 
 		static void GLAPIENTRY DebugGLCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
@@ -51,14 +52,14 @@ namespace CCRift
 		HGLRC                   WglContext;
 		OVR::GLEContext         GLEContext;
 		bool                    Running;
-		bool                    Key[256];
+		//bool                    Key[256];
 		int						MouseX;
 		int						MouseY;
 		bool					MouseDown;
 		bool					MouseDrag;
 		int                     WinSizeW;
 		int                     WinSizeH;
-		GLuint                  fboId;
+		//GLuint                  fboId;
 		HINSTANCE               hInstance;
 
 	};

@@ -27,11 +27,16 @@ bool Scene::init(ovrSizei windowSize, ovrSizei frameSize)
 	static const char* FragmentShaderSrc =
 		"#version 150\n"
 		"uniform sampler2D Texture0;\n"
+		"uniform sampler2D Texture1;\n"
+		"uniform float mix;\n"
 		"in      vec2      oTexCoord;\n"
 		"out     vec4      FragColor;\n"
 		"void main()\n"
 		"{\n"
-		"   FragColor = texture2D(Texture0, oTexCoord);\n"
+		"   vec3 FrameColor = texture2D(Texture0, oTexCoord).rgb;\n"
+		"   vec3 GridColor = texture2D(Texture1, oTexCoord).rgb;\n"
+		"   vec3 MixColor = (1.0 - mix) * FrameColor + mix * GridColor;\n"
+		"   FragColor = vec4(MixColor, 1.0);\n"
 		"}\n";
 
 	GLuint    vshader = createShader(GL_VERTEX_SHADER, VertexShaderSrc);

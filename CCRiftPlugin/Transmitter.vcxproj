@@ -235,6 +235,13 @@
     <ClInclude Include="CCRiftScene.h" />
     <ClInclude Include="CCRiftUVSphere.h" />
     <ClInclude Include="CCRiftWinPreviewDevice.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\grid.BMP" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

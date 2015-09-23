@@ -16,6 +16,7 @@ WinPreviewDevice::WinPreviewDevice()
 	, onMouseDownLat(0)
 	, mMouseSensitivity(0.1f)
 	, wasDown(false)
+	, mDeviceRunning(false)
 {
 	mFrameBufferLength = mFrameSize.w * mFrameSize.h * mFrameBufferDepth;
 	mFrameDataBuffer = new unsigned char[mFrameBufferLength];
@@ -52,11 +53,12 @@ void WinPreviewDevice::setActive(bool active)
 {
 	if (active)
 	{
-		mContext->BringWindowToFront();
+		
+		//mContext->BringWindowToFront();
 	}
 	else
 	{
-
+		
 	}
 
 	mActive = active;
@@ -64,6 +66,10 @@ void WinPreviewDevice::setActive(bool active)
 
 void WinPreviewDevice::start(HINSTANCE hinst)
 {
+	if (mDeviceRunning) return;
+
+	mDeviceRunning = true;
+
 	mModuleHandle = hinst;
 
 	mProcess.mThreadCallback = [&]()
@@ -74,6 +80,7 @@ void WinPreviewDevice::start(HINSTANCE hinst)
 		if (FAILED(hr))
 		{
 			deviceTeardown();
+			mDeviceRunning = false;
 			return;
 		}
 
@@ -89,6 +96,8 @@ void WinPreviewDevice::start(HINSTANCE hinst)
 		}
 
 		deviceTeardown();
+
+		mDeviceRunning = false;
 	};
 
 	mProcess.start();
@@ -133,6 +142,10 @@ HRESULT WinPreviewDevice::deviceSetup()
 		else if (sel == OGLPlatform::CONTEXTUAL_MENU_ABOUT)
 		{
 			MessageBoxA(mContext->Window, "v0.1\n\nSeptember 2015\n\nandrea.melle@happyfinish.com", "About", MB_ICONINFORMATION | MB_OK);
+		}
+		else if (sel == OGLPlatform::CONTEXTUAL_MENU_GRIDTOGGLE)
+		{
+			mScene->getSphere()->toggleGrid();
 		}
 	};
 
