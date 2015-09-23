@@ -15,16 +15,16 @@ CCRiftPlugin::CCRiftPlugin(
 
 	copyConvertStringLiteralIntoUTF16(PLUGIN_DISPLAY_NAME, outPluginInfo->outDisplayName);
 
-	outPluginInfo->outAudioAvailable = kPrTrue;
+	outPluginInfo->outAudioAvailable = kPrFalse;
 	outPluginInfo->outAudioDefaultEnabled = kPrFalse;
-	outPluginInfo->outClockAvailable = kPrTrue;	// Set this to kPrFalse if the transmitter handles video only
+	outPluginInfo->outClockAvailable = kPrFalse;	// Set this to kPrFalse if the transmitter handles video only
 	outPluginInfo->outVideoAvailable = kPrTrue;
 	outPluginInfo->outVideoDefaultEnabled = kPrTrue;
-	outPluginInfo->outHasSetup = kPrTrue;
+	outPluginInfo->outHasSetup = kPrFalse; //kPrTrue
 
 	// Acquire any suites needed!
 	mSuites.SPBasic = ioStdParms->piSuites->utilFuncs->getSPBasicSuite();
-	mSuites.SPBasic->AcquireSuite(kPrSDKPlayModuleAudioSuite, kPrSDKPlayModuleAudioSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&mSuites.PlayModuleAudioSuite)));
+	//mSuites.SPBasic->AcquireSuite(kPrSDKPlayModuleAudioSuite, kPrSDKPlayModuleAudioSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&mSuites.PlayModuleAudioSuite)));
 	mSuites.SPBasic->AcquireSuite(kPrSDKPPixSuite, kPrSDKPPixSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&mSuites.PPixSuite)));
 	mSuites.SPBasic->AcquireSuite(kPrSDKSequenceInfoSuite, kPrSDKSequenceInfoSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&mSuites.SequenceInfoSuite)));
 	mSuites.SPBasic->AcquireSuite(kPrSDKThreadedWorkSuite, kPrSDKThreadedWorkSuiteVersion3, const_cast<const void**>(reinterpret_cast<void**>(&mSuites.ThreadedWorkSuite)));
@@ -34,7 +34,7 @@ CCRiftPlugin::CCRiftPlugin(
 CCRiftPlugin::~CCRiftPlugin()
 {
 	// Be a good citizen and dispose of any suites used
-	mSuites.SPBasic->ReleaseSuite(kPrSDKPlayModuleAudioSuite, kPrSDKPlayModuleAudioSuiteVersion);
+	//mSuites.SPBasic->ReleaseSuite(kPrSDKPlayModuleAudioSuite, kPrSDKPlayModuleAudioSuiteVersion);
 	mSuites.SPBasic->ReleaseSuite(kPrSDKPPixSuite, kPrSDKPPixSuiteVersion);
 	mSuites.SPBasic->ReleaseSuite(kPrSDKSequenceInfoSuite, kPrSDKSequenceInfoSuiteVersion);
 	mSuites.SPBasic->ReleaseSuite(kPrSDKThreadedWorkSuite, kPrSDKThreadedWorkSuiteVersion3);

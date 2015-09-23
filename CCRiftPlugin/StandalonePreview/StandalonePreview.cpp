@@ -10,11 +10,11 @@ using namespace CCRift;
 
 int WINAPI WinMain(HINSTANCE hinst, HINSTANCE, LPSTR, int)
 {
-	WinPreviewDevice *mDevice = new WinPreviewDevice();
+	IDevice *mDevice = new WinPreviewDevice();
 
 	mDevice->start(hinst);
 
-	int demoDataSize = mDevice->preferredFrameHeight()
+	size_t demoDataSize = mDevice->preferredFrameHeight()
 		* mDevice->preferredFrameWidth()
 		* mDevice->preferredFrameDepth();
 

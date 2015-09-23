@@ -204,6 +204,7 @@
   <ItemGroup>
     <ClCompile Include="AdobePremiereProUtils\SDK_File.cpp" />
     <ClCompile Include="CCRiftFrameTexture.cpp" />
+    <ClCompile Include="CCRiftIDevice.cpp" />
     <ClCompile Include="CCRiftOGLPlatform.cpp" />
     <ClCompile Include="CCRiftPluginEntryPoint.cpp" />
     <ClCompile Include="CCRiftScene.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="CCRiftBufferHelpers.h" />
     <ClInclude Include="CCRiftCommons.h" />
     <ClInclude Include="CCRiftFrameTexture.h" />
+    <ClInclude Include="CCRiftIDevice.h" />
     <ClInclude Include="CCRiftInstance.h" />
     <ClInclude Include="CCRiftIPlatform.h" />
     <ClInclude Include="CCRiftOGLPlatform.h" />

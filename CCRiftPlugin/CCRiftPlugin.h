@@ -5,7 +5,7 @@
 
 namespace CCRift
 {
-	class WinPreviewDevice;
+	class IDevice;
 }
 
 namespace CCRift
@@ -21,7 +21,7 @@ namespace CCRift
 			tmStdParms* ioStdParms,
 			tmPluginInfo* outPluginInfo);
 
-		~CCRiftPlugin();
+		virtual ~CCRiftPlugin();
 
 		tmResult SetupDialog(
 			tmStdParms* ioStdParms,
@@ -44,7 +44,7 @@ namespace CCRift
 		SDKSettings		mSettings;
 		SDKSuites		mSuites;
 
-		WinPreviewDevice *mPreviewDevice;
+		IDevice *mPreviewDevice;
 	};
 }
 

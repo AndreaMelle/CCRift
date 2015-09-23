@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\CCRiftFrameTexture.cpp" />
+    <ClCompile Include="..\CCRiftIDevice.cpp" />
     <ClCompile Include="..\CCRiftModel.cpp" />
     <ClCompile Include="..\CCRiftOGLPlatform.cpp" />
     <ClCompile Include="..\CCRiftScene.cpp" />

@@ -6,47 +6,32 @@
 #include "CCRiftCommons.h"
 #include "CCRiftScene.h"
 #include "CCRiftOGLPlatform.h"
-#include <memory>
-#include <thread>
-#include <mutex>
+#include "CCRiftIDevice.h"
 
 namespace CCRift
 {
-	class Process
-	{
-	public:
-		Process();
-		virtual ~Process();
-
-		void start();
-		void stop();
-
-		std::function<void()> mThreadCallback;
-		std::atomic<bool> mRunning;
-		std::shared_ptr<std::thread> mThread;
-	};
-
-	class WinPreviewDevice
+	class WinPreviewDevice : public IDevice
 	{
 	public:
 		WinPreviewDevice();
-		~WinPreviewDevice();
+		virtual ~WinPreviewDevice();
 
-		void start(HINSTANCE hinst = NULL);
-		void stop();
+		virtual void start(HINSTANCE hinst = NULL) override;
+		virtual void stop() override;
 
-		int preferredFrameWidth() const { return mFrameSize.w; }
-		int preferredFrameHeight() const { return mFrameSize.h; }
-		size_t preferredFrameDepth() const { return mFrameBufferDepth; }
-		ovrSizei preferredFrameSize() const { return mFrameSize; }
+		virtual int preferredFrameWidth() const override { return mFrameSize.w; }
+		virtual int preferredFrameHeight() const override { return mFrameSize.h; }
+		virtual size_t preferredFrameDepth() const override { return mFrameBufferDepth; }
+		virtual ovrSizei preferredFrameSize() const override { return mFrameSize; }
 
-		int windowWidth() const { return mWindowSize.w; }
-		int windowHeight() const { return mWindowSize.h; }
-		ovrSizei windowSize() const { return mWindowSize; }
+		virtual int windowWidth() const override { return mWindowSize.w; }
+		virtual int windowHeight() const override { return mWindowSize.h; }
+		virtual ovrSizei windowSize() const override { return mWindowSize; }
 
-		bool isRunning() const { return mProcess.mRunning; }
+		virtual bool isRunning() const override { return mProcess.mRunning; }
 
-		void pushFrame(const void* data);
+		virtual void pushFrame(const void* data) override;
+		virtual void setActive(bool active) override;
 
 	private:
 
@@ -54,7 +39,6 @@ namespace CCRift
 		OGLPlatform* mContext;
 		ovrGraphicsLuid mLuid;
 		ovrSizei mWindowSize;
-		float mAspectRatio;
 		ovrSizei mFrameSize;
 		HINSTANCE mModuleHandle; //is this the 'module' in win32 lingo?
 
@@ -78,6 +62,15 @@ namespace CCRift
 		float onMouseDownLat;
 		float mMouseSensitivity;
 		bool wasDown;
+
+		bool mActive;
+
+		Vector3f handleMouseInput();
+
+		float mAspectRatio;
+		ovrFovPort mFov;
+		Matrix4f mProj;
+
 	};
 }
 

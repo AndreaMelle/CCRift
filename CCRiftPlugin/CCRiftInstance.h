@@ -5,7 +5,7 @@
 
 namespace CCRift
 {
-	class WinPreviewDevice;
+	class IDevice;
 }
 
 namespace CCRift
@@ -21,9 +21,9 @@ namespace CCRift
 			const SDKDevicePtr& inDevice,
 			const SDKSettings& inSettings,
 			const SDKSuites& inSuites,
-			WinPreviewDevice* previewDevice);
+			IDevice* previewDevice);
 
-		~CCRiftInstance();
+		virtual ~CCRiftInstance();
 
 		tmResult QueryVideoMode(
 			const tmStdParms* inStdParms,
@@ -38,37 +38,25 @@ namespace CCRift
 			prBool inAudioActive,
 			prBool inVideoActive);
 
-		tmResult StartPlaybackClock(
-			const tmStdParms* inStdParms,
-			const tmInstance* inInstance,
-			const tmPlaybackClock* inClock);
-
-		tmResult StopPlaybackClock(
-			const tmStdParms* inStdParms,
-			const tmInstance* inInstance);
-
 		tmResult PushVideo(
 			const tmStdParms* inStdParms,
 			const tmInstance* inInstance,
 			const tmPushVideo* inPushVideo);
 
 	private:
-		// These members immediately below (before the empty line) all get initialized by being passed in from the TransmitPlugin
 		SDKDevicePtr				mDevice;
 		SDKSettings					mSettings;
 		SDKSuites					mSuites;
 
-		PrTime						mTicksPerSecond;
-		PrTime						mVideoFrameRate;
+		PrTime mTicksPerSecond;
+		PrTime mVideoFrameRate;
 
-		tmClockCallback				mClockCallback;
-		void *						mCallbackContext;
-		ThreadedWorkRegistration	mUpdateClockRegistration;
 
 		float						mPlaybackSpeed;
 		prBool						mPlaying;
+		prBool						mSelfActive;
 
-		WinPreviewDevice* mPreviewDevice;
+		IDevice* mPreviewDevice;
 	};
 }
 

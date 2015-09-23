@@ -59,14 +59,14 @@ public:
 		return tmResult_Success;
 	}
 
-	static tmResult QueryAudioMode(
-		const tmStdParms* inStdParms,
-		const tmInstance* inInstance,
-		csSDK_int32 inQueryIterationIndex,
-		tmAudioMode* outAudioMode)
-	{
-		return tmResult_Success;// ((TransmitInstance*)inInstance->ioPrivateInstanceData)->QueryAudioMode(inStdParms, inInstance, inQueryIterationIndex, outAudioMode);
-	}
+	//static tmResult QueryAudioMode(
+	//	const tmStdParms* inStdParms,
+	//	const tmInstance* inInstance,
+	//	csSDK_int32 inQueryIterationIndex,
+	//	tmAudioMode* outAudioMode)
+	//{
+	//	return tmResult_Success;// ((TransmitInstance*)inInstance->ioPrivateInstanceData)->QueryAudioMode(inStdParms, inInstance, inQueryIterationIndex, outAudioMode);
+	//}
 
 	static tmResult QueryVideoMode(
 		const tmStdParms* inStdParms,
@@ -87,7 +87,7 @@ public:
 		return ((CCRiftInstance*)inInstance->ioPrivateInstanceData)->ActivateDeactivate(inStdParms, inInstance, inActivationEvent, inAudioActive, inVideoActive);
 	}
 
-	static tmResult StartPlaybackClock(
+	/*static tmResult StartPlaybackClock(
 		const tmStdParms* inStdParms,
 		const tmInstance* inInstance,
 		const tmPlaybackClock* inClock)
@@ -100,7 +100,7 @@ public:
 		const tmInstance* inInstance)
 	{
 		return ((CCRiftInstance*)inInstance->ioPrivateInstanceData)->StopPlaybackClock(inStdParms, inInstance);
-	}
+	}*/
 
 	static tmResult PushVideo(
 		const tmStdParms* inStdParms,
@@ -128,11 +128,11 @@ extern "C" {
 			outModule->SetupDialog = TransmitModule::SetupDialog;
 			outModule->NeedsReset = TransmitModule::NeedsReset;
 			outModule->CreateInstance = TransmitModule::CreateInstance;
-			outModule->QueryAudioMode = TransmitModule::QueryAudioMode;
+			//outModule->QueryAudioMode = TransmitModule::QueryAudioMode;
 			outModule->QueryVideoMode = TransmitModule::QueryVideoMode;
 			outModule->ActivateDeactivate = TransmitModule::ActivateDeactivate;
-			outModule->StartPlaybackClock = TransmitModule::StartPlaybackClock;
-			outModule->StopPlaybackClock = TransmitModule::StopPlaybackClock;
+			//outModule->StartPlaybackClock = TransmitModule::StartPlaybackClock;
+			//outModule->StopPlaybackClock = TransmitModule::StopPlaybackClock;
 			outModule->PushVideo = TransmitModule::PushVideo;
 		}
 		else

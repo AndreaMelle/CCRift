@@ -1,4 +1,5 @@
 #include "CCRiftOGLPlatform.h"
+#include <windowsx.h>
 
 using namespace CCRift;
 
@@ -26,9 +27,24 @@ LRESULT CALLBACK OGLPlatform::WindowProc(_In_ HWND hWnd, _In_ UINT Msg, _In_ WPA
 		p->MouseDown = false;
 		p->MouseX = LOWORD(lParam);
 		p->MouseY = HIWORD(lParam);
+		break;
 	case WM_MOUSEMOVE:
 		p->MouseX = LOWORD(lParam);
 		p->MouseY = HIWORD(lParam);
+		break;
+	case WM_CONTEXTMENU:
+	{
+		HMENU hPopupMenu = CreatePopupMenu();
+		InsertMenuW(hPopupMenu, 0, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_RESET, L"Reset");
+		InsertMenuW(hPopupMenu, 0, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_ABOUT, L"About");
+		int sel = TrackPopupMenuEx(hPopupMenu, TPM_TOPALIGN | TPM_LEFTALIGN | TPM_RETURNCMD, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam), hWnd, NULL);
+		
+		p->contextualMenuCallback((ContextualMenuOptions)sel);
+
+		DestroyMenu(hPopupMenu);
+		
+		break;
+	}
 	default:
 		return DefWindowProcW(hWnd, Msg, wParam, lParam);
 	}
@@ -55,7 +71,8 @@ OGLPlatform::OGLPlatform() :
 	WinSizeW(0),
 	WinSizeH(0),
 	fboId(0),
-	hInstance(nullptr)
+	hInstance(nullptr),
+	contextualMenuCallback([](ContextualMenuOptions){})
 {
 	// Clear input
 	for (int i = 0; i < sizeof(Key) / sizeof(Key[0]); ++i)

@@ -36,6 +36,9 @@
     <ClCompile Include="..\CCRiftWinPreviewDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\CCRiftIDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CCRiftCommons.h">
