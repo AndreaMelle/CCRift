@@ -71,12 +71,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\builds\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\temp\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\builds\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\temp\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -98,7 +102,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\AdobePremiereProHeaders\;$(ProjectDir)\..\AdobePremiereProUtils\;$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(ProjectDir);$(ProjectDir)../</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(SolutionDir)\..\src;$(SolutionDir)\..\src\PrSDK;$(SolutionDir)\..\src\StandalonePreview;$(SolutionDir)\..\resources</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -133,7 +137,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\AdobePremiereProHeaders\;$(ProjectDir)\..\AdobePremiereProUtils\;$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(ProjectDir)../</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(SolutionDir)\..\src;$(SolutionDir)\..\src\PrSDK;$(SolutionDir)\..\src\StandalonePreview;$(SolutionDir)\..\resources</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -145,26 +149,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\CCRiftFrameTexture.cpp" />
-    <ClCompile Include="..\CCRiftIDevice.cpp" />
-    <ClCompile Include="..\CCRiftModel.cpp" />
-    <ClCompile Include="..\CCRiftOGLPlatform.cpp" />
-    <ClCompile Include="..\CCRiftScene.cpp" />
-    <ClCompile Include="..\CCRiftUVSphere.cpp" />
-    <ClCompile Include="..\CCRiftWinPreviewDevice.cpp" />
-    <ClCompile Include="StandalonePreview.cpp" />
+    <ClInclude Include="..\..\resources\resource.h" />
+    <ClInclude Include="..\..\src\CCRiftBufferHelpers.h" />
+    <ClInclude Include="..\..\src\CCRiftCommons.h" />
+    <ClInclude Include="..\..\src\CCRiftFrameTexture.h" />
+    <ClInclude Include="..\..\src\CCRiftIDevice.h" />
+    <ClInclude Include="..\..\src\CCRiftIPlatform.h" />
+    <ClInclude Include="..\..\src\CCRiftModel.h" />
+    <ClInclude Include="..\..\src\CCRiftOGLPlatform.h" />
+    <ClInclude Include="..\..\src\CCRiftScene.h" />
+    <ClInclude Include="..\..\src\CCRiftUVSphere.h" />
+    <ClInclude Include="..\..\src\CCRiftWinPreviewDevice.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\CCRiftCommons.h" />
-    <ClInclude Include="..\CCRiftIPlatform.h" />
-    <ClInclude Include="..\CCRiftModel.h" />
-    <ClInclude Include="..\CCRiftOGLPlatform.h" />
-    <ClInclude Include="..\CCRiftScene.h" />
-    <ClInclude Include="..\CCRiftUVSphere.h" />
-    <ClInclude Include="resource.h" />
+    <ClCompile Include="..\..\src\CCRiftFrameTexture.cpp" />
+    <ClCompile Include="..\..\src\CCRiftIDevice.cpp" />
+    <ClCompile Include="..\..\src\CCRiftModel.cpp" />
+    <ClCompile Include="..\..\src\CCRiftOGLPlatform.cpp" />
+    <ClCompile Include="..\..\src\CCRiftScene.cpp" />
+    <ClCompile Include="..\..\src\CCRiftUVSphere.cpp" />
+    <ClCompile Include="..\..\src\CCRiftWinPreviewDevice.cpp" />
+    <ClCompile Include="..\..\src\StandalonePreview\StandalonePreview.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\Resource.rc" />
+    <ResourceCompile Include="..\..\resources\Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
