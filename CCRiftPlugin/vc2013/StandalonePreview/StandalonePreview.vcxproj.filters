@@ -11,9 +11,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\CCRiftModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\CCRiftOGLPlatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -38,10 +35,10 @@
     <ClInclude Include="..\..\src\CCRiftIDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\CCRiftIPlatform.h">
+    <ClInclude Include="..\..\resources\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\resources\resource.h">
+    <ClInclude Include="..\..\src\CCRiftGLFWPreviewDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -64,10 +61,10 @@
     <ClCompile Include="..\..\src\CCRiftIDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\CCRiftModel.cpp">
+    <ClCompile Include="..\..\src\StandalonePreview\StandalonePreview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\StandalonePreview\StandalonePreview.cpp">
+    <ClCompile Include="..\..\src\CCRiftGLFWPreviewDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

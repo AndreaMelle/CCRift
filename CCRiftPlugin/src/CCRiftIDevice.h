@@ -1,8 +1,6 @@
 #ifndef __CCRIFT_IDEVICE_H__
 #define __CCRIFT_IDEVICE_H__
 
-#include <Kernel/OVR_System.h>
-#include "OVR_CAPI_GL.h"
 #include "CCRiftCommons.h"
 #include "CCRiftScene.h"
 #include "CCRiftOGLPlatform.h"
@@ -26,10 +24,16 @@ namespace CCRift
 		std::shared_ptr<std::thread> mThread;
 	};
 
+	template <typename T>
 	class IDevice
 	{
 	public:
-		IDevice() {}
+		static T& Instance()
+		{
+			static T instance;
+			return instance;
+		}
+
 		virtual ~IDevice() {}
 
 		virtual void start(HINSTANCE hinst = NULL) = 0;
@@ -48,6 +52,11 @@ namespace CCRift
 
 		virtual void pushFrame(const void* data) = 0;
 		virtual void setActive(bool active) = 0;
+
+	protected:
+		IDevice() {}
+		IDevice(IDevice const&) = delete;
+		void operator=(IDevice const&) = delete;
 
 	};
 }

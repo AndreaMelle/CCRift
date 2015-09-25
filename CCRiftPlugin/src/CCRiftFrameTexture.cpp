@@ -1,9 +1,8 @@
 #include "CCRiftFrameTexture.h"
 
 using namespace CCRift;
-using namespace OVR;
 
-FrameTexture::FrameTexture(Sizei size,
+FrameTexture::FrameTexture(glm::ivec2 size,
 	bool alpha,
 	bool generateMipMaps,
 	int mipLevels,
@@ -33,9 +32,9 @@ FrameTexture::FrameTexture(Sizei size,
 	}
 
 	if (alpha)
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mTexSize.w, mTexSize.h, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mTexSize.x, mTexSize.y, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
 	else
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mTexSize.w, mTexSize.h, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mTexSize.x, mTexSize.y, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 
 
 	if (generateMipMaps && mipLevels > 1)

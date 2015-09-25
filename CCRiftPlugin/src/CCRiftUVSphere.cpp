@@ -2,7 +2,7 @@
 
 using namespace CCRift;
 
-UVSphere::UVSphere(Vector3f pos, ShaderFill * fill) :
+UVSphere::UVSphere(glm::vec3 pos, ShaderFill * fill) :
 	numVertices(0),
 	Pos(pos),
 	vertexBuffer(nullptr)
@@ -14,8 +14,8 @@ UVSphere::UVSphere(Vector3f pos, ShaderFill * fill) :
 	Rot.z = 0;
 	Rot.w = 0;
 
-	Mat = Matrix4f(Rot);
-	Mat = Matrix4f::Translation(Pos) * Mat;
+	Mat = glm::mat4_cast(Rot);
+	Mat = glm::translate(Mat, Pos);
 
 	mGridTexture = loadBMPFromResource(IDB_BITMAP1);
 
@@ -30,7 +30,7 @@ UVSphere::~UVSphere()
 	delete mGridTexture;
 }
 
-Matrix4f& UVSphere::GetMatrix()
+glm::mat4& UVSphere::GetMatrix()
 {
 	return Mat;
 }
@@ -83,7 +83,7 @@ void UVSphere::AddSolidSphere(float radius, float segments)
 			pu = (j / (float)segments);
 			pv = 2.0f * (i + 1.0f) / (float)segments;
 
-			v1.Pos = Vector3f(px, py, pz);
+			v1.Pos = glm::vec3(px, py, pz);
 			v1.U = pu;
 			v1.V = pv;
 
@@ -99,7 +99,7 @@ void UVSphere::AddSolidSphere(float radius, float segments)
 			pu = (j / (float)segments);
 			pv = 2.0f * i / (float)segments;
 
-			v2.Pos = Vector3f(px, py, pz);
+			v2.Pos = glm::vec3(px, py, pz);
 			v2.U = pu;
 			v2.V = pv;
 
@@ -108,9 +108,9 @@ void UVSphere::AddSolidSphere(float radius, float segments)
 	}
 }
 
-void UVSphere::Render(Matrix4f view, Matrix4f proj)
+void UVSphere::Render(glm::mat4 view, glm::mat4 proj)
 {
-	Matrix4f combined = proj * view * Mat;
+	glm::mat4 combined = proj * view * Mat;
 
 	glUseProgram(Fill->program);
 	glUniform1i(glGetUniformLocation(Fill->program, "Texture0"), 0);
@@ -137,8 +137,8 @@ void UVSphere::Render(Matrix4f view, Matrix4f proj)
 	glEnableVertexAttribArray(posLoc);
 	glEnableVertexAttribArray(uvLoc);
 
-	glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)OVR_OFFSETOF(Vertex, Pos));
-	glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)OVR_OFFSETOF(Vertex, U));
+	glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)CCRIFT_OFFSETOF(Vertex, Pos));
+	glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)CCRIFT_OFFSETOF(Vertex, U));
 
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, numVertices);
 

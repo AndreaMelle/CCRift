@@ -1,3 +1,4 @@
+#ifdef OCULUS_RIFT_PLATFORM
 #include "CCRiftOGLPlatform.h"
 #include <windowsx.h>
 
@@ -289,4 +290,5 @@ void OGLPlatform::ReleaseDevice()
 	}
 	GLEContext.Shutdown();
 }
+#endif
 

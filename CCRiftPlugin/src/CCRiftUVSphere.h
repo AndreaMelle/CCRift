@@ -1,30 +1,23 @@
 #ifndef __CCRIFT_UVSPHERE_H__
 #define __CCRIFT_UVSPHERE_H__
 
-#include "GL/CAPI_GLE.h"
-#include "Extras/OVR_Math.h"
-#include "Kernel/OVR_Log.h"
-#include "OVR_CAPI_GL.h"
 #include "CCRiftCommons.h"
-#include "CCRiftBufferHelpers.h"
 #include "CCRiftFrameTexture.h"
-#include <vector>
-
-using namespace OVR;
+#include "CCRiftBufferHelpers.h"
 
 namespace CCRift
 {
 	class UVSphere
 	{
 	public:
-		UVSphere(Vector3f pos, ShaderFill * fill);
+		UVSphere(glm::vec3 pos, ShaderFill * fill);
 		virtual ~UVSphere();
 
-		Matrix4f& GetMatrix();
+		glm::mat4& GetMatrix();
 
 		void AllocateBuffers();
 		void AddSolidSphere(float radius, float segments = 32.0f);
-		void Render(Matrix4f view, Matrix4f proj);
+		void Render(glm::mat4 view, glm::mat4 proj);
 		
 		ShaderFill    * Fill;
 
@@ -37,13 +30,13 @@ namespace CCRift
 
 		struct Vertex
 		{
-			Vector3f  Pos;
+			glm::vec3  Pos;
 			float     U, V;
 		};
 
-		Vector3f        Pos;
-		Quatf           Rot;
-		Matrix4f        Mat;
+		glm::vec3        Pos;
+		glm::quat       Rot;
+		glm::mat4        Mat;
 		int             numVertices;
 		std::vector<Vertex>          Vertices;
 

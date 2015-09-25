@@ -1,10 +1,12 @@
 #ifndef __CCRIFT_SCENE_H__
 #define __CCRIFT_SCENE_H__
 
+#ifdef OCULUS_RIFT_PLATFORM
 #include "GL/CAPI_GLE.h"
 #include "Extras/OVR_Math.h"
 #include "Kernel/OVR_Log.h"
 #include "OVR_CAPI_GL.h"
+#endif
 #include "CCRiftCommons.h"
 #include "CCRiftModel.h"
 #include "CCRiftOGLPlatform.h"

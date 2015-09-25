@@ -1,3 +1,4 @@
+#ifdef OCULUS_RIFT_PLATFORM
 #include "CCRiftWinPreviewDevice.h"
 
 using namespace std;
@@ -222,3 +223,4 @@ HRESULT WinPreviewDevice::deviceTeardown()
 
 	return S_OK;
 }
+#endif

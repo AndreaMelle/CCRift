@@ -1,3 +1,4 @@
+#ifdef OCULUS_RIFT_PLATFORM
 #ifndef __CCRIFT_OGLPLATFORM_H__
 #define __CCRIFT_OGLPLATFORM_H__
 
@@ -66,3 +67,4 @@ namespace CCRift
 }
 
 #endif //__CCRIFT_OGLPLATFORM_H__
+#endif

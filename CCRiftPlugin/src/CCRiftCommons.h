@@ -1,6 +1,31 @@
 #ifndef __CCRIFT_COMMONS_H__
 #define __CCRIFT_COMMONS_H__
 
+#define PREVIEW_PLATFORM
+
+#ifdef OCULUS_RIFT_PLATFORM
+	#include "GL/CAPI_GLE.h"
+	#include "Extras/OVR_Math.h"
+	#include "Kernel/OVR_Log.h"
+	#include "OVR_CAPI_GL.h"
+#else
+	#ifdef PREVIEW_PLATFORM
+		#include <glad/glad.h>
+		#include <glm/fwd.hpp>
+		#include <glm/glm.hpp>
+		#include <glm/gtc/quaternion.hpp>
+		#include <glm/gtc/matrix_transform.hpp>
+		#include <GLFW/glfw3.h>
+
+		#if defined(CCRIFT_CC_GNU)
+		#define CCRIFT_OFFSETOF(class_, member_) ((size_t)(((uintptr_t)&reinterpret_cast<const volatile char&>((((class_*)65536)->member_))) - 65536))
+		#else
+		#define CCRIFT_OFFSETOF(class_, member_) offsetof(class_, member_)
+		#endif
+
+	#endif
+#endif
+
 #include <PrSDKTransmit.h>
 #include <PrSDKPlayModuleAudioSuite.h>
 #include <PrSDKPPixSuite.h>
@@ -8,7 +33,9 @@
 #include <PrSDKThreadedWorkSuite.h>
 #include "SDK_File.h"
 #include "resource.h"
-#include "CCRiftFrameTexture.h"
+
+#include <vector>
+
 
 #ifdef PRWIN_ENV
 #include <ctime>
@@ -53,36 +80,7 @@ static HMODULE GetMyModuleHandle()
 	return static_cast<HMODULE>(mbi.AllocationBase);
 }
 
-static CCRift::FrameTexture* loadBMPFromResource(DWORD resourcename)
-{
-	HBITMAP hBMP;
-	BITMAP  BMP;
 
-	hBMP = (HBITMAP)LoadImage(GetMyModuleHandle(), MAKEINTRESOURCE(resourcename), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
-
-	if (!hBMP)
-	{
-		return nullptr;
-	}
-
-	GetObject(hBMP, sizeof(BMP), &BMP);
-
-	WORD bpp = BMP.bmBitsPixel;
-	unsigned int width = BMP.bmWidth;
-	unsigned int height = BMP.bmHeight;
-
-	CCRift::FrameTexture* tex = nullptr;
-	
-	if (bpp == 24)
-		tex = new CCRift::FrameTexture(OVR::Sizei(width, height), false, false, 1, (unsigned char*)BMP.bmBits);
-	else if (bpp == 32)
-		tex = new CCRift::FrameTexture(OVR::Sizei(width, height), true, false, 1, (unsigned char*)BMP.bmBits);
-		
-
-	DeleteObject(hBMP);
-
-	return tex;
-}
 
 
 

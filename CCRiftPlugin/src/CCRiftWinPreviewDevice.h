@@ -1,3 +1,4 @@
+#ifdef OCULUS_RIFT_PLATFORM
 #ifndef __CCRIFT_WINPREVIEWDEVICE_H__
 #define __CCRIFT_WINPREVIEWDEVICE_H__
 
@@ -10,10 +11,10 @@
 
 namespace CCRift
 {
-	class WinPreviewDevice : public IDevice
+	class WinPreviewDevice : public IDevice<WinPreviewDevice>
 	{
+		friend IDevice;
 	public:
-		WinPreviewDevice();
 		virtual ~WinPreviewDevice();
 
 		virtual void start(HINSTANCE hinst = NULL) override;
@@ -33,7 +34,8 @@ namespace CCRift
 		virtual void pushFrame(const void* data) override;
 		virtual void setActive(bool active) override;
 
-	private:
+	protected:
+		WinPreviewDevice();
 
 		Scene* mScene;
 		OGLPlatform* mContext;
@@ -77,3 +79,4 @@ namespace CCRift
 }
 
 #endif //__CCRIFT_WINPREVIEWDEVICE_H__
+#endif

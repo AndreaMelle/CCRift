@@ -1,16 +1,21 @@
+#ifdef OCULUS_RIFT_PLATFORM
 #include <Kernel/OVR_System.h>
 #include "OVR_CAPI_GL.h"
-#include "CCRiftCommons.h"
 #include "CCRiftOGLPlatform.h"
+#endif
+
+#include "CCRiftCommons.h"
+
 #include "CCRiftScene.h"
 #include "CCRiftWinPreviewDevice.h"
+#include "CCRiftGLFWPreviewDevice.h"
 
 using namespace OVR;
 using namespace CCRift;
 
 int WINAPI WinMain(HINSTANCE hinst, HINSTANCE, LPSTR, int)
 {
-	IDevice *mDevice = new WinPreviewDevice();
+	IDevice<GLFWPreviewDevice> *mDevice = &IDevice<GLFWPreviewDevice>::Instance();
 
 	mDevice->start(hinst);
 
