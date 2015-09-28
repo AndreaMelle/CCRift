@@ -3,7 +3,9 @@
 using namespace CCRift;
 using namespace std;
 
-Process::Process() : mRunning(atomic<bool>(false)), mThreadCallback(nullptr)
+Process::Process()
+    : mThreadCallback(nullptr)
+    , mRunning(false)
 {
 
 }

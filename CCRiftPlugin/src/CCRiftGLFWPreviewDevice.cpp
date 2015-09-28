@@ -6,7 +6,7 @@ using namespace CCRift;
 
 static void error_callback(int error, const char* description)
 {
-	fputs(description, stderr);
+	printf(description);
 	IDevice<GLFWPreviewDevice>::Instance().glfwErrorCallback(error, description);
 }
 
@@ -16,24 +16,24 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 }
 
 GLFWPreviewDevice::GLFWPreviewDevice()
-	: mWindowSize(OVR::Sizei(960, 540))
-	, mFrameSize(OVR::Sizei(1920, 960))
-	, mFrameBufferDepth(4)
-	, mActive(false)
-	, onMouseDownMouseX(0)
-	, onMouseDownMouseY(0)
-	, lon(0)
-	, onMouseDownLon(0)
-	, lat(0)
-	, onMouseDownLat(0)
-	, mMouseSensitivity(0.1f)
-	, wasDown(false)
+: mWindowSize(glm::ivec2(960, 540))
+    , mFrameSize(glm::ivec2(1920, 960))
 	, mDeviceRunning(false)
+    , mFrameBufferDepth(4)
+    , onMouseDownMouseX(0)
+    , onMouseDownMouseY(0)
+    , lon(0)
+    , onMouseDownLon(0)
+    , lat(0)
+    , onMouseDownLat(0)
+    , mMouseSensitivity(0.1f)
+    , wasDown(false)
+    , mActive(false)
 {
-	mFrameBufferLength = mFrameSize.w * mFrameSize.h * mFrameBufferDepth;
+	mFrameBufferLength = mFrameSize.x * mFrameSize.y * mFrameBufferDepth;
 	mFrameDataBuffer = new unsigned char[mFrameBufferLength];
 
-	mAspectRatio = (float)mWindowSize.w / (float)mWindowSize.h;
+	mAspectRatio = (float)mWindowSize.y / (float)mWindowSize.y;
 
 	float verticalFovRadians = 60.0f * M_PI / 180.0f;
 
@@ -41,8 +41,9 @@ GLFWPreviewDevice::GLFWPreviewDevice()
 	mFov.UpTan = mFov.DownTan;
 	mFov.LeftTan = mAspectRatio * mFov.DownTan;
 	mFov.RightTan = mFov.LeftTan;
-
-	mProj = ovrMatrix4f_Projection(mFov, 0.1f, 100.0f, ovrProjection_RightHanded);
+    
+    mProj = glm::perspective(verticalFovRadians, mAspectRatio, 0.1f, 100.0f); //RH
+	//mProj = ovrMatrix4f_Projection(mFov, 0.1f, 100.0f, ovrProjection_RightHanded);
 }
 
 GLFWPreviewDevice::~GLFWPreviewDevice()
@@ -82,7 +83,7 @@ void GLFWPreviewDevice::start(HINSTANCE hinst)
 
 	mDeviceRunning = true;
 
-	mModuleHandle = hinst;
+	//mModuleHandle = hinst;
 
 	mProcess.mThreadCallback = [&]()
 	{
@@ -111,6 +112,30 @@ void GLFWPreviewDevice::start(HINSTANCE hinst)
 
 		mDeviceRunning = false;
 	};
+    
+    
+    glfwSetErrorCallback(error_callback);
+    
+    if (!glfwInit())
+    {
+        //MessageBoxA(NULL, "Failed to initialize OpenGL context.", "CCRift Preview", MB_ICONERROR | MB_OK);
+        return;
+    }
+    
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    
+    window = glfwCreateWindow(mWindowSize.x, mWindowSize.y, "CCRift Panorama Preview", NULL, NULL);
+    
+    if (!window)
+    {
+        //MessageBoxA(NULL, "Failed to open window.", "CCRift Preview", MB_ICONERROR | MB_OK);
+        glfwTerminate();
+        return;
+    }
 
 	mProcess.start();
 
@@ -124,30 +149,43 @@ void GLFWPreviewDevice::stop()
 
 HRESULT GLFWPreviewDevice::deviceSetup()
 {
-	glfwSetErrorCallback(error_callback);
+//	glfwSetErrorCallback(error_callback);
+//
+//	if (!glfwInit())
+//	{
+//		//MessageBoxA(NULL, "Failed to initialize OpenGL context.", "CCRift Preview", MB_ICONERROR | MB_OK);
+//		return E_FAIL;
+//	}
 
-	if (!glfwInit())
-	{
-		//MessageBoxA(NULL, "Failed to initialize OpenGL context.", "CCRift Preview", MB_ICONERROR | MB_OK);
-		return E_FAIL;
-	}
-
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-	window = glfwCreateWindow(mWindowSize.w, mWindowSize.h, "CCRift Panorama Preview", NULL, NULL);
-
-	if (!window)
-	{
-		//MessageBoxA(NULL, "Failed to open window.", "CCRift Preview", MB_ICONERROR | MB_OK);
-		glfwTerminate();
-		return E_FAIL;
-	}
+//	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+//	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+//	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+//	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+//	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+//
+//	window = glfwCreateWindow(mWindowSize.x, mWindowSize.y, "CCRift Panorama Preview", NULL, NULL);
+//
+//	if (!window)
+//	{
+//		//MessageBoxA(NULL, "Failed to open window.", "CCRift Preview", MB_ICONERROR | MB_OK);
+//		glfwTerminate();
+//		return E_FAIL;
+//	}
 
 	glfwMakeContextCurrent(window);
+    
+    glewExperimental = true;
+    
+    if(glewInit() != GLEW_OK)
+    {
+        //printf("Failed to initialize GLEW\n");
+        return E_FAIL;
+    }
+    
+    glEnable(GL_DEPTH_TEST);
+    glFrontFace(GL_CW);
+    glEnable(GL_CULL_FACE);
+    
 	glfwSwapInterval(1);
 
 	glfwSetKeyCallback(window, key_callback);
@@ -183,7 +221,7 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	return S_OK;
 }
 
-Vector3f GLFWPreviewDevice::handleMouseInput()
+glm::vec3 GLFWPreviewDevice::handleMouseInput()
 {
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
@@ -212,7 +250,7 @@ Vector3f GLFWPreviewDevice::handleMouseInput()
 	float phi = (90.0f - lat) * M_PI / 180.0f;
 	float theta = lon * M_PI / 180.0f;
 
-	Vector3f result;
+	glm::vec3 result;
 
 	result.x = 500.0f * sin(phi) * cos(theta);
 	result.y = 500.0f * cos(phi);
@@ -233,13 +271,13 @@ HRESULT GLFWPreviewDevice::deviceUpdate()
 		mFrameDataNewFlag = false;
 		mFrameDataMutex.unlock();
 		
-		Vector3f target = handleMouseInput();
-		Matrix4f view = Matrix4f::LookAtRH(Vector3f(0, 0, 0), target, Vector3f(0, 1, 0));
+		glm::vec3 target = handleMouseInput();
+        glm::mat4 view = glm::lookAtRH(glm::vec3(0, 0, 0), target, glm::vec3(0, 1, 0));
 
 		mScene->render(view, mProj);
 
 		glfwSwapBuffers(window);
-		glfwPollEvents();
+		//glfwPollEvents();
 	}
 	else
 	{

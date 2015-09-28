@@ -1,4 +1,4 @@
-#ifdef OCULUS_RIFT_PLATFORM
+#ifdef CCRIFT_MSW
 #include "CCRiftWinPreviewDevice.h"
 
 using namespace std;

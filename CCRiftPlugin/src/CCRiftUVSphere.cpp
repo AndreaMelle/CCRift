@@ -2,10 +2,10 @@
 
 using namespace CCRift;
 
-UVSphere::UVSphere(glm::vec3 pos, ShaderFill * fill) :
-	numVertices(0),
-	Pos(pos),
-	vertexBuffer(nullptr)
+UVSphere::UVSphere(glm::vec3 pos, ShaderFill * fill)
+    : Pos(pos)
+    , numVertices(0)
+	, vertexBuffer(nullptr)
 	, mShowGrid(false)
 	, mGridMix(0.5f)
 {
@@ -17,7 +17,13 @@ UVSphere::UVSphere(glm::vec3 pos, ShaderFill * fill) :
 	Mat = glm::mat4_cast(Rot);
 	Mat = glm::translate(Mat, Pos);
 
+#ifdef CCRIFT_MSW
 	mGridTexture = loadBMPFromResource(IDB_BITMAP1);
+#else
+    #ifdef CCRIFT_MAC
+    mGridTexture = loadBMPFromResource("grid.bmp");
+    #endif
+#endif
 
 	Fill = fill;
 	posLoc = glGetAttribLocation(Fill->program, "Position");
@@ -114,7 +120,7 @@ void UVSphere::Render(glm::mat4 view, glm::mat4 proj)
 
 	glUseProgram(Fill->program);
 	glUniform1i(glGetUniformLocation(Fill->program, "Texture0"), 0);
-	glUniformMatrix4fv(glGetUniformLocation(Fill->program, "matWVP"), 1, GL_TRUE, (FLOAT*)&combined);
+	glUniformMatrix4fv(glGetUniformLocation(Fill->program, "matWVP"), 1, GL_TRUE, (GLfloat*)&combined);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Fill->texture->GetTexturePointer());

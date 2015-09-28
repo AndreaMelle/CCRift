@@ -8,6 +8,10 @@
 #include <thread>
 #include <mutex>
 
+#ifndef CCRIFT_MSW
+#define HINSTANCE int*
+#endif
+
 namespace CCRift
 {
 	class Process
@@ -42,11 +46,11 @@ namespace CCRift
 		virtual int preferredFrameWidth() const = 0;
 		virtual int preferredFrameHeight() const = 0;
 		virtual size_t preferredFrameDepth() const = 0;
-		virtual ovrSizei preferredFrameSize() const = 0;
+        virtual glm::ivec2 preferredFrameSize() const = 0;
 
 		virtual int windowWidth() const = 0;
 		virtual int windowHeight() const = 0;
-		virtual ovrSizei windowSize() const = 0;
+		virtual glm::ivec2 windowSize() const = 0;
 
 		virtual bool isRunning() const = 0;
 

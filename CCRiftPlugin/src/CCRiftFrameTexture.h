@@ -22,6 +22,7 @@ namespace CCRift
 
 //TODO: def this only on windows
 
+#ifdef CCRIFT_MSW
 static CCRift::FrameTexture* loadBMPFromResource(DWORD resourcename)
 {
 	HBITMAP hBMP;
@@ -52,5 +53,13 @@ static CCRift::FrameTexture* loadBMPFromResource(DWORD resourcename)
 
 	return tex;
 }
+#endif
+
+#ifdef CCRIFT_MAC
+static CCRift::FrameTexture* loadBMPFromResource(const char* resourcename)
+{
+    return nullptr;
+}
+#endif
 
 #endif //__CCRIFT_FRAMETEXTURE_H__

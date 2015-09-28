@@ -10,7 +10,7 @@ Scene::~Scene()
 {
 }
 
-bool Scene::init(ovrSizei windowSize, ovrSizei frameSize)
+bool Scene::init(glm::ivec2 windowSize, glm::ivec2 frameSize)
 {
 	static const GLchar* VertexShaderSrc =
 		"#version 150\n"
@@ -44,7 +44,7 @@ bool Scene::init(ovrSizei windowSize, ovrSizei frameSize)
 
 	ShaderFill * grid_material;
 
-	size_t tempBufferLength = frameSize.w * frameSize.h * 4; //hardcoded depth, bad
+	size_t tempBufferLength = frameSize.x * frameSize.y * 4; //hardcoded depth, bad
 	unsigned char* tempBuffer = new unsigned char[tempBufferLength];
 	memset(tempBuffer, 0, tempBufferLength);
 
@@ -58,7 +58,7 @@ bool Scene::init(ovrSizei windowSize, ovrSizei frameSize)
 	glDeleteShader(vshader);
 	glDeleteShader(fshader);
 
-	sphere = new UVSphere(Vector3f(0, 0, 0), grid_material);
+    sphere = new UVSphere(glm::vec3(0, 0, 0), grid_material);
 	sphere->AddSolidSphere(20.0f, 32.0f);
 	sphere->AllocateBuffers();
 
@@ -72,8 +72,12 @@ void Scene::release()
 	delete sphere;
 }
 
-void Scene::render(Matrix4f view, Matrix4f proj)
+void Scene::render(glm::mat4 view, glm::mat4 proj)
 {
+    glEnable(GL_DEPTH_TEST);
+    glFrontFace(GL_CW);
+    glEnable(GL_CULL_FACE);
+    
 	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glCullFace(GL_FRONT);
@@ -83,11 +87,11 @@ void Scene::render(Matrix4f view, Matrix4f proj)
 
 void Scene::updateFrameTexture(const unsigned char* data)
 {
-	Sizei texSize = sphere->Fill->texture->GetSize();
+    glm::ivec2 texSize = sphere->Fill->texture->GetSize();
 	GLuint tex = sphere->Fill->texture->GetTexturePointer();
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, tex);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texSize.w, texSize.h, GL_BGRA, GL_UNSIGNED_BYTE, data);
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texSize.x, texSize.y, GL_BGRA, GL_UNSIGNED_BYTE, data);
 	//glFinish();
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
@@ -106,7 +110,7 @@ GLuint Scene::createShader(GLenum type, const GLchar* src)
 		GLchar msg[1024];
 		glGetShaderInfoLog(shader, sizeof(msg), 0, msg);
 		if (msg[0]) {
-			OVR_DEBUG_LOG(("Compiling shader failed: %s\n", msg));
+			//OVR_DEBUG_LOG(("Compiling shader failed: %s\n", msg));
 		}
 		return 0;
 	}

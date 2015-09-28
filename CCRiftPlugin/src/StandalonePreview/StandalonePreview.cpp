@@ -1,23 +1,20 @@
-#ifdef OCULUS_RIFT_PLATFORM
-#include <Kernel/OVR_System.h>
-#include "OVR_CAPI_GL.h"
-#include "CCRiftOGLPlatform.h"
-#endif
-
 #include "CCRiftCommons.h"
 
 #include "CCRiftScene.h"
 #include "CCRiftWinPreviewDevice.h"
 #include "CCRiftGLFWPreviewDevice.h"
 
-using namespace OVR;
 using namespace CCRift;
 
-int WINAPI WinMain(HINSTANCE hinst, HINSTANCE, LPSTR, int)
+MAIN
 {
-	IDevice<GLFWPreviewDevice> *mDevice = &IDevice<GLFWPreviewDevice>::Instance();
-
-	mDevice->start(hinst);
+	GLFWPreviewDevice *mDevice = &IDevice<GLFWPreviewDevice>::Instance();
+	
+#ifndef CCRIFT_MSW
+    int* hinst = 0;
+#endif
+    
+    mDevice->start(hinst);
 
 	size_t demoDataSize = mDevice->preferredFrameHeight()
 		* mDevice->preferredFrameWidth()
@@ -41,7 +38,7 @@ int WINAPI WinMain(HINSTANCE hinst, HINSTANCE, LPSTR, int)
 
 		mDevice->pushFrame(demoData);
 		
-		Sleep(5000);
+		sleep(5000);
 	}
 
 	mDevice->stop();

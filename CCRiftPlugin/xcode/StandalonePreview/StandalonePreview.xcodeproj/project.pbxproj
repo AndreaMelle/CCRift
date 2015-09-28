@@ -1,0 +1,633 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3C8157391BB6FEF1008E68E7 /* StandalonePreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C8157381BB6FEF1008E68E7 /* StandalonePreview.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C81574D1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C81573B1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C81574E1BB6FF09008E68E7 /* CCRiftUVSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C81573D1BB6FF09008E68E7 /* CCRiftUVSphere.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C81574F1BB6FF09008E68E7 /* CCRiftScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C81573F1BB6FF09008E68E7 /* CCRiftScene.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C8157501BB6FF09008E68E7 /* CCRiftOGLPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C8157411BB6FF09008E68E7 /* CCRiftOGLPlatform.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C8157521BB6FF09008E68E7 /* CCRiftIDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C8157461BB6FF09008E68E7 /* CCRiftIDevice.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C8157531BB6FF09008E68E7 /* CCRiftGLFWPreviewDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C8157481BB6FF09008E68E7 /* CCRiftGLFWPreviewDevice.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C8157541BB6FF09008E68E7 /* CCRiftFrameTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C81574A1BB6FF09008E68E7 /* CCRiftFrameTexture.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C8157C51BB6FF44008E68E7 /* SDK_Segment_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C8157661BB6FF44008E68E7 /* SDK_Segment_Utils.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C8157C61BB6FF44008E68E7 /* SDK_File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C8157681BB6FF44008E68E7 /* SDK_File.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C8157C71BB6FF44008E68E7 /* adobesdk in Resources */ = {isa = PBXBuildFile; fileRef = 3C8157C41BB6FF44008E68E7 /* adobesdk */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3C8157221BB68E18008E68E7 /* StandalonePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandalonePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C8157301BB68E18008E68E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C8157381BB6FEF1008E68E7 /* StandalonePreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StandalonePreview.cpp; path = ../../../src/StandalonePreview/StandalonePreview.cpp; sourceTree = "<group>"; };
+		3C81573A1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftWinPreviewDevice.h; path = ../../src/CCRiftWinPreviewDevice.h; sourceTree = "<group>"; };
+		3C81573B1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftWinPreviewDevice.cpp; path = ../../src/CCRiftWinPreviewDevice.cpp; sourceTree = "<group>"; };
+		3C81573C1BB6FF09008E68E7 /* CCRiftUVSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftUVSphere.h; path = ../../src/CCRiftUVSphere.h; sourceTree = "<group>"; };
+		3C81573D1BB6FF09008E68E7 /* CCRiftUVSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftUVSphere.cpp; path = ../../src/CCRiftUVSphere.cpp; sourceTree = "<group>"; };
+		3C81573E1BB6FF09008E68E7 /* CCRiftScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftScene.h; path = ../../src/CCRiftScene.h; sourceTree = "<group>"; };
+		3C81573F1BB6FF09008E68E7 /* CCRiftScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftScene.cpp; path = ../../src/CCRiftScene.cpp; sourceTree = "<group>"; };
+		3C8157401BB6FF09008E68E7 /* CCRiftOGLPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftOGLPlatform.h; path = ../../src/CCRiftOGLPlatform.h; sourceTree = "<group>"; };
+		3C8157411BB6FF09008E68E7 /* CCRiftOGLPlatform.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftOGLPlatform.cpp; path = ../../src/CCRiftOGLPlatform.cpp; sourceTree = "<group>"; };
+		3C8157441BB6FF09008E68E7 /* CCRiftIPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftIPlatform.h; path = ../../src/CCRiftIPlatform.h; sourceTree = "<group>"; };
+		3C8157451BB6FF09008E68E7 /* CCRiftIDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftIDevice.h; path = ../../src/CCRiftIDevice.h; sourceTree = "<group>"; };
+		3C8157461BB6FF09008E68E7 /* CCRiftIDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftIDevice.cpp; path = ../../src/CCRiftIDevice.cpp; sourceTree = "<group>"; };
+		3C8157471BB6FF09008E68E7 /* CCRiftGLFWPreviewDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftGLFWPreviewDevice.h; path = ../../src/CCRiftGLFWPreviewDevice.h; sourceTree = "<group>"; };
+		3C8157481BB6FF09008E68E7 /* CCRiftGLFWPreviewDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftGLFWPreviewDevice.cpp; path = ../../src/CCRiftGLFWPreviewDevice.cpp; sourceTree = "<group>"; };
+		3C8157491BB6FF09008E68E7 /* CCRiftFrameTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftFrameTexture.h; path = ../../src/CCRiftFrameTexture.h; sourceTree = "<group>"; };
+		3C81574A1BB6FF09008E68E7 /* CCRiftFrameTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftFrameTexture.cpp; path = ../../src/CCRiftFrameTexture.cpp; sourceTree = "<group>"; };
+		3C81574B1BB6FF09008E68E7 /* CCRiftCommons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftCommons.h; path = ../../src/CCRiftCommons.h; sourceTree = "<group>"; };
+		3C81574C1BB6FF09008E68E7 /* CCRiftBufferHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftBufferHelpers.h; path = ../../src/CCRiftBufferHelpers.h; sourceTree = "<group>"; };
+		3C8157571BB6FF44008E68E7 /* SPTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPTypes.h; path = ../../src/PrSDK/SPTypes.h; sourceTree = "<group>"; };
+		3C8157581BB6FF44008E68E7 /* SPSuites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPSuites.h; path = ../../src/PrSDK/SPSuites.h; sourceTree = "<group>"; };
+		3C8157591BB6FF44008E68E7 /* SPStrngs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPStrngs.h; path = ../../src/PrSDK/SPStrngs.h; sourceTree = "<group>"; };
+		3C81575A1BB6FF44008E68E7 /* SPProps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPProps.h; path = ../../src/PrSDK/SPProps.h; sourceTree = "<group>"; };
+		3C81575B1BB6FF44008E68E7 /* SPPlugs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPPlugs.h; path = ../../src/PrSDK/SPPlugs.h; sourceTree = "<group>"; };
+		3C81575C1BB6FF44008E68E7 /* SPPiPL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPPiPL.h; path = ../../src/PrSDK/SPPiPL.h; sourceTree = "<group>"; };
+		3C81575D1BB6FF44008E68E7 /* SPMData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPMData.h; path = ../../src/PrSDK/SPMData.h; sourceTree = "<group>"; };
+		3C81575E1BB6FF44008E68E7 /* SPFiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPFiles.h; path = ../../src/PrSDK/SPFiles.h; sourceTree = "<group>"; };
+		3C81575F1BB6FF44008E68E7 /* SPErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPErrorCodes.h; path = ../../src/PrSDK/SPErrorCodes.h; sourceTree = "<group>"; };
+		3C8157601BB6FF44008E68E7 /* SPConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPConfig.h; path = ../../src/PrSDK/SPConfig.h; sourceTree = "<group>"; };
+		3C8157611BB6FF44008E68E7 /* SPCaches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPCaches.h; path = ../../src/PrSDK/SPCaches.h; sourceTree = "<group>"; };
+		3C8157621BB6FF44008E68E7 /* SPBasic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPBasic.h; path = ../../src/PrSDK/SPBasic.h; sourceTree = "<group>"; };
+		3C8157631BB6FF44008E68E7 /* SPAdapts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPAdapts.h; path = ../../src/PrSDK/SPAdapts.h; sourceTree = "<group>"; };
+		3C8157641BB6FF44008E68E7 /* SPAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPAccess.h; path = ../../src/PrSDK/SPAccess.h; sourceTree = "<group>"; };
+		3C8157651BB6FF44008E68E7 /* SDK_Segment_Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDK_Segment_Utils.h; path = ../../src/PrSDK/SDK_Segment_Utils.h; sourceTree = "<group>"; };
+		3C8157661BB6FF44008E68E7 /* SDK_Segment_Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDK_Segment_Utils.cpp; path = ../../src/PrSDK/SDK_Segment_Utils.cpp; sourceTree = "<group>"; };
+		3C8157671BB6FF44008E68E7 /* SDK_File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDK_File.h; path = ../../src/PrSDK/SDK_File.h; sourceTree = "<group>"; };
+		3C8157681BB6FF44008E68E7 /* SDK_File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SDK_File.cpp; path = ../../src/PrSDK/SDK_File.cpp; sourceTree = "<group>"; };
+		3C8157691BB6FF44008E68E7 /* PrSDKWindowSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKWindowSuite.h; path = ../../src/PrSDK/PrSDKWindowSuite.h; sourceTree = "<group>"; };
+		3C81576A1BB6FF44008E68E7 /* PrSDKVideoSegmentSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKVideoSegmentSuite.h; path = ../../src/PrSDK/PrSDKVideoSegmentSuite.h; sourceTree = "<group>"; };
+		3C81576B1BB6FF44008E68E7 /* PrSDKVideoSegmentRenderSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKVideoSegmentRenderSuite.h; path = ../../src/PrSDK/PrSDKVideoSegmentRenderSuite.h; sourceTree = "<group>"; };
+		3C81576C1BB6FF44008E68E7 /* PrSDKVideoSegmentProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKVideoSegmentProperties.h; path = ../../src/PrSDK/PrSDKVideoSegmentProperties.h; sourceTree = "<group>"; };
+		3C81576D1BB6FF44008E68E7 /* PrSDKTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKTypes.h; path = ../../src/PrSDK/PrSDKTypes.h; sourceTree = "<group>"; };
+		3C81576E1BB6FF44008E68E7 /* PrSDKTransmitInvocationSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKTransmitInvocationSuite.h; path = ../../src/PrSDK/PrSDKTransmitInvocationSuite.h; sourceTree = "<group>"; };
+		3C81576F1BB6FF44008E68E7 /* PrSDKTransmit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKTransmit.h; path = ../../src/PrSDK/PrSDKTransmit.h; sourceTree = "<group>"; };
+		3C8157701BB6FF44008E68E7 /* PrSDKTimeSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKTimeSuite.h; path = ../../src/PrSDK/PrSDKTimeSuite.h; sourceTree = "<group>"; };
+		3C8157711BB6FF44008E68E7 /* PrSDKThreadedWorkSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKThreadedWorkSuite.h; path = ../../src/PrSDK/PrSDKThreadedWorkSuite.h; sourceTree = "<group>"; };
+		3C8157721BB6FF44008E68E7 /* PrSDKStructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKStructs.h; path = ../../src/PrSDK/PrSDKStructs.h; sourceTree = "<group>"; };
+		3C8157731BB6FF44008E68E7 /* PrSDKStringSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKStringSuite.h; path = ../../src/PrSDK/PrSDKStringSuite.h; sourceTree = "<group>"; };
+		3C8157741BB6FF44008E68E7 /* PrSDKStreamLabelEffectSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKStreamLabelEffectSuite.h; path = ../../src/PrSDK/PrSDKStreamLabelEffectSuite.h; sourceTree = "<group>"; };
+		3C8157751BB6FF44008E68E7 /* PrSDKStreamLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKStreamLabel.h; path = ../../src/PrSDK/PrSDKStreamLabel.h; sourceTree = "<group>"; };
+		3C8157761BB6FF44008E68E7 /* PrSDKStockImageSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKStockImageSuite.h; path = ../../src/PrSDK/PrSDKStockImageSuite.h; sourceTree = "<group>"; };
+		3C8157771BB6FF44008E68E7 /* PrSDKSmartRenderingSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKSmartRenderingSuite.h; path = ../../src/PrSDK/PrSDKSmartRenderingSuite.h; sourceTree = "<group>"; };
+		3C8157781BB6FF44008E68E7 /* PrSDKSetEnv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKSetEnv.h; path = ../../src/PrSDK/PrSDKSetEnv.h; sourceTree = "<group>"; };
+		3C8157791BB6FF44008E68E7 /* PrSDKSequenceRenderSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKSequenceRenderSuite.h; path = ../../src/PrSDK/PrSDKSequenceRenderSuite.h; sourceTree = "<group>"; };
+		3C81577A1BB6FF44008E68E7 /* PrSDKSequenceInfoSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKSequenceInfoSuite.h; path = ../../src/PrSDK/PrSDKSequenceInfoSuite.h; sourceTree = "<group>"; };
+		3C81577B1BB6FF44008E68E7 /* PrSDKSequenceAudioSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKSequenceAudioSuite.h; path = ../../src/PrSDK/PrSDKSequenceAudioSuite.h; sourceTree = "<group>"; };
+		3C81577C1BB6FF44008E68E7 /* PrSDKScopeRenderSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKScopeRenderSuite.h; path = ../../src/PrSDK/PrSDKScopeRenderSuite.h; sourceTree = "<group>"; };
+		3C81577D1BB6FF44008E68E7 /* PrSDKSceneMetaData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKSceneMetaData.h; path = ../../src/PrSDK/PrSDKSceneMetaData.h; sourceTree = "<group>"; };
+		3C81577E1BB6FF44008E68E7 /* PrSDKRollCrawlSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKRollCrawlSuite.h; path = ../../src/PrSDK/PrSDKRollCrawlSuite.h; sourceTree = "<group>"; };
+		3C81577F1BB6FF44008E68E7 /* PrSDKRenderCacheType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKRenderCacheType.h; path = ../../src/PrSDK/PrSDKRenderCacheType.h; sourceTree = "<group>"; };
+		3C8157801BB6FF44008E68E7 /* PrSDKRecordModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKRecordModule.h; path = ../../src/PrSDK/PrSDKRecordModule.h; sourceTree = "<group>"; };
+		3C8157811BB6FF44008E68E7 /* PrSDKQuality.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKQuality.h; path = ../../src/PrSDK/PrSDKQuality.h; sourceTree = "<group>"; };
+		3C8157821BB6FF44008E68E7 /* PrSDKPPixSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPPixSuite.h; path = ../../src/PrSDK/PrSDKPPixSuite.h; sourceTree = "<group>"; };
+		3C8157831BB6FF44008E68E7 /* PrSDKPPixCreatorSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPPixCreatorSuite.h; path = ../../src/PrSDK/PrSDKPPixCreatorSuite.h; sourceTree = "<group>"; };
+		3C8157841BB6FF44008E68E7 /* PrSDKPPixCreator2Suite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPPixCreator2Suite.h; path = ../../src/PrSDK/PrSDKPPixCreator2Suite.h; sourceTree = "<group>"; };
+		3C8157851BB6FF44008E68E7 /* PrSDKPPixCacheSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPPixCacheSuite.h; path = ../../src/PrSDK/PrSDKPPixCacheSuite.h; sourceTree = "<group>"; };
+		3C8157861BB6FF44008E68E7 /* PrSDKPPix2Suite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPPix2Suite.h; path = ../../src/PrSDK/PrSDKPPix2Suite.h; sourceTree = "<group>"; };
+		3C8157871BB6FF44008E68E7 /* PrSDKPlugWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPlugWindow.h; path = ../../src/PrSDK/PrSDKPlugWindow.h; sourceTree = "<group>"; };
+		3C8157881BB6FF44008E68E7 /* PrSDKPlugUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPlugUtilities.h; path = ../../src/PrSDK/PrSDKPlugUtilities.h; sourceTree = "<group>"; };
+		3C8157891BB6FF44008E68E7 /* PrSDKPlugTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPlugTimeline.h; path = ../../src/PrSDK/PrSDKPlugTimeline.h; sourceTree = "<group>"; };
+		3C81578A1BB6FF44008E68E7 /* PrSDKPlugSuites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPlugSuites.h; path = ../../src/PrSDK/PrSDKPlugSuites.h; sourceTree = "<group>"; };
+		3C81578B1BB6FF44008E68E7 /* PrSDKPlugPPix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPlugPPix.h; path = ../../src/PrSDK/PrSDKPlugPPix.h; sourceTree = "<group>"; };
+		3C81578C1BB6FF44008E68E7 /* PrSDKPlugMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPlugMemory.h; path = ../../src/PrSDK/PrSDKPlugMemory.h; sourceTree = "<group>"; };
+		3C81578D1BB6FF44008E68E7 /* PrSDKPlayModuleRenderSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPlayModuleRenderSuite.h; path = ../../src/PrSDK/PrSDKPlayModuleRenderSuite.h; sourceTree = "<group>"; };
+		3C81578E1BB6FF44008E68E7 /* PrSDKPlayModuleOverlaySuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPlayModuleOverlaySuite.h; path = ../../src/PrSDK/PrSDKPlayModuleOverlaySuite.h; sourceTree = "<group>"; };
+		3C81578F1BB6FF44008E68E7 /* PrSDKPlayModuleDeviceControlSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPlayModuleDeviceControlSuite.h; path = ../../src/PrSDK/PrSDKPlayModuleDeviceControlSuite.h; sourceTree = "<group>"; };
+		3C8157901BB6FF44008E68E7 /* PrSDKPlayModuleAudioSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPlayModuleAudioSuite.h; path = ../../src/PrSDK/PrSDKPlayModuleAudioSuite.h; sourceTree = "<group>"; };
+		3C8157911BB6FF44008E68E7 /* PrSDKPlayModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPlayModule.h; path = ../../src/PrSDK/PrSDKPlayModule.h; sourceTree = "<group>"; };
+		3C8157921BB6FF44008E68E7 /* PrSDKPixelFormatSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPixelFormatSuite.h; path = ../../src/PrSDK/PrSDKPixelFormatSuite.h; sourceTree = "<group>"; };
+		3C8157931BB6FF44008E68E7 /* PrSDKPixelFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPixelFormat.h; path = ../../src/PrSDK/PrSDKPixelFormat.h; sourceTree = "<group>"; };
+		3C8157941BB6FF44008E68E7 /* PrSDKPiPLVer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPiPLVer.h; path = ../../src/PrSDK/PrSDKPiPLVer.h; sourceTree = "<group>"; };
+		3C8157951BB6FF44008E68E7 /* PrSDKPiPL.r */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.rez; name = PrSDKPiPL.r; path = ../../src/PrSDK/PrSDKPiPL.r; sourceTree = "<group>"; };
+		3C8157961BB6FF44008E68E7 /* PrSDKPaletteSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKPaletteSuite.h; path = ../../src/PrSDK/PrSDKPaletteSuite.h; sourceTree = "<group>"; };
+		3C8157971BB6FF44008E68E7 /* PrSDKOpaqueEffectDataSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKOpaqueEffectDataSuite.h; path = ../../src/PrSDK/PrSDKOpaqueEffectDataSuite.h; sourceTree = "<group>"; };
+		3C8157981BB6FF44008E68E7 /* PrSDKMemoryManagerSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKMemoryManagerSuite.h; path = ../../src/PrSDK/PrSDKMemoryManagerSuite.h; sourceTree = "<group>"; };
+		3C8157991BB6FF44008E68E7 /* PrSDKMediaAcceleratorSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKMediaAcceleratorSuite.h; path = ../../src/PrSDK/PrSDKMediaAcceleratorSuite.h; sourceTree = "<group>"; };
+		3C81579A1BB6FF44008E68E7 /* PrSDKMarkerSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKMarkerSuite.h; path = ../../src/PrSDK/PrSDKMarkerSuite.h; sourceTree = "<group>"; };
+		3C81579B1BB6FF44008E68E7 /* PrSDKMALErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKMALErrors.h; path = ../../src/PrSDK/PrSDKMALErrors.h; sourceTree = "<group>"; };
+		3C81579C1BB6FF44008E68E7 /* PrSDKLegacySuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKLegacySuite.h; path = ../../src/PrSDK/PrSDKLegacySuite.h; sourceTree = "<group>"; };
+		3C81579D1BB6FF44008E68E7 /* PrSDKImporterShared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKImporterShared.h; path = ../../src/PrSDK/PrSDKImporterShared.h; sourceTree = "<group>"; };
+		3C81579E1BB6FF44008E68E7 /* PrSDKImporterFileManagerSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKImporterFileManagerSuite.h; path = ../../src/PrSDK/PrSDKImporterFileManagerSuite.h; sourceTree = "<group>"; };
+		3C81579F1BB6FF44008E68E7 /* PrSDKImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKImport.h; path = ../../src/PrSDK/PrSDKImport.h; sourceTree = "<group>"; };
+		3C8157A01BB6FF44008E68E7 /* PrSDKImageProcessingSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKImageProcessingSuite.h; path = ../../src/PrSDK/PrSDKImageProcessingSuite.h; sourceTree = "<group>"; };
+		3C8157A11BB6FF44008E68E7 /* PrSDKGPUImageProcessingSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKGPUImageProcessingSuite.h; path = ../../src/PrSDK/PrSDKGPUImageProcessingSuite.h; sourceTree = "<group>"; };
+		3C8157A21BB6FF44008E68E7 /* PrSDKGPUFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKGPUFilter.h; path = ../../src/PrSDK/PrSDKGPUFilter.h; sourceTree = "<group>"; };
+		3C8157A31BB6FF44008E68E7 /* PrSDKGPUDeviceSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKGPUDeviceSuite.h; path = ../../src/PrSDK/PrSDKGPUDeviceSuite.h; sourceTree = "<group>"; };
+		3C8157A41BB6FF44008E68E7 /* PrSDKFlashCueMarkerDataSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKFlashCueMarkerDataSuite.h; path = ../../src/PrSDK/PrSDKFlashCueMarkerDataSuite.h; sourceTree = "<group>"; };
+		3C8157A51BB6FF44008E68E7 /* PrSDKFileRegistrationSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKFileRegistrationSuite.h; path = ../../src/PrSDK/PrSDKFileRegistrationSuite.h; sourceTree = "<group>"; };
+		3C8157A61BB6FF44008E68E7 /* PrSDKExportStdParamSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKExportStdParamSuite.h; path = ../../src/PrSDK/PrSDKExportStdParamSuite.h; sourceTree = "<group>"; };
+		3C8157A71BB6FF44008E68E7 /* PrSDKExportProgressSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKExportProgressSuite.h; path = ../../src/PrSDK/PrSDKExportProgressSuite.h; sourceTree = "<group>"; };
+		3C8157A81BB6FF44008E68E7 /* PrSDKExportParamSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKExportParamSuite.h; path = ../../src/PrSDK/PrSDKExportParamSuite.h; sourceTree = "<group>"; };
+		3C8157A91BB6FF44008E68E7 /* PrSDKExportInfoSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKExportInfoSuite.h; path = ../../src/PrSDK/PrSDKExportInfoSuite.h; sourceTree = "<group>"; };
+		3C8157AA1BB6FF44008E68E7 /* PrSDKExportFileSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKExportFileSuite.h; path = ../../src/PrSDK/PrSDKExportFileSuite.h; sourceTree = "<group>"; };
+		3C8157AB1BB6FF44008E68E7 /* PrSDKExporterUtilitySuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKExporterUtilitySuite.h; path = ../../src/PrSDK/PrSDKExporterUtilitySuite.h; sourceTree = "<group>"; };
+		3C8157AC1BB6FF44008E68E7 /* PrSDKExportControllerSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKExportControllerSuite.h; path = ../../src/PrSDK/PrSDKExportControllerSuite.h; sourceTree = "<group>"; };
+		3C8157AD1BB6FF44008E68E7 /* PrSDKExportController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKExportController.h; path = ../../src/PrSDK/PrSDKExportController.h; sourceTree = "<group>"; };
+		3C8157AE1BB6FF44008E68E7 /* PrSDKExportAudioParamSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKExportAudioParamSuite.h; path = ../../src/PrSDK/PrSDKExportAudioParamSuite.h; sourceTree = "<group>"; };
+		3C8157AF1BB6FF44008E68E7 /* PrSDKExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKExport.h; path = ../../src/PrSDK/PrSDKExport.h; sourceTree = "<group>"; };
+		3C8157B01BB6FF44008E68E7 /* PrSDKErrorSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKErrorSuite.h; path = ../../src/PrSDK/PrSDKErrorSuite.h; sourceTree = "<group>"; };
+		3C8157B11BB6FF44008E68E7 /* PrSDKEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKEntry.h; path = ../../src/PrSDK/PrSDKEntry.h; sourceTree = "<group>"; };
+		3C8157B21BB6FF44008E68E7 /* PrSDKEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKEffect.h; path = ../../src/PrSDK/PrSDKEffect.h; sourceTree = "<group>"; };
+		3C8157B31BB6FF44008E68E7 /* PrSDKDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKDevice.h; path = ../../src/PrSDK/PrSDKDevice.h; sourceTree = "<group>"; };
+		3C8157B41BB6FF44008E68E7 /* PrSDKDeferredProcessingSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKDeferredProcessingSuite.h; path = ../../src/PrSDK/PrSDKDeferredProcessingSuite.h; sourceTree = "<group>"; };
+		3C8157B51BB6FF44008E68E7 /* PrSDKClipRenderSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKClipRenderSuite.h; path = ../../src/PrSDK/PrSDKClipRenderSuite.h; sourceTree = "<group>"; };
+		3C8157B61BB6FF44008E68E7 /* PrSDKClassData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKClassData.h; path = ../../src/PrSDK/PrSDKClassData.h; sourceTree = "<group>"; };
+		3C8157B71BB6FF44008E68E7 /* PrSDKCaptioningSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKCaptioningSuite.h; path = ../../src/PrSDK/PrSDKCaptioningSuite.h; sourceTree = "<group>"; };
+		3C8157B81BB6FF44008E68E7 /* PrSDKAudioSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKAudioSuite.h; path = ../../src/PrSDK/PrSDKAudioSuite.h; sourceTree = "<group>"; };
+		3C8157B91BB6FF44008E68E7 /* PrSDKAsyncOperationSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKAsyncOperationSuite.h; path = ../../src/PrSDK/PrSDKAsyncOperationSuite.h; sourceTree = "<group>"; };
+		3C8157BA1BB6FF44008E68E7 /* PrSDKAsyncImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKAsyncImporter.h; path = ../../src/PrSDK/PrSDKAsyncImporter.h; sourceTree = "<group>"; };
+		3C8157BB1BB6FF44008E68E7 /* PrSDKAsyncFileReaderSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKAsyncFileReaderSuite.h; path = ../../src/PrSDK/PrSDKAsyncFileReaderSuite.h; sourceTree = "<group>"; };
+		3C8157BC1BB6FF44008E68E7 /* PrSDKApplicationSettingsSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKApplicationSettingsSuite.h; path = ../../src/PrSDK/PrSDKApplicationSettingsSuite.h; sourceTree = "<group>"; };
+		3C8157BD1BB6FF44008E68E7 /* PrSDKAppInfoSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKAppInfoSuite.h; path = ../../src/PrSDK/PrSDKAppInfoSuite.h; sourceTree = "<group>"; };
+		3C8157BE1BB6FF44008E68E7 /* PrSDKAlphaTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKAlphaTypes.h; path = ../../src/PrSDK/PrSDKAlphaTypes.h; sourceTree = "<group>"; };
+		3C8157BF1BB6FF44008E68E7 /* PrSDKAESupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKAESupport.h; path = ../../src/PrSDK/PrSDKAESupport.h; sourceTree = "<group>"; };
+		3C8157C01BB6FF44008E68E7 /* PrSDKActivationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKActivationEvent.h; path = ../../src/PrSDK/PrSDKActivationEvent.h; sourceTree = "<group>"; };
+		3C8157C11BB6FF44008E68E7 /* PrSDKAcceleratedRenderInvocationSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKAcceleratedRenderInvocationSuite.h; path = ../../src/PrSDK/PrSDKAcceleratedRenderInvocationSuite.h; sourceTree = "<group>"; };
+		3C8157C21BB6FF44008E68E7 /* PrSDKAcceleratedRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrSDKAcceleratedRender.h; path = ../../src/PrSDK/PrSDKAcceleratedRender.h; sourceTree = "<group>"; };
+		3C8157C31BB6FF44008E68E7 /* AE_CacheOnLoadSuite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AE_CacheOnLoadSuite.h; path = ../../src/PrSDK/AE_CacheOnLoadSuite.h; sourceTree = "<group>"; };
+		3C8157C41BB6FF44008E68E7 /* adobesdk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = adobesdk; path = ../../src/PrSDK/adobesdk; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3C81571F1BB68E18008E68E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3C8157191BB68E18008E68E7 = {
+			isa = PBXGroup;
+			children = (
+				3C8157561BB6FF23008E68E7 /* PrSDK */,
+				3C8157551BB6FF13008E68E7 /* CCRift */,
+				3C8157241BB68E18008E68E7 /* StandalonePreview */,
+				3C8157231BB68E18008E68E7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3C8157231BB68E18008E68E7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3C8157221BB68E18008E68E7 /* StandalonePreview.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3C8157241BB68E18008E68E7 /* StandalonePreview */ = {
+			isa = PBXGroup;
+			children = (
+				3C8157381BB6FEF1008E68E7 /* StandalonePreview.cpp */,
+				3C8157301BB68E18008E68E7 /* Info.plist */,
+			);
+			path = StandalonePreview;
+			sourceTree = "<group>";
+		};
+		3C8157551BB6FF13008E68E7 /* CCRift */ = {
+			isa = PBXGroup;
+			children = (
+				3C81573A1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.h */,
+				3C81573B1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.cpp */,
+				3C81573C1BB6FF09008E68E7 /* CCRiftUVSphere.h */,
+				3C81573D1BB6FF09008E68E7 /* CCRiftUVSphere.cpp */,
+				3C81573E1BB6FF09008E68E7 /* CCRiftScene.h */,
+				3C81573F1BB6FF09008E68E7 /* CCRiftScene.cpp */,
+				3C8157401BB6FF09008E68E7 /* CCRiftOGLPlatform.h */,
+				3C8157411BB6FF09008E68E7 /* CCRiftOGLPlatform.cpp */,
+				3C8157441BB6FF09008E68E7 /* CCRiftIPlatform.h */,
+				3C8157451BB6FF09008E68E7 /* CCRiftIDevice.h */,
+				3C8157461BB6FF09008E68E7 /* CCRiftIDevice.cpp */,
+				3C8157471BB6FF09008E68E7 /* CCRiftGLFWPreviewDevice.h */,
+				3C8157481BB6FF09008E68E7 /* CCRiftGLFWPreviewDevice.cpp */,
+				3C8157491BB6FF09008E68E7 /* CCRiftFrameTexture.h */,
+				3C81574A1BB6FF09008E68E7 /* CCRiftFrameTexture.cpp */,
+				3C81574B1BB6FF09008E68E7 /* CCRiftCommons.h */,
+				3C81574C1BB6FF09008E68E7 /* CCRiftBufferHelpers.h */,
+			);
+			name = CCRift;
+			sourceTree = "<group>";
+		};
+		3C8157561BB6FF23008E68E7 /* PrSDK */ = {
+			isa = PBXGroup;
+			children = (
+				3C8157571BB6FF44008E68E7 /* SPTypes.h */,
+				3C8157581BB6FF44008E68E7 /* SPSuites.h */,
+				3C8157591BB6FF44008E68E7 /* SPStrngs.h */,
+				3C81575A1BB6FF44008E68E7 /* SPProps.h */,
+				3C81575B1BB6FF44008E68E7 /* SPPlugs.h */,
+				3C81575C1BB6FF44008E68E7 /* SPPiPL.h */,
+				3C81575D1BB6FF44008E68E7 /* SPMData.h */,
+				3C81575E1BB6FF44008E68E7 /* SPFiles.h */,
+				3C81575F1BB6FF44008E68E7 /* SPErrorCodes.h */,
+				3C8157601BB6FF44008E68E7 /* SPConfig.h */,
+				3C8157611BB6FF44008E68E7 /* SPCaches.h */,
+				3C8157621BB6FF44008E68E7 /* SPBasic.h */,
+				3C8157631BB6FF44008E68E7 /* SPAdapts.h */,
+				3C8157641BB6FF44008E68E7 /* SPAccess.h */,
+				3C8157651BB6FF44008E68E7 /* SDK_Segment_Utils.h */,
+				3C8157661BB6FF44008E68E7 /* SDK_Segment_Utils.cpp */,
+				3C8157671BB6FF44008E68E7 /* SDK_File.h */,
+				3C8157681BB6FF44008E68E7 /* SDK_File.cpp */,
+				3C8157691BB6FF44008E68E7 /* PrSDKWindowSuite.h */,
+				3C81576A1BB6FF44008E68E7 /* PrSDKVideoSegmentSuite.h */,
+				3C81576B1BB6FF44008E68E7 /* PrSDKVideoSegmentRenderSuite.h */,
+				3C81576C1BB6FF44008E68E7 /* PrSDKVideoSegmentProperties.h */,
+				3C81576D1BB6FF44008E68E7 /* PrSDKTypes.h */,
+				3C81576E1BB6FF44008E68E7 /* PrSDKTransmitInvocationSuite.h */,
+				3C81576F1BB6FF44008E68E7 /* PrSDKTransmit.h */,
+				3C8157701BB6FF44008E68E7 /* PrSDKTimeSuite.h */,
+				3C8157711BB6FF44008E68E7 /* PrSDKThreadedWorkSuite.h */,
+				3C8157721BB6FF44008E68E7 /* PrSDKStructs.h */,
+				3C8157731BB6FF44008E68E7 /* PrSDKStringSuite.h */,
+				3C8157741BB6FF44008E68E7 /* PrSDKStreamLabelEffectSuite.h */,
+				3C8157751BB6FF44008E68E7 /* PrSDKStreamLabel.h */,
+				3C8157761BB6FF44008E68E7 /* PrSDKStockImageSuite.h */,
+				3C8157771BB6FF44008E68E7 /* PrSDKSmartRenderingSuite.h */,
+				3C8157781BB6FF44008E68E7 /* PrSDKSetEnv.h */,
+				3C8157791BB6FF44008E68E7 /* PrSDKSequenceRenderSuite.h */,
+				3C81577A1BB6FF44008E68E7 /* PrSDKSequenceInfoSuite.h */,
+				3C81577B1BB6FF44008E68E7 /* PrSDKSequenceAudioSuite.h */,
+				3C81577C1BB6FF44008E68E7 /* PrSDKScopeRenderSuite.h */,
+				3C81577D1BB6FF44008E68E7 /* PrSDKSceneMetaData.h */,
+				3C81577E1BB6FF44008E68E7 /* PrSDKRollCrawlSuite.h */,
+				3C81577F1BB6FF44008E68E7 /* PrSDKRenderCacheType.h */,
+				3C8157801BB6FF44008E68E7 /* PrSDKRecordModule.h */,
+				3C8157811BB6FF44008E68E7 /* PrSDKQuality.h */,
+				3C8157821BB6FF44008E68E7 /* PrSDKPPixSuite.h */,
+				3C8157831BB6FF44008E68E7 /* PrSDKPPixCreatorSuite.h */,
+				3C8157841BB6FF44008E68E7 /* PrSDKPPixCreator2Suite.h */,
+				3C8157851BB6FF44008E68E7 /* PrSDKPPixCacheSuite.h */,
+				3C8157861BB6FF44008E68E7 /* PrSDKPPix2Suite.h */,
+				3C8157871BB6FF44008E68E7 /* PrSDKPlugWindow.h */,
+				3C8157881BB6FF44008E68E7 /* PrSDKPlugUtilities.h */,
+				3C8157891BB6FF44008E68E7 /* PrSDKPlugTimeline.h */,
+				3C81578A1BB6FF44008E68E7 /* PrSDKPlugSuites.h */,
+				3C81578B1BB6FF44008E68E7 /* PrSDKPlugPPix.h */,
+				3C81578C1BB6FF44008E68E7 /* PrSDKPlugMemory.h */,
+				3C81578D1BB6FF44008E68E7 /* PrSDKPlayModuleRenderSuite.h */,
+				3C81578E1BB6FF44008E68E7 /* PrSDKPlayModuleOverlaySuite.h */,
+				3C81578F1BB6FF44008E68E7 /* PrSDKPlayModuleDeviceControlSuite.h */,
+				3C8157901BB6FF44008E68E7 /* PrSDKPlayModuleAudioSuite.h */,
+				3C8157911BB6FF44008E68E7 /* PrSDKPlayModule.h */,
+				3C8157921BB6FF44008E68E7 /* PrSDKPixelFormatSuite.h */,
+				3C8157931BB6FF44008E68E7 /* PrSDKPixelFormat.h */,
+				3C8157941BB6FF44008E68E7 /* PrSDKPiPLVer.h */,
+				3C8157951BB6FF44008E68E7 /* PrSDKPiPL.r */,
+				3C8157961BB6FF44008E68E7 /* PrSDKPaletteSuite.h */,
+				3C8157971BB6FF44008E68E7 /* PrSDKOpaqueEffectDataSuite.h */,
+				3C8157981BB6FF44008E68E7 /* PrSDKMemoryManagerSuite.h */,
+				3C8157991BB6FF44008E68E7 /* PrSDKMediaAcceleratorSuite.h */,
+				3C81579A1BB6FF44008E68E7 /* PrSDKMarkerSuite.h */,
+				3C81579B1BB6FF44008E68E7 /* PrSDKMALErrors.h */,
+				3C81579C1BB6FF44008E68E7 /* PrSDKLegacySuite.h */,
+				3C81579D1BB6FF44008E68E7 /* PrSDKImporterShared.h */,
+				3C81579E1BB6FF44008E68E7 /* PrSDKImporterFileManagerSuite.h */,
+				3C81579F1BB6FF44008E68E7 /* PrSDKImport.h */,
+				3C8157A01BB6FF44008E68E7 /* PrSDKImageProcessingSuite.h */,
+				3C8157A11BB6FF44008E68E7 /* PrSDKGPUImageProcessingSuite.h */,
+				3C8157A21BB6FF44008E68E7 /* PrSDKGPUFilter.h */,
+				3C8157A31BB6FF44008E68E7 /* PrSDKGPUDeviceSuite.h */,
+				3C8157A41BB6FF44008E68E7 /* PrSDKFlashCueMarkerDataSuite.h */,
+				3C8157A51BB6FF44008E68E7 /* PrSDKFileRegistrationSuite.h */,
+				3C8157A61BB6FF44008E68E7 /* PrSDKExportStdParamSuite.h */,
+				3C8157A71BB6FF44008E68E7 /* PrSDKExportProgressSuite.h */,
+				3C8157A81BB6FF44008E68E7 /* PrSDKExportParamSuite.h */,
+				3C8157A91BB6FF44008E68E7 /* PrSDKExportInfoSuite.h */,
+				3C8157AA1BB6FF44008E68E7 /* PrSDKExportFileSuite.h */,
+				3C8157AB1BB6FF44008E68E7 /* PrSDKExporterUtilitySuite.h */,
+				3C8157AC1BB6FF44008E68E7 /* PrSDKExportControllerSuite.h */,
+				3C8157AD1BB6FF44008E68E7 /* PrSDKExportController.h */,
+				3C8157AE1BB6FF44008E68E7 /* PrSDKExportAudioParamSuite.h */,
+				3C8157AF1BB6FF44008E68E7 /* PrSDKExport.h */,
+				3C8157B01BB6FF44008E68E7 /* PrSDKErrorSuite.h */,
+				3C8157B11BB6FF44008E68E7 /* PrSDKEntry.h */,
+				3C8157B21BB6FF44008E68E7 /* PrSDKEffect.h */,
+				3C8157B31BB6FF44008E68E7 /* PrSDKDevice.h */,
+				3C8157B41BB6FF44008E68E7 /* PrSDKDeferredProcessingSuite.h */,
+				3C8157B51BB6FF44008E68E7 /* PrSDKClipRenderSuite.h */,
+				3C8157B61BB6FF44008E68E7 /* PrSDKClassData.h */,
+				3C8157B71BB6FF44008E68E7 /* PrSDKCaptioningSuite.h */,
+				3C8157B81BB6FF44008E68E7 /* PrSDKAudioSuite.h */,
+				3C8157B91BB6FF44008E68E7 /* PrSDKAsyncOperationSuite.h */,
+				3C8157BA1BB6FF44008E68E7 /* PrSDKAsyncImporter.h */,
+				3C8157BB1BB6FF44008E68E7 /* PrSDKAsyncFileReaderSuite.h */,
+				3C8157BC1BB6FF44008E68E7 /* PrSDKApplicationSettingsSuite.h */,
+				3C8157BD1BB6FF44008E68E7 /* PrSDKAppInfoSuite.h */,
+				3C8157BE1BB6FF44008E68E7 /* PrSDKAlphaTypes.h */,
+				3C8157BF1BB6FF44008E68E7 /* PrSDKAESupport.h */,
+				3C8157C01BB6FF44008E68E7 /* PrSDKActivationEvent.h */,
+				3C8157C11BB6FF44008E68E7 /* PrSDKAcceleratedRenderInvocationSuite.h */,
+				3C8157C21BB6FF44008E68E7 /* PrSDKAcceleratedRender.h */,
+				3C8157C31BB6FF44008E68E7 /* AE_CacheOnLoadSuite.h */,
+				3C8157C41BB6FF44008E68E7 /* adobesdk */,
+			);
+			name = PrSDK;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3C8157211BB68E18008E68E7 /* StandalonePreview */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3C8157331BB68E18008E68E7 /* Build configuration list for PBXNativeTarget "StandalonePreview" */;
+			buildPhases = (
+				3C81571E1BB68E18008E68E7 /* Sources */,
+				3C81571F1BB68E18008E68E7 /* Frameworks */,
+				3C8157201BB68E18008E68E7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StandalonePreview;
+			productName = StandalonePreview;
+			productReference = 3C8157221BB68E18008E68E7 /* StandalonePreview.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3C81571A1BB68E18008E68E7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Andrea Melle";
+				TargetAttributes = {
+					3C8157211BB68E18008E68E7 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = 3C81571D1BB68E18008E68E7 /* Build configuration list for PBXProject "StandalonePreview" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3C8157191BB68E18008E68E7;
+			productRefGroup = 3C8157231BB68E18008E68E7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3C8157211BB68E18008E68E7 /* StandalonePreview */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3C8157201BB68E18008E68E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C8157C71BB6FF44008E68E7 /* adobesdk in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3C81571E1BB68E18008E68E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C81574D1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.cpp in Sources */,
+				3C8157531BB6FF09008E68E7 /* CCRiftGLFWPreviewDevice.cpp in Sources */,
+				3C8157C51BB6FF44008E68E7 /* SDK_Segment_Utils.cpp in Sources */,
+				3C8157521BB6FF09008E68E7 /* CCRiftIDevice.cpp in Sources */,
+				3C8157541BB6FF09008E68E7 /* CCRiftFrameTexture.cpp in Sources */,
+				3C81574F1BB6FF09008E68E7 /* CCRiftScene.cpp in Sources */,
+				3C8157501BB6FF09008E68E7 /* CCRiftOGLPlatform.cpp in Sources */,
+				3C8157C61BB6FF44008E68E7 /* SDK_File.cpp in Sources */,
+				3C81574E1BB6FF09008E68E7 /* CCRiftUVSphere.cpp in Sources */,
+				3C8157391BB6FEF1008E68E7 /* StandalonePreview.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3C8157311BB68E18008E68E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		3C8157321BB68E18008E68E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		3C8157341BB68E18008E68E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					"../../deps/glfw-3.1.1/mac",
+					../../deps/glm,
+					../../src/PrSDK,
+					../../src,
+				);
+				INFOPLIST_FILE = StandalonePreview/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "../../deps/glfw-3.1.1/mac/x86_64/Debug";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_CFLAGS = "-Wall";
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-I",
+					/usr/include,
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"../../deps/glfw-3.1.1/mac/x86_64/Debug/libglfw3.a",
+					"-framework",
+					AGL,
+					"-framework",
+					Cocoa,
+					"-framework",
+					OpenGL,
+					"-framework",
+					IOKit,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					CoreVideo,
+					/usr/lib/libGLEW.a,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = companyname.StandalonePreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = ../../builds;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Debug;
+		};
+		3C8157351BB68E18008E68E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (
+					"../../deps/glfw-3.1.1/mac",
+					../../deps/glm,
+					../../src/PrSDK,
+					../../src,
+				);
+				INFOPLIST_FILE = StandalonePreview/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "../../deps/glfw-3.1.1/mac/x86_64/Debug";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_CFLAGS = (
+					"-DNDEBUG",
+					"-Wall",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-I",
+					/usr/include,
+				);
+				OTHER_LDFLAGS = (
+					"-Wl,-search_paths_first",
+					"-Wl,-headerpad_max_install_names",
+					"../../deps/glfw-3.1.1/mac/x86_64/Release/libglfw3.a",
+					"-framework",
+					AGL,
+					"-framework",
+					Cocoa,
+					"-framework",
+					OpenGL,
+					"-framework",
+					IOKit,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					CoreVideo,
+					/usr/lib/libGLEW.a,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = companyname.StandalonePreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYMROOT = ../../builds;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+					"$(inherited)",
+				);
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3C81571D1BB68E18008E68E7 /* Build configuration list for PBXProject "StandalonePreview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C8157311BB68E18008E68E7 /* Debug */,
+				3C8157321BB68E18008E68E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3C8157331BB68E18008E68E7 /* Build configuration list for PBXNativeTarget "StandalonePreview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3C8157341BB68E18008E68E7 /* Debug */,
+				3C8157351BB68E18008E68E7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3C81571A1BB68E18008E68E7 /* Project object */;
+}

@@ -128,4 +128,4 @@ struct IndexBuffer
 	}
 };
 
-#endif __CCRIFT_BUFFERHELPERS_H__
+#endif //__CCRIFT_BUFFERHELPERS_H__

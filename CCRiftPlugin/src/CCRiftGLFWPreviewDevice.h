@@ -6,9 +6,7 @@
 #include "CCRiftOGLPlatform.h"
 #include "CCRiftIDevice.h"
 
-#include "GLFW\glfw3.h"
-#include <stdlib.h>
-#include <stdio.h>
+
 
 namespace CCRift
 {
@@ -22,14 +20,14 @@ namespace CCRift
 		virtual void start(HINSTANCE hinst = NULL) override;
 		virtual void stop() override;
 
-		virtual int preferredFrameWidth() const override { return mFrameSize.w; }
-		virtual int preferredFrameHeight() const override { return mFrameSize.h; }
+		virtual int preferredFrameWidth() const override { return mFrameSize.x; }
+		virtual int preferredFrameHeight() const override { return mFrameSize.y; }
 		virtual size_t preferredFrameDepth() const override { return mFrameBufferDepth; }
-		virtual ovrSizei preferredFrameSize() const override { return mFrameSize; }
+        virtual glm::ivec2 preferredFrameSize() const override { return mFrameSize; }
 
-		virtual int windowWidth() const override { return mWindowSize.w; }
-		virtual int windowHeight() const override { return mWindowSize.h; }
-		virtual ovrSizei windowSize() const override { return mWindowSize; }
+		virtual int windowWidth() const override { return mWindowSize.x; }
+		virtual int windowHeight() const override { return mWindowSize.y; }
+		virtual glm::ivec2 windowSize() const override { return mWindowSize; }
 
 		virtual bool isRunning() const override { return mDeviceRunning; }
 
@@ -46,9 +44,9 @@ namespace CCRift
 		Scene* mScene;
 		//GLPlatform* mContext;
 		//ovrGraphicsLuid mLuid;
-		ovrSizei mWindowSize;
-		ovrSizei mFrameSize;
-		HINSTANCE mModuleHandle; //is this the 'module' in win32 lingo?
+		glm::ivec2 mWindowSize;
+		glm::ivec2 mFrameSize;
+		//HINSTANCE mModuleHandle; //is this the 'module' in win32 lingo?
 
 		Process mProcess;
 
@@ -75,11 +73,11 @@ namespace CCRift
 
 		bool mActive;
 
-		Vector3f handleMouseInput();
+        glm::vec3 handleMouseInput();
 
 		float mAspectRatio;
 		ovrFovPort mFov;
-		Matrix4f mProj;
+        glm::mat4 mProj;
 
 	};
 }

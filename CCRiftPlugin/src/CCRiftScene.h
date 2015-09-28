@@ -1,18 +1,9 @@
 #ifndef __CCRIFT_SCENE_H__
 #define __CCRIFT_SCENE_H__
 
-#ifdef OCULUS_RIFT_PLATFORM
-#include "GL/CAPI_GLE.h"
-#include "Extras/OVR_Math.h"
-#include "Kernel/OVR_Log.h"
-#include "OVR_CAPI_GL.h"
-#endif
 #include "CCRiftCommons.h"
-#include "CCRiftModel.h"
 #include "CCRiftOGLPlatform.h"
 #include "CCRiftUVSphere.h"
-
-using namespace OVR;
 
 namespace CCRift
 {
@@ -22,18 +13,18 @@ namespace CCRift
 		Scene();
 		virtual ~Scene();
 		
-		bool init(ovrSizei windowSize, ovrSizei frameSize);
+        bool init(glm::ivec2 windowSize, glm::ivec2 frameSize);
 		void release();
 
 		void updateFrameTexture(const unsigned char* data);
 
-		void render(Matrix4f view, Matrix4f proj);
+        void render(glm::mat4 view, glm::mat4 proj);
 
 		UVSphere* getSphere() { return sphere; }
 
 	private:
 		UVSphere *sphere;
-		float aspectRatio;
+		//float aspectRatio;
 
 		GLuint createShader(GLenum type, const GLchar* src);
 	};
