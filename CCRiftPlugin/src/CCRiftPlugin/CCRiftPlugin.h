@@ -5,7 +5,7 @@
 
 namespace CCRift
 {
-	class IDevice;
+	class GLFWPreviewDevice;
 }
 
 namespace CCRift
@@ -44,7 +44,7 @@ namespace CCRift
 		SDKSettings		mSettings;
 		SDKSuites		mSuites;
 
-		IDevice *mPreviewDevice;
+		GLFWPreviewDevice *mPreviewDevice;
 	};
 }
 

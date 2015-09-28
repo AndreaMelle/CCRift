@@ -1,5 +1,6 @@
-#ifdef OCULUS_RIFT_PLATFORM
 #include "CCRiftOGLPlatform.h"
+
+#ifdef OCULUS_RIFT_PLATFORM
 #include <windowsx.h>
 
 using namespace CCRift;

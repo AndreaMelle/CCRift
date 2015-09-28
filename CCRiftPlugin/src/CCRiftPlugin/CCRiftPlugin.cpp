@@ -1,6 +1,8 @@
 #include "CCRiftPlugin.h"
 #include "CCRiftInstance.h"
-#include "CCRiftWinPreviewDevice.h"
+//#include "CCRiftWinPreviewDevice.h"
+
+#include "CCRiftGLFWPreviewDevice.h"
 
 using namespace CCRift;
 
@@ -10,7 +12,7 @@ CCRiftPlugin::CCRiftPlugin(
 {
 	// Here, you could make sure hardware is available
 
-	mPreviewDevice = new WinPreviewDevice();
+	mPreviewDevice = &IDevice<GLFWPreviewDevice>::Instance();
 	mPreviewDevice->start();
 
 	copyConvertStringLiteralIntoUTF16(PLUGIN_DISPLAY_NAME, outPluginInfo->outDisplayName);
@@ -41,7 +43,6 @@ CCRiftPlugin::~CCRiftPlugin()
 	mSuites.SPBasic->ReleaseSuite(kPrSDKTimeSuite, kPrSDKTimeSuiteVersion);
 
 	mPreviewDevice->stop();
-	delete mPreviewDevice;
 
 }
 

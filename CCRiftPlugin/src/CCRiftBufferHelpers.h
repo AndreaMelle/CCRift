@@ -52,10 +52,8 @@ struct ShaderFill
 		texture = _texture;
 
 		program = glCreateProgram();
-
 		glAttachShader(program, vertexShader);
 		glAttachShader(program, pixelShader);
-
 		glLinkProgram(program);
 
 		glDetachShader(program, vertexShader);
@@ -67,6 +65,7 @@ struct ShaderFill
 		{
 			GLchar msg[1024];
 			glGetProgramInfoLog(program, sizeof(msg), 0, msg);
+			printf(msg);
 			//OVR_DEBUG_LOG(("Linking shaders failed: %s\n", msg));
 		}
 	}

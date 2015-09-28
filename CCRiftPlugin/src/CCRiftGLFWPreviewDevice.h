@@ -6,8 +6,6 @@
 #include "CCRiftOGLPlatform.h"
 #include "CCRiftIDevice.h"
 
-
-
 namespace CCRift
 {
 	class GLFWPreviewDevice : public IDevice<GLFWPreviewDevice>
@@ -42,11 +40,8 @@ namespace CCRift
 		GLFWwindow* window;
 
 		Scene* mScene;
-		//GLPlatform* mContext;
-		//ovrGraphicsLuid mLuid;
 		glm::ivec2 mWindowSize;
 		glm::ivec2 mFrameSize;
-		//HINSTANCE mModuleHandle; //is this the 'module' in win32 lingo?
 
 		Process mProcess;
 

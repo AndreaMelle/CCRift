@@ -14,6 +14,7 @@ UVSphere::UVSphere(glm::vec3 pos, ShaderFill * fill)
 	Rot.z = 0;
 	Rot.w = 0;
 
+	Mat = glm::mat4(1.0f);
 	Mat = glm::mat4_cast(Rot);
 	Mat = glm::translate(Mat, Pos);
 
@@ -26,6 +27,7 @@ UVSphere::UVSphere(glm::vec3 pos, ShaderFill * fill)
 #endif
 
 	Fill = fill;
+	
 	posLoc = glGetAttribLocation(Fill->program, "Position");
 	uvLoc = glGetAttribLocation(Fill->program, "TexCoord");
 }
@@ -86,12 +88,14 @@ void UVSphere::AddSolidSphere(float radius, float segments)
 			py = radius * ny;
 			pz = radius * nz;
 
-			pu = (j / (float)segments);
+			pu = (j / (GLfloat)segments);
 			pv = 2.0f * (i + 1.0f) / (float)segments;
 
-			v1.Pos = glm::vec3(px, py, pz);
-			v1.U = pu;
-			v1.V = pv;
+			v1.x = px;
+			v1.y = py;
+			v1.z = pz;
+			v1.u = pu;
+			v1.v = pv;
 
 			AddVertex(v1);
 
@@ -102,12 +106,14 @@ void UVSphere::AddSolidSphere(float radius, float segments)
 			py = radius * ny;
 			pz = radius * nz;
 
-			pu = (j / (float)segments);
-			pv = 2.0f * i / (float)segments;
+			pu = (j / (GLfloat)segments);
+			pv = 2.0f * i / (GLfloat)segments;
 
-			v2.Pos = glm::vec3(px, py, pz);
-			v2.U = pu;
-			v2.V = pv;
+			v2.x = px;
+			v2.y = py;
+			v2.z = pz;
+			v2.u = pu;
+			v2.v = pv;
 
 			AddVertex(v2);
 		}
@@ -117,14 +123,13 @@ void UVSphere::AddSolidSphere(float radius, float segments)
 void UVSphere::Render(glm::mat4 view, glm::mat4 proj)
 {
 	glm::mat4 combined = proj * view * Mat;
-
+	
 	glUseProgram(Fill->program);
 	glUniform1i(glGetUniformLocation(Fill->program, "Texture0"), 0);
-	glUniformMatrix4fv(glGetUniformLocation(Fill->program, "matWVP"), 1, GL_TRUE, (GLfloat*)&combined);
-
+	glUniformMatrix4fv(glGetUniformLocation(Fill->program, "matWVP"), 1, GL_FALSE, &combined[0][0]);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Fill->texture->GetTexturePointer());
-
+	
 	if (mShowGrid && mGridTexture)
 	{
 		glUniform1i(glGetUniformLocation(Fill->program, "Texture1"), 1);
@@ -137,21 +142,21 @@ void UVSphere::Render(glm::mat4 view, glm::mat4 proj)
 	{
 		glUniform1f(glGetUniformLocation(Fill->program, "mix"), 0.0f);
 	}
-
+	
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer->buffer);
-
 	glEnableVertexAttribArray(posLoc);
 	glEnableVertexAttribArray(uvLoc);
-
-	glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)CCRIFT_OFFSETOF(Vertex, Pos));
-	glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)CCRIFT_OFFSETOF(Vertex, U));
-
+	glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
+	glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+	
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, numVertices);
-
+	
 	glDisableVertexAttribArray(posLoc);
 	glDisableVertexAttribArray(uvLoc);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glUseProgram(0);
+
+	
 }

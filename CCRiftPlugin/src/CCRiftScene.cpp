@@ -13,56 +13,56 @@ Scene::~Scene()
 bool Scene::init(glm::ivec2 windowSize, glm::ivec2 frameSize)
 {
 	static const GLchar* VertexShaderSrc =
-		"#version 150\n"
+		"#version 120\n"
 		"uniform mat4 matWVP;\n"
-		"in      vec4 Position;\n"
-		"in      vec2 TexCoord;\n"
-		"out     vec2 oTexCoord;\n"
+		"attribute vec3 Position;\n"
+		"attribute vec2 TexCoord;\n"
+		"varying vec2 oTexCoord;\n"
 		"void main()\n"
 		"{\n"
-		"   gl_Position = (matWVP * Position);\n"
+		"   gl_Position = matWVP * vec4(Position, 1);\n"
 		"   oTexCoord   = TexCoord;\n"
 		"}\n";
 
 	static const char* FragmentShaderSrc =
-		"#version 150\n"
+		"#version 120\n"
 		"uniform sampler2D Texture0;\n"
 		"uniform sampler2D Texture1;\n"
 		"uniform float mix;\n"
-		"in      vec2      oTexCoord;\n"
-		"out     vec4      FragColor;\n"
+		"varying vec2 oTexCoord;\n"
 		"void main()\n"
 		"{\n"
 		"   vec3 FrameColor = texture2D(Texture0, oTexCoord).rgb;\n"
 		"   vec3 GridColor = texture2D(Texture1, oTexCoord).rgb;\n"
 		"   vec3 MixColor = (1.0 - mix) * FrameColor + mix * GridColor;\n"
-		"   FragColor = vec4(MixColor, 1.0);\n"
+		"   gl_FragColor = vec4(MixColor, 1.0);\n"
 		"}\n";
+
+	
 
 	GLuint    vshader = createShader(GL_VERTEX_SHADER, VertexShaderSrc);
 	GLuint    fshader = createShader(GL_FRAGMENT_SHADER, FragmentShaderSrc);
-
+	
 	ShaderFill * grid_material;
 
 	size_t tempBufferLength = frameSize.x * frameSize.y * 4; //hardcoded depth, bad
 	unsigned char* tempBuffer = new unsigned char[tempBufferLength];
-	memset(tempBuffer, 0, tempBufferLength);
+	memset(tempBuffer, 255, tempBufferLength);
 
 	FrameTexture * generated_texture = new FrameTexture(frameSize, true, false, 1, tempBuffer);
 
 	delete[] tempBuffer;
 
 	grid_material = new ShaderFill(vshader, fshader, generated_texture);
+	
 
-
+	
 	glDeleteShader(vshader);
 	glDeleteShader(fshader);
 
     sphere = new UVSphere(glm::vec3(0, 0, 0), grid_material);
-	sphere->AddSolidSphere(20.0f, 32.0f);
+	sphere->AddSolidSphere(10.0f, 32.0f);
 	sphere->AllocateBuffers();
-
-	
 
 	return true;
 }
@@ -73,15 +73,7 @@ void Scene::release()
 }
 
 void Scene::render(glm::mat4 view, glm::mat4 proj)
-{
-    glEnable(GL_DEPTH_TEST);
-    glFrontFace(GL_CW);
-    glEnable(GL_CULL_FACE);
-    
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glCullFace(GL_FRONT);
-
+{    
 	sphere->Render(view, proj);
 }
 

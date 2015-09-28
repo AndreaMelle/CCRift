@@ -1,20 +1,15 @@
 #include "CCRiftInstance.h"
-#include <stdio.h>
-#include <ctime>
-#include "CCRiftScene.h"
-#include <Kernel/OVR_System.h>
-#include "OVR_CAPI_GL.h"
 #include "CCRiftCommons.h"
-#include "CCRiftWinPreviewDevice.h"
+#include "CCRiftScene.h"
+#include "CCRiftGLFWPreviewDevice.h"
 
-using namespace OVR;
 using namespace CCRift;
 
 CCRiftInstance::CCRiftInstance(const tmInstance* inInstance,
 	const SDKDevicePtr& inDevice,
 	const SDKSettings& inSettings,
 	const SDKSuites& inSuites,
-	IDevice* previewDevice)
+	GLFWPreviewDevice* previewDevice)
 	: mDevice(inDevice)
 	, mSettings(inSettings)
 	, mSuites(inSuites)

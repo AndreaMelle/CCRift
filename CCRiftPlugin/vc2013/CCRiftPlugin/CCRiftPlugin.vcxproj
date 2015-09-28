@@ -18,6 +18,37 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\resources\resource.h" />
+    <ClInclude Include="..\..\src\CCRiftBufferHelpers.h" />
+    <ClInclude Include="..\..\src\CCRiftCommons.h" />
+    <ClInclude Include="..\..\src\CCRiftFrameTexture.h" />
+    <ClInclude Include="..\..\src\CCRiftGLFWPreviewDevice.h" />
+    <ClInclude Include="..\..\src\CCRiftIDevice.h" />
+    <ClInclude Include="..\..\src\CCRiftIPlatform.h" />
+    <ClInclude Include="..\..\src\CCRiftOGLPlatform.h" />
+    <ClInclude Include="..\..\src\CCRiftPlugin\CCRiftInstance.h" />
+    <ClInclude Include="..\..\src\CCRiftPlugin\CCRiftPlugin.h" />
+    <ClInclude Include="..\..\src\CCRiftScene.h" />
+    <ClInclude Include="..\..\src\CCRiftUVSphere.h" />
+    <ClInclude Include="..\..\src\CCRiftWinPreviewDevice.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\CCRiftFrameTexture.cpp" />
+    <ClCompile Include="..\..\src\CCRiftGLFWPreviewDevice.cpp" />
+    <ClCompile Include="..\..\src\CCRiftIDevice.cpp" />
+    <ClCompile Include="..\..\src\CCRiftOGLPlatform.cpp" />
+    <ClCompile Include="..\..\src\CCRiftPlugin\CCRiftInstance.cpp" />
+    <ClCompile Include="..\..\src\CCRiftPlugin\CCRiftPlugin.cpp" />
+    <ClCompile Include="..\..\src\CCRiftPlugin\CCRiftPluginEntryPoint.cpp" />
+    <ClCompile Include="..\..\src\CCRiftScene.cpp" />
+    <ClCompile Include="..\..\src\CCRiftUVSphere.cpp" />
+    <ClCompile Include="..\..\src\CCRiftWinPreviewDevice.cpp" />
+    <ClCompile Include="..\..\src\PrSDK\SDK_File.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\resources\Resource.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{353F40DF-016A-4C2C-9E73-ADC3EADB3B8A}</ProjectGuid>
     <RootNamespace>ExportController_SamplePlugin</RootNamespace>
@@ -122,12 +153,13 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(ProjectDir)\AdobePremiereProHeaders\;$(ProjectDir)\AdobePremiereProUtils\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(SolutionDir)\..\src;$(SolutionDir)\..\src\PrSDK;$(SolutionDir)\..\src\StandalonePreview;$(SolutionDir)\..\resources;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\include;$(SolutionDir)\..\deps\glm;$(SolutionDir)\..\deps\glew-1.13.0\include</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
+      <PreprocessorDefinitions>_WINDLL;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>PRWIN_ENV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -140,7 +172,7 @@
       <TargetMachine>MachineX64</TargetMachine>
       <ImportLibrary>$(IntDir)/$(TargetName).lib</ImportLibrary>
       <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
-      <AdditionalDependencies>$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\lib-vc2013\glfw3dll.lib;$(SolutionDir)\..\deps\glew-1.13.0\lib\$(Configuration)\$(Platform)\glew32sd.lib;$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>$(IntDir)$(TargetName).bsc</OutputFile>
@@ -177,12 +209,13 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(ProjectDir)\AdobePremiereProHeaders\;$(ProjectDir)\AdobePremiereProUtils\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(SolutionDir)\..\src;$(SolutionDir)\..\src\PrSDK;$(SolutionDir)\..\src\StandalonePreview;$(SolutionDir)\..\resources;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\include;$(SolutionDir)\..\deps\glm;$(SolutionDir)\..\deps\glew-1.13.0\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
+      <PreprocessorDefinitions>_WINDLL;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>PRWIN_ENV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -195,54 +228,12 @@
       </DataExecutionPrevention>
       <TargetMachine>MachineX64</TargetMachine>
       <ImportLibrary>$(IntDir)/$(TargetName).lib</ImportLibrary>
-      <AdditionalDependencies>$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\lib-vc2013\glfw3dll.lib;$(SolutionDir)\..\deps\glew-1.13.0\lib\$(Configuration)\$(Platform)\glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>$(IntDir)$(TargetName).bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="AdobePremiereProUtils\SDK_File.cpp" />
-    <ClCompile Include="CCRiftFrameTexture.cpp" />
-    <ClCompile Include="CCRiftIDevice.cpp" />
-    <ClCompile Include="CCRiftOGLPlatform.cpp" />
-    <ClCompile Include="CCRiftPluginEntryPoint.cpp" />
-    <ClCompile Include="CCRiftScene.cpp" />
-    <ClCompile Include="CCRiftUVSphere.cpp" />
-    <ClCompile Include="CCRiftPlugin.cpp" />
-    <ClCompile Include="CCRiftInstance.cpp" />
-    <ClCompile Include="CCRiftWinPreviewDevice.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Headers\PrSDKErrorSuite.h" />
-    <ClInclude Include="..\..\Headers\PrSDKPixelFormat.h" />
-    <ClInclude Include="..\..\Headers\PrSDKPlayModuleAudioSuite.h" />
-    <ClInclude Include="..\..\Headers\PrSDKPPixSuite.h" />
-    <ClInclude Include="..\..\Headers\PrSDKSequenceInfoSuite.h" />
-    <ClInclude Include="..\..\Headers\PrSDKThreadedWorkSuite.h" />
-    <ClInclude Include="..\..\Headers\PrSDKTimeSuite.h" />
-    <ClInclude Include="..\..\Headers\PrSDKTransmit.h" />
-    <ClInclude Include="..\..\Headers\PrSDKTypes.h" />
-    <ClInclude Include="AdobePremiereProUtils\SDK_File.h" />
-    <ClInclude Include="CCRiftBufferHelpers.h" />
-    <ClInclude Include="CCRiftCommons.h" />
-    <ClInclude Include="CCRiftFrameTexture.h" />
-    <ClInclude Include="CCRiftIDevice.h" />
-    <ClInclude Include="CCRiftInstance.h" />
-    <ClInclude Include="CCRiftIPlatform.h" />
-    <ClInclude Include="CCRiftOGLPlatform.h" />
-    <ClInclude Include="CCRiftPlugin.h" />
-    <ClInclude Include="CCRiftScene.h" />
-    <ClInclude Include="CCRiftUVSphere.h" />
-    <ClInclude Include="CCRiftWinPreviewDevice.h" />
-    <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Resource.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\grid.BMP" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

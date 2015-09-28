@@ -2,11 +2,10 @@
 #define __CCRIFT_IDEVICE_H__
 
 #include "CCRiftCommons.h"
-#include "CCRiftScene.h"
-#include "CCRiftOGLPlatform.h"
 #include <memory>
 #include <thread>
 #include <mutex>
+#include <atomic>
 
 #ifndef CCRIFT_MSW
 #define HINSTANCE int*
@@ -14,6 +13,15 @@
 
 namespace CCRift
 {
+	typedef enum ContextualMenuOptions
+	{
+		CONTEXTUAL_MENU_NONE,
+		CONTEXTUAL_MENU_RESET,
+		CONTEXTUAL_MENU_ABOUT,
+		CONTEXTUAL_MENU_GRIDTOGGLE,
+		CONTEXTUAL_MENU_LAST
+	};
+
 	class Process
 	{
 	public:
@@ -58,9 +66,12 @@ namespace CCRift
 		virtual void setActive(bool active) = 0;
 
 	protected:
-		IDevice() {}
+		IDevice() : contextualMenuCallback([](ContextualMenuOptions){}) {}
 		IDevice(IDevice const&) = delete;
 		void operator=(IDevice const&) = delete;
+
+		std::function<void(ContextualMenuOptions)> contextualMenuCallback;
+		
 
 	};
 }

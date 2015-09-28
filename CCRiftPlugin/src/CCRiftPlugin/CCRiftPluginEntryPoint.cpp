@@ -1,3 +1,4 @@
+#include "CCRiftCommons.h"
 #include "CCRiftPlugin.h"
 #include "CCRiftInstance.h"
 

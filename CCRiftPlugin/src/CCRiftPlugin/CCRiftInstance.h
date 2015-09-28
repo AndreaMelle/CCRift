@@ -5,7 +5,7 @@
 
 namespace CCRift
 {
-	class IDevice;
+	class GLFWPreviewDevice;
 }
 
 namespace CCRift
@@ -21,7 +21,7 @@ namespace CCRift
 			const SDKDevicePtr& inDevice,
 			const SDKSettings& inSettings,
 			const SDKSuites& inSuites,
-			IDevice* previewDevice);
+			GLFWPreviewDevice* previewDevice);
 
 		virtual ~CCRiftInstance();
 
@@ -56,7 +56,7 @@ namespace CCRift
 		prBool						mPlaying;
 		prBool						mSelfActive;
 
-		IDevice* mPreviewDevice;
+		GLFWPreviewDevice* mPreviewDevice;
 	};
 }
 

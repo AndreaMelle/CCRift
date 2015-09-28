@@ -1,10 +1,10 @@
-#ifdef CCRIFT_MSW
 #ifndef __CCRIFT_WINPREVIEWDEVICE_H__
 #define __CCRIFT_WINPREVIEWDEVICE_H__
 
-#include <Kernel/OVR_System.h>
-#include "OVR_CAPI_GL.h"
 #include "CCRiftCommons.h"
+
+#ifdef OCULUS_RIFT_PLATFORM
+
 #include "CCRiftScene.h"
 #include "CCRiftOGLPlatform.h"
 #include "CCRiftIDevice.h"
@@ -23,11 +23,11 @@ namespace CCRift
 		virtual int preferredFrameWidth() const override { return mFrameSize.w; }
 		virtual int preferredFrameHeight() const override { return mFrameSize.h; }
 		virtual size_t preferredFrameDepth() const override { return mFrameBufferDepth; }
-		virtual ovrSizei preferredFrameSize() const override { return mFrameSize; }
+		virtual glm::ivec2 preferredFrameSize() const override { return mFrameSize; }
 
 		virtual int windowWidth() const override { return mWindowSize.w; }
 		virtual int windowHeight() const override { return mWindowSize.h; }
-		virtual ovrSizei windowSize() const override { return mWindowSize; }
+		virtual glm::ivec2 windowSize() const override { return mWindowSize; }
 
 		virtual bool isRunning() const override { return mDeviceRunning; }
 
@@ -40,8 +40,8 @@ namespace CCRift
 		Scene* mScene;
 		OGLPlatform* mContext;
 		ovrGraphicsLuid mLuid;
-		ovrSizei mWindowSize;
-		ovrSizei mFrameSize;
+		glm::ivec2 mWindowSize;
+		glm::ivec2 mFrameSize;
 		HINSTANCE mModuleHandle; //is this the 'module' in win32 lingo?
 
 		Process mProcess;

@@ -1,6 +1,20 @@
 #ifndef __CCRIFT_COMMONS_H__
 #define __CCRIFT_COMMONS_H__
 
+#include <PrSDKTransmit.h>
+#include <PrSDKPlayModuleAudioSuite.h>
+#include <PrSDKPPixSuite.h>
+#include <PrSDKSequenceInfoSuite.h>
+#include <PrSDKThreadedWorkSuite.h>
+#include "SDK_File.h"
+
+
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <vector>
+#include <stdint.h>
+
 #if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
     #if defined(WINAPI_PARTITION_DESKTOP)
         #if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
@@ -26,6 +40,14 @@
 
 #define PREVIEW_PLATFORM
 
+#ifdef CCRIFT_MSW
+#include "resource.h"
+#endif
+
+#ifdef CCRIFT_MSW
+#define sleep(x) Sleep(x) 
+#endif
+
 #ifdef OCULUS_RIFT_PLATFORM
 	#include "GL/CAPI_GLE.h"
 	#include "Extras/OVR_Math.h"
@@ -33,17 +55,27 @@
 	#include "OVR_CAPI_GL.h"
 #else
 	#ifdef PREVIEW_PLATFORM
+		#ifdef CCRIFT_MSW
+		#define GLFW_EXPOSE_NATIVE_WIN32
+		#define GLFW_EXPOSE_NATIVE_WGL
+		#else
+			#ifdef CCRIFT_MAC
+				#define GLFW_EXPOSE_NATIVE_X11
+				#define GLFW_EXPOSE_NATIVE_NSGL
+			#endif
+		#endif
         #if USE_GLAD
             #include <glad/glad.h>
         #else
             #include <GL/glew.h>
         #endif
-
+		#include <GLFW/glfw3.h>
+		#include <GLFW\glfw3native.h>
 		#include <glm/fwd.hpp>
 		#include <glm/glm.hpp>
 		#include <glm/gtc/quaternion.hpp>
 		#include <glm/gtc/matrix_transform.hpp>
-		#include <GLFW/glfw3.h>
+		
 
         #define CCRIFT_OFFSETOF(class_, member_) offsetof(class_, member_)
 	#endif
@@ -58,21 +90,7 @@ typedef struct ovrFovPort_
 
 #endif
 
-#include <PrSDKTransmit.h>
-#include <PrSDKPlayModuleAudioSuite.h>
-#include <PrSDKPPixSuite.h>
-#include <PrSDKSequenceInfoSuite.h>
-#include <PrSDKThreadedWorkSuite.h>
-#include "SDK_File.h"
 
-#ifdef CCRIFT_MSW
-    #include "resource.h"
-#endif
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <vector>
-#include <stdint.h>
 
 #ifdef CCRIFT_MSW
     #define MAIN int WINAPI WinMain(HINSTANCE hinst, HINSTANCE, LPSTR, int)

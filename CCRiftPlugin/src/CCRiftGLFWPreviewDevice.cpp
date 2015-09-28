@@ -1,6 +1,5 @@
 #include "CCRiftGLFWPreviewDevice.h"
 
-
 using namespace std;
 using namespace CCRift;
 
@@ -29,27 +28,30 @@ GLFWPreviewDevice::GLFWPreviewDevice()
     , mMouseSensitivity(0.1f)
     , wasDown(false)
     , mActive(false)
+	
 {
 	mFrameBufferLength = mFrameSize.x * mFrameSize.y * mFrameBufferDepth;
 	mFrameDataBuffer = new unsigned char[mFrameBufferLength];
 
-	mAspectRatio = (float)mWindowSize.y / (float)mWindowSize.y;
+	mAspectRatio = (float)mWindowSize.x / (float)mWindowSize.y;
 
-	float verticalFovRadians = 60.0f * M_PI / 180.0f;
+	float verticalFovDegrees = 60.0f ;
+	float verticalFovRadians = verticalFovDegrees * M_PI / 180.0f;
 
 	mFov.DownTan = tan(verticalFovRadians * 0.5f);
 	mFov.UpTan = mFov.DownTan;
 	mFov.LeftTan = mAspectRatio * mFov.DownTan;
 	mFov.RightTan = mFov.LeftTan;
     
-    mProj = glm::perspective(verticalFovRadians, mAspectRatio, 0.1f, 100.0f); //RH
+	mProj = glm::perspectiveFovRH(verticalFovRadians, (float)mWindowSize.x, (float)mWindowSize.y, 0.1f, 100.0f); //RH
 	//mProj = ovrMatrix4f_Projection(mFov, 0.1f, 100.0f, ovrProjection_RightHanded);
 }
 
 GLFWPreviewDevice::~GLFWPreviewDevice()
 {
 	this->stop();
-	delete[] mFrameDataBuffer;
+	if (mFrameDataBuffer)
+		delete[] mFrameDataBuffer;
 }
 
 void GLFWPreviewDevice::pushFrame(const void* data)
@@ -66,7 +68,6 @@ void GLFWPreviewDevice::setActive(bool active)
 {
 	if (active)
 	{
-		
 		//mContext->BringWindowToFront();
 	}
 	else
@@ -114,28 +115,28 @@ void GLFWPreviewDevice::start(HINSTANCE hinst)
 	};
     
     
-    glfwSetErrorCallback(error_callback);
-    
-    if (!glfwInit())
-    {
-        //MessageBoxA(NULL, "Failed to initialize OpenGL context.", "CCRift Preview", MB_ICONERROR | MB_OK);
-        return;
-    }
-    
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    
-    window = glfwCreateWindow(mWindowSize.x, mWindowSize.y, "CCRift Panorama Preview", NULL, NULL);
-    
-    if (!window)
-    {
-        //MessageBoxA(NULL, "Failed to open window.", "CCRift Preview", MB_ICONERROR | MB_OK);
-        glfwTerminate();
-        return;
-    }
+    //glfwSetErrorCallback(error_callback);
+    //
+    //if (!glfwInit())
+    //{
+    //    //MessageBoxA(NULL, "Failed to initialize OpenGL context.", "CCRift Preview", MB_ICONERROR | MB_OK);
+    //    return;
+    //}
+    //
+    //glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    //
+    //window = glfwCreateWindow(mWindowSize.x, mWindowSize.y, "CCRift Panorama Preview", NULL, NULL);
+    //
+    //if (!window)
+    //{
+    //    //MessageBoxA(NULL, "Failed to open window.", "CCRift Preview", MB_ICONERROR | MB_OK);
+    //    glfwTerminate();
+    //    return;
+    //}
 
 	mProcess.start();
 
@@ -143,54 +144,52 @@ void GLFWPreviewDevice::start(HINSTANCE hinst)
 
 void GLFWPreviewDevice::stop()
 {
-	mProcess.stop();
+	if (mProcess.mRunning)
+		mProcess.stop();
 }
 
 
 HRESULT GLFWPreviewDevice::deviceSetup()
 {
-//	glfwSetErrorCallback(error_callback);
-//
-//	if (!glfwInit())
-//	{
-//		//MessageBoxA(NULL, "Failed to initialize OpenGL context.", "CCRift Preview", MB_ICONERROR | MB_OK);
-//		return E_FAIL;
-//	}
+	glfwSetErrorCallback(error_callback);
 
-//	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-//	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-//	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-//	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-//	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-//
-//	window = glfwCreateWindow(mWindowSize.x, mWindowSize.y, "CCRift Panorama Preview", NULL, NULL);
-//
-//	if (!window)
-//	{
-//		//MessageBoxA(NULL, "Failed to open window.", "CCRift Preview", MB_ICONERROR | MB_OK);
-//		glfwTerminate();
-//		return E_FAIL;
-//	}
+	if (!glfwInit())
+	{
+		//MessageBoxA(NULL, "Failed to initialize OpenGL context.", "CCRift Preview", MB_ICONERROR | MB_OK);
+		return E_FAIL;
+	}
+
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
+	window = glfwCreateWindow(mWindowSize.x, mWindowSize.y, "CCRift Panorama Preview", NULL, NULL);
+
+
+	if (!window)
+	{
+		//MessageBoxA(NULL, "Failed to open window.", "CCRift Preview", MB_ICONERROR | MB_OK);
+		glfwTerminate();
+		return E_FAIL;
+	}
 
 	glfwMakeContextCurrent(window);
-    
-    glewExperimental = true;
-    
+
+	//glewExperimental = GL_TRUE;
+
     if(glewInit() != GLEW_OK)
     {
         //printf("Failed to initialize GLEW\n");
         return E_FAIL;
     }
     
-    glEnable(GL_DEPTH_TEST);
-    glFrontFace(GL_CW);
-    glEnable(GL_CULL_FACE);
-    
 	glfwSwapInterval(1);
 
 	glfwSetKeyCallback(window, key_callback);
-	glfwSetInputMode(window, GLFW_STICKY_MOUSE_BUTTONS, 1);
-
+	//glfwSetInputMode(window, GLFW_STICKY_MOUSE_BUTTONS, GL_TRUE);
+	
 	mScene = new Scene();
 
 	if (!mScene->init(mWindowSize, mFrameSize))
@@ -199,21 +198,30 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		return E_FAIL;
 	}
 
-	/*mContext->contextualMenuCallback = [&](OGLPlatform::ContextualMenuOptions sel){
-		if (sel == OGLPlatform::CONTEXTUAL_MENU_RESET)
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+
+	glFrontFace(GL_CW);
+	glEnable(GL_CULL_FACE);
+
+	contextualMenuCallback = [&](ContextualMenuOptions sel){
+		if (sel == CONTEXTUAL_MENU_RESET)
 		{
 			lat = 0;
 			lon = 0;
 		}
-		else if (sel == OGLPlatform::CONTEXTUAL_MENU_ABOUT)
+		else if (sel == CONTEXTUAL_MENU_ABOUT)
 		{
-			MessageBoxA(mContext->Window, "v0.1\n\nSeptember 2015\n\nandrea.melle@happyfinish.com", "About", MB_ICONINFORMATION | MB_OK);
+#ifdef CCRIFT_MSW
+			HWND h = glfwGetWin32Window(window);
+			MessageBoxA(h, "v0.1\n\nSeptember 2015\n\nandrea.melle@happyfinish.com", "About", MB_ICONINFORMATION | MB_OK);
+#endif
 		}
-		else if (sel == OGLPlatform::CONTEXTUAL_MENU_GRIDTOGGLE)
+		else if (sel == CONTEXTUAL_MENU_GRIDTOGGLE)
 		{
 			mScene->getSphere()->toggleGrid();
 		}
-	};*/
+	};
 
 	// Turn off vsync to let the compositor do its magic
 	//wglSwapIntervalEXT(0);
@@ -256,6 +264,35 @@ glm::vec3 GLFWPreviewDevice::handleMouseInput()
 	result.y = 500.0f * cos(phi);
 	result.z = 500.0f * sin(phi) * sin(theta);
 
+	state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
+
+	if (state == GLFW_PRESS)
+	{
+#ifdef CCRIFT_MSW
+		HMENU hPopupMenu = CreatePopupMenu();
+		InsertMenuW(hPopupMenu, 0, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_RESET, L"Reset");
+		InsertMenuW(hPopupMenu, 1, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_GRIDTOGGLE, L"Toggle Grid");
+		InsertMenuW(hPopupMenu, 2, MF_SEPARATOR | MF_BYPOSITION, 0, NULL);
+		InsertMenuW(hPopupMenu, 3, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_ABOUT, L"About");
+		
+		HWND h = glfwGetWin32Window(window);
+		RECT rcWindow, rcClient;
+		GetWindowRect(h, &rcWindow);
+		GetClientRect(h, &rcClient);
+
+		int ptDiff = (rcWindow.bottom - rcWindow.top) - rcClient.bottom;
+
+		int sel = TrackPopupMenuEx(hPopupMenu,
+			TPM_TOPALIGN | TPM_LEFTALIGN | TPM_RETURNCMD,
+			rcWindow.left + (int)xpos,
+			rcWindow.top + (int)ypos + ptDiff, h, NULL);
+
+		contextualMenuCallback((ContextualMenuOptions)sel);
+
+		DestroyMenu(hPopupMenu);
+#endif
+	}
+
 	return result;
 }
 
@@ -274,10 +311,15 @@ HRESULT GLFWPreviewDevice::deviceUpdate()
 		glm::vec3 target = handleMouseInput();
         glm::mat4 view = glm::lookAtRH(glm::vec3(0, 0, 0), target, glm::vec3(0, 1, 0));
 
+		//glViewport(0, 0, mWindowSize.x, mWindowSize.y);
+		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glCullFace(GL_FRONT);
+
 		mScene->render(view, mProj);
 
 		glfwSwapBuffers(window);
-		//glfwPollEvents();
+		glfwPollEvents();
 	}
 	else
 	{

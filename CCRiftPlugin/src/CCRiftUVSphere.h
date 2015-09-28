@@ -28,11 +28,13 @@ namespace CCRift
 
 	private:
 
+#pragma pack(push, 1)
 		struct Vertex
 		{
-			glm::vec3  Pos;
-			float     U, V;
+			GLfloat x, y, z;
+			GLfloat u, v;
 		};
+#pragma pack(pop)
 
 		glm::vec3        Pos;
 		glm::quat       Rot;

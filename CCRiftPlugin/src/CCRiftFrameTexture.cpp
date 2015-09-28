@@ -12,10 +12,8 @@ FrameTexture::FrameTexture(glm::ivec2 size,
 {
 
 	mTexSize = size;
-
 	glGenTextures(1, &mTexId);
 	glBindTexture(GL_TEXTURE_2D, mTexId);
-
 	if (!generateMipMaps)
 	{
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -35,7 +33,6 @@ FrameTexture::FrameTexture(glm::ivec2 size,
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, mTexSize.x, mTexSize.y, 0, GL_BGRA, GL_UNSIGNED_BYTE, data);
 	else
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, mTexSize.x, mTexSize.y, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
-
 
 	if (generateMipMaps && mipLevels > 1)
 	{

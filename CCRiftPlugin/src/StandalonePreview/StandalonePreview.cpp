@@ -42,7 +42,6 @@ MAIN
 	}
 
 	mDevice->stop();
-	delete mDevice;
 
 	return 0;
 }
