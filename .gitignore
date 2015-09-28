@@ -9,6 +9,8 @@ builds/
 
 # Created by https://www.gitignore.io/api/xcode
 
+.DS_Store
+
 ### Xcode ###
 # Xcode
 #
