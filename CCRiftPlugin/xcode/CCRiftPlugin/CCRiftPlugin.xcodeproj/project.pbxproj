@@ -15,7 +15,7 @@
 		3C681C4D1BBB1D0500E76EB3 /* CCRiftScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C3F1BBB1D0500E76EB3 /* CCRiftScene.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C4E1BBB1D0500E76EB3 /* CCRiftOGLPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C411BBB1D0500E76EB3 /* CCRiftOGLPlatform.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C4F1BBB1D0500E76EB3 /* CCRiftIDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C441BBB1D0500E76EB3 /* CCRiftIDevice.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C681C501BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C451BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.mm */; settings = {ASSET_TAGS = (); }; };
+		3C681C501BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C451BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C511BBB1D0500E76EB3 /* CCRiftFrameTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C481BBB1D0500E76EB3 /* CCRiftFrameTexture.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C571BBB1D1A00E76EB3 /* CCRiftPluginEntryPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C521BBB1D1A00E76EB3 /* CCRiftPluginEntryPoint.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C581BBB1D1A00E76EB3 /* CCRiftPlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C541BBB1D1A00E76EB3 /* CCRiftPlugin.cpp */; settings = {ASSET_TAGS = (); }; };
@@ -148,7 +148,7 @@
 		3C681C421BBB1D0500E76EB3 /* CCRiftIPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftIPlatform.h; path = ../../src/CCRiftIPlatform.h; sourceTree = "<group>"; };
 		3C681C431BBB1D0500E76EB3 /* CCRiftIDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftIDevice.h; path = ../../src/CCRiftIDevice.h; sourceTree = "<group>"; };
 		3C681C441BBB1D0500E76EB3 /* CCRiftIDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftIDevice.cpp; path = ../../src/CCRiftIDevice.cpp; sourceTree = "<group>"; };
-		3C681C451BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CCRiftGLFWPreviewDevice.mm; path = ../../src/CCRiftGLFWPreviewDevice.mm; sourceTree = "<group>"; };
+		3C681C451BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftGLFWPreviewDevice.cpp; path = ../../src/CCRiftGLFWPreviewDevice.cpp; sourceTree = "<group>"; };
 		3C681C461BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftGLFWPreviewDevice.h; path = ../../src/CCRiftGLFWPreviewDevice.h; sourceTree = "<group>"; };
 		3C681C471BBB1D0500E76EB3 /* CCRiftFrameTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftFrameTexture.h; path = ../../src/CCRiftFrameTexture.h; sourceTree = "<group>"; };
 		3C681C481BBB1D0500E76EB3 /* CCRiftFrameTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftFrameTexture.cpp; path = ../../src/CCRiftFrameTexture.cpp; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		3C681C561BBB1D1A00E76EB3 /* CCRiftInstance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftInstance.cpp; path = ../../src/CCRiftPlugin/CCRiftInstance.cpp; sourceTree = "<group>"; };
 		7E48CD0E1700FCA400D1EFDC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		7EFEE1D015E5641300B7561D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		8D576316048677EA00EA77CD /* Transmitter.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Transmitter.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D576316048677EA00EA77CD /* CCRiftPlugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CCRiftPlugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D576317048677EA00EA77CD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,7 +224,7 @@
 				3C681C421BBB1D0500E76EB3 /* CCRiftIPlatform.h */,
 				3C681C431BBB1D0500E76EB3 /* CCRiftIDevice.h */,
 				3C681C441BBB1D0500E76EB3 /* CCRiftIDevice.cpp */,
-				3C681C451BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.mm */,
+				3C681C451BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.cpp */,
 				3C681C461BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.h */,
 				3C681C471BBB1D0500E76EB3 /* CCRiftFrameTexture.h */,
 				3C681C481BBB1D0500E76EB3 /* CCRiftFrameTexture.cpp */,
@@ -237,7 +237,7 @@
 		19C28FB6FE9D52B211CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D576316048677EA00EA77CD /* Transmitter.bundle */,
+				8D576316048677EA00EA77CD /* CCRiftPlugin.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -374,9 +374,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D57630D048677EA00EA77CD /* Transmitter */ = {
+		8D57630D048677EA00EA77CD /* CCRiftPlugin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "Transmitter" */;
+			buildConfigurationList = 1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "CCRiftPlugin" */;
 			buildPhases = (
 				8D57630F048677EA00EA77CD /* Resources */,
 				8D576311048677EA00EA77CD /* Sources */,
@@ -386,10 +386,10 @@
 			);
 			dependencies = (
 			);
-			name = Transmitter;
+			name = CCRiftPlugin;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = Transmitter;
-			productReference = 8D576316048677EA00EA77CD /* Transmitter.bundle */;
+			productReference = 8D576316048677EA00EA77CD /* CCRiftPlugin.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -400,7 +400,7 @@
 			attributes = {
 				LastUpgradeCheck = 0630;
 			};
-			buildConfigurationList = 1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "Transmitter" */;
+			buildConfigurationList = 1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "CCRiftPlugin" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -414,7 +414,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D57630D048677EA00EA77CD /* Transmitter */,
+				8D57630D048677EA00EA77CD /* CCRiftPlugin */,
 			);
 		};
 /* End PBXProject section */
@@ -444,7 +444,7 @@
 				3C681C4B1BBB1D0500E76EB3 /* CCRiftWinPreviewDevice.cpp in Sources */,
 				3C681C571BBB1D1A00E76EB3 /* CCRiftPluginEntryPoint.cpp in Sources */,
 				3C681C361BBB1C7600E76EB3 /* SDK_Segment_Utils.cpp in Sources */,
-				3C681C501BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.mm in Sources */,
+				3C681C501BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.cpp in Sources */,
 				3C681C581BBB1D1A00E76EB3 /* CCRiftPlugin.cpp in Sources */,
 				3C681C591BBB1D1A00E76EB3 /* CCRiftInstance.cpp in Sources */,
 			);
@@ -607,7 +607,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "Transmitter" */ = {
+		1DEB911A08733D790010E9CD /* Build configuration list for PBXNativeTarget "CCRiftPlugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB911B08733D790010E9CD /* Debug */,
@@ -616,7 +616,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "Transmitter" */ = {
+		1DEB911E08733D790010E9CD /* Build configuration list for PBXProject "CCRiftPlugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB911F08733D790010E9CD /* Debug */,
