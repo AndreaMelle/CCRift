@@ -19,6 +19,11 @@ static void close_callback(GLFWwindow* window)
 	glfwSetWindowShouldClose(window, GL_FALSE);
 }
 
+static void size_callback(GLFWwindow* window, int width, int height)
+{
+	IDevice<GLFWPreviewDevice>::Instance().glfwResizeCallback(window, width, height);
+}
+
 GLFWPreviewDevice::GLFWPreviewDevice()
 : mWindowSize(glm::ivec2(960, 540))
     , mFrameSize(glm::ivec2(1920, 960))
@@ -33,23 +38,18 @@ GLFWPreviewDevice::GLFWPreviewDevice()
     , mMouseSensitivity(0.1f)
     , wasDown(false)
     , mActive(false)
+	, mParentWindow(0)
+	, contextualMenuCallback([](ContextualMenuOptions){})
+	, verticalFovDegrees(60.0f)
+	, mAlwaysOnTop(false)
 	
 {
 	mFrameBufferLength = mFrameSize.x * mFrameSize.y * mFrameBufferDepth;
 	mFrameDataBuffer = new unsigned char[mFrameBufferLength];
 
 	mAspectRatio = (float)mWindowSize.x / (float)mWindowSize.y;
-
-	float verticalFovDegrees = 60.0f ;
 	float verticalFovRadians = verticalFovDegrees * M_PI / 180.0f;
-
-	mFov.DownTan = tan(verticalFovRadians * 0.5f);
-	mFov.UpTan = mFov.DownTan;
-	mFov.LeftTan = mAspectRatio * mFov.DownTan;
-	mFov.RightTan = mFov.LeftTan;
-    
 	mProj = glm::perspectiveFovRH(verticalFovRadians, (float)mWindowSize.x, (float)mWindowSize.y, 0.1f, 100.0f); //RH
-	//mProj = ovrMatrix4f_Projection(mFov, 0.1f, 100.0f, ovrProjection_RightHanded);
 }
 
 GLFWPreviewDevice::~GLFWPreviewDevice()
@@ -73,13 +73,13 @@ void GLFWPreviewDevice::setActive(bool active)
 {
 	if (active)
 	{
-#ifdef IS_PLUGIN
-#ifdef CCRIFT_MSW
-		HWND h = glfwGetWin32Window(window);
-		SetFocus(h);
-		SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-#endif
-#endif
+//#ifdef IS_PLUGIN
+//#ifdef CCRIFT_MSW
+//		HWND h = glfwGetWin32Window(window);
+//		SetFocus(h);
+//		SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+//#endif
+//#endif
 	}
 	else
 	{
@@ -125,30 +125,6 @@ void GLFWPreviewDevice::start(HINSTANCE hinst)
 		mDeviceRunning = false;
 	};
     
-    
-    //glfwSetErrorCallback(error_callback);
-    //
-    //if (!glfwInit())
-    //{
-    //    //MessageBoxA(NULL, "Failed to initialize OpenGL context.", "CCRift Preview", MB_ICONERROR | MB_OK);
-    //    return;
-    //}
-    //
-    //glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-    //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    //
-    //window = glfwCreateWindow(mWindowSize.x, mWindowSize.y, "CCRift Panorama Preview", NULL, NULL);
-    //
-    //if (!window)
-    //{
-    //    //MessageBoxA(NULL, "Failed to open window.", "CCRift Preview", MB_ICONERROR | MB_OK);
-    //    glfwTerminate();
-    //    return;
-    //}
-
 	mProcess.start();
 
 }
@@ -170,7 +146,7 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		return E_FAIL;
 	}
 
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	//glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -199,6 +175,7 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	glfwSwapInterval(1);
 
 	glfwSetKeyCallback(window, key_callback);
+	glfwSetWindowSizeCallback(window, size_callback);
 
 #ifdef IS_PLUGIN
 	glfwSetWindowCloseCallback(window, close_callback);
@@ -207,6 +184,7 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	HWND h = glfwGetWin32Window(window);
 	SetFocus(h);
 	SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+	mAlwaysOnTop = true;
 
 	//int count;
 	//GLFWmonitor** monitors = glfwGetMonitors(&count);
@@ -276,6 +254,24 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		else if (sel == CONTEXTUAL_MENU_GRIDTOGGLE)
 		{
 			mScene->getSphere()->toggleGrid();
+
+		}
+		else if (sel == CONTEXTUAL_MENU_ALWAYSONTOP)
+		{
+#ifdef IS_PLUGIN
+#ifdef CCRIFT_MSW
+			HWND h = glfwGetWin32Window(window);
+			SetFocus(h);
+			if (mAlwaysOnTop)
+			{
+				SetWindowPos(h, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+				SetWindowPos(h, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+			}
+			else
+				SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+			mAlwaysOnTop = !mAlwaysOnTop;
+#endif
+#endif
 		}
 	};
 
@@ -327,10 +323,16 @@ glm::vec3 GLFWPreviewDevice::handleMouseInput()
 #ifdef CCRIFT_MSW
 		HMENU hPopupMenu = CreatePopupMenu();
 		InsertMenuW(hPopupMenu, 0, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_RESET, L"Reset");
-		InsertMenuW(hPopupMenu, 1, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_GRIDTOGGLE, L"Toggle Grid");
-		InsertMenuW(hPopupMenu, 2, MF_SEPARATOR | MF_BYPOSITION, 0, NULL);
-		InsertMenuW(hPopupMenu, 3, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_ABOUT, L"About");
 		
+		UINT gridFlags = MF_BYPOSITION | MF_STRING | (mScene->getSphere()->Grid() ? MF_CHECKED : 0);
+		InsertMenuW(hPopupMenu, 1, gridFlags, CONTEXTUAL_MENU_GRIDTOGGLE, L"Grid");
+#ifdef IS_PLUGIN
+		UINT ontopFlags = MF_BYPOSITION | MF_STRING | (mAlwaysOnTop ? MF_CHECKED : 0);
+		InsertMenuW(hPopupMenu, 2, ontopFlags, CONTEXTUAL_MENU_ALWAYSONTOP, L"Always On Top");
+#endif
+		InsertMenuW(hPopupMenu, 3, MF_SEPARATOR | MF_BYPOSITION, 0, NULL);
+		InsertMenuW(hPopupMenu, 4, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_ABOUT, L"About");
+
 		HWND h = glfwGetWin32Window(window);
 		RECT rcWindow, rcClient;
 		GetWindowRect(h, &rcWindow);
@@ -396,7 +398,20 @@ HRESULT GLFWPreviewDevice::deviceTeardown()
 	return S_OK;
 }
 
-void GLFWPreviewDevice::glfwKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+void GLFWPreviewDevice::glfwResizeCallback(GLFWwindow* w, int width, int height)
+{
+	if (window != w) return;
+
+	mWindowSize.x = width;
+	mWindowSize.y = height;
+
+	mAspectRatio = (float)mWindowSize.x / (float)mWindowSize.y;
+	float verticalFovRadians = verticalFovDegrees * M_PI / 180.0f;
+	mProj = glm::perspectiveFovRH(verticalFovRadians, (float)mWindowSize.x, (float)mWindowSize.y, 0.1f, 100.0f); //RH
+	glViewport(0, 0, mWindowSize.x, mWindowSize.y);
+}
+
+void GLFWPreviewDevice::glfwKeyCallback(GLFWwindow* w, int key, int scancode, int action, int mods)
 {
 #ifndef IS_PLUGIN
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)

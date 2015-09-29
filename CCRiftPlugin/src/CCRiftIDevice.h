@@ -19,6 +19,7 @@ namespace CCRift
 		CONTEXTUAL_MENU_RESET,
 		CONTEXTUAL_MENU_ABOUT,
 		CONTEXTUAL_MENU_GRIDTOGGLE,
+		CONTEXTUAL_MENU_ALWAYSONTOP,
 		CONTEXTUAL_MENU_LAST
 	};
 
@@ -48,13 +49,6 @@ namespace CCRift
 
 		virtual ~IDevice() {}
 
-#ifdef CCRIFT_MSW
-		void setMainWindowHandle(HWND handle)
-		{
-			mParentWindow = handle;
-		};
-#endif
-
 		virtual void start(HINSTANCE hinst = NULL) = 0;
 		virtual void stop() = 0;
 
@@ -63,9 +57,7 @@ namespace CCRift
 		virtual size_t preferredFrameDepth() const = 0;
         virtual glm::ivec2 preferredFrameSize() const = 0;
 
-		virtual int windowWidth() const = 0;
-		virtual int windowHeight() const = 0;
-		virtual glm::ivec2 windowSize() const = 0;
+		
 
 		virtual bool isRunning() const = 0;
 
@@ -73,16 +65,9 @@ namespace CCRift
 		virtual void setActive(bool active) = 0;
 
 	protected:
-		IDevice() : mParentWindow(0), contextualMenuCallback([](ContextualMenuOptions){}) {}
+		IDevice()  {}
 		IDevice(IDevice const&) = delete;
 		void operator=(IDevice const&) = delete;
-
-		std::function<void(ContextualMenuOptions)> contextualMenuCallback;
-
-#ifdef CCRIFT_MSW
-		HWND mParentWindow;
-#endif
-
 	};
 }
 

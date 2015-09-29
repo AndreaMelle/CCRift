@@ -69,7 +69,7 @@ void UVSphere::AddSolidSphere(float radius, float segments)
 	GLfloat px, py, pz, pu, pv, nx, ny, nz;
 
 
-	for (int i = 0; i < segments / 2; ++i)
+	for (int i = 0; i < segments / 2.0f; ++i)
 	{
 		theta1 = i * 2.0f * M_PI / segments - M_PI * 0.5f;
 		theta2 = (i + 1) * 2.0f * M_PI / segments - M_PI * 0.5f;
