@@ -63,6 +63,10 @@ tmResult CCRiftInstance::ActivateDeactivate(const tmStdParms* inStdParms,
 	if (inVideoActive)
 	{
 		//	mDevice->StartTransmit();
+		if (mPreviewDevice && !mPreviewDevice->isRunning())
+		{
+			mPreviewDevice->start();
+		}
 		mPreviewDevice->setActive(true);
 		mSelfActive = true;
 	}
@@ -147,6 +151,11 @@ tmResult CCRiftInstance::PushVideo(const tmStdParms* inStdParms,
 
 	LONG w = abs(frameBounds.right - frameBounds.left);
 	LONG h = abs(frameBounds.top - frameBounds.bottom);
+
+	if (mSelfActive && mPreviewDevice && !mPreviewDevice->isRunning())
+	{
+		mPreviewDevice->start();
+	}
 		
 	if (mSelfActive && mPreviewDevice && mPreviewDevice->isRunning())
 	{

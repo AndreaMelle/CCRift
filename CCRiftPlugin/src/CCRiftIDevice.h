@@ -19,6 +19,7 @@ namespace CCRift
 		CONTEXTUAL_MENU_RESET,
 		CONTEXTUAL_MENU_ABOUT,
 		CONTEXTUAL_MENU_GRIDTOGGLE,
+		CONTEXTUAL_MENU_ALWAYSONTOP,
 		CONTEXTUAL_MENU_LAST
 	};
 
@@ -56,9 +57,7 @@ namespace CCRift
 		virtual size_t preferredFrameDepth() const = 0;
         virtual glm::ivec2 preferredFrameSize() const = 0;
 
-		virtual int windowWidth() const = 0;
-		virtual int windowHeight() const = 0;
-		virtual glm::ivec2 windowSize() const = 0;
+		
 
 		virtual bool isRunning() const = 0;
 
@@ -66,13 +65,9 @@ namespace CCRift
 		virtual void setActive(bool active) = 0;
 
 	protected:
-		IDevice() : contextualMenuCallback([](ContextualMenuOptions){}) {}
+		IDevice()  {}
 		IDevice(IDevice const&) = delete;
 		void operator=(IDevice const&) = delete;
-
-		std::function<void(ContextualMenuOptions)> contextualMenuCallback;
-		
-
 	};
 }
 

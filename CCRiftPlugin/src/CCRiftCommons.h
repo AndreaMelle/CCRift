@@ -139,6 +139,7 @@ typedef struct
 	PrSDKSequenceInfoSuite*			SequenceInfoSuite;
 	PrSDKThreadedWorkSuiteVersion3*	ThreadedWorkSuite;
 	PrSDKTimeSuite*					TimeSuite;
+	PrSDKWindowSuite*				WindowSuite;
 } SDKSuites;
 
 #ifdef CCRIFT_MSW

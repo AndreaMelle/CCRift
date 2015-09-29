@@ -15,6 +15,13 @@ namespace CCRift
 		
 		virtual ~GLFWPreviewDevice();
 
+#ifdef CCRIFT_MSW
+		void setMainWindowHandle(HWND handle)
+		{
+			mParentWindow = handle;
+		};
+#endif
+
 		virtual void start(HINSTANCE hinst = NULL) override;
 		virtual void stop() override;
 
@@ -23,9 +30,9 @@ namespace CCRift
 		virtual size_t preferredFrameDepth() const override { return mFrameBufferDepth; }
         virtual glm::ivec2 preferredFrameSize() const override { return mFrameSize; }
 
-		virtual int windowWidth() const override { return mWindowSize.x; }
-		virtual int windowHeight() const override { return mWindowSize.y; }
-		virtual glm::ivec2 windowSize() const override { return mWindowSize; }
+		int windowWidth() const { return mWindowSize.x; }
+		int windowHeight() const { return mWindowSize.y; }
+		glm::ivec2 windowSize() const { return mWindowSize; }
 
 		virtual bool isRunning() const override { return mDeviceRunning; }
 
@@ -33,7 +40,8 @@ namespace CCRift
 		virtual void setActive(bool active) override;
 
 		void glfwErrorCallback(int error, const char* description);
-		void glfwKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+		void glfwKeyCallback(GLFWwindow* w, int key, int scancode, int action, int mods);
+		void glfwResizeCallback(GLFWwindow* w, int width, int height);
 
 	protected:
 		GLFWPreviewDevice();
@@ -65,16 +73,29 @@ namespace CCRift
 		float onMouseDownLat;
 		float mMouseSensitivity;
 		bool wasDown;
-
+		bool mAlwaysOnTop;
 		bool mActive;
 
         glm::vec3 handleMouseInput();
 
+		float verticalFovDegrees;
 		float mAspectRatio;
-		ovrFovPort mFov;
         glm::mat4 mProj;
 
+		std::function<void(ContextualMenuOptions)> contextualMenuCallback;
+
+#ifdef CCRIFT_MSW
+		HWND mParentWindow;
+#endif
+
+
 	};
+
+	static void CreateContextualMenu(std::function<void(ContextualMenuOptions)>& contextualMenuCallback)
+	{
+
+	}
+
 }
 
 #endif //__CCRIFT_GLFWPREVIEWDEVICE_H__
