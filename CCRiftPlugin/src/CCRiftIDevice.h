@@ -48,6 +48,13 @@ namespace CCRift
 
 		virtual ~IDevice() {}
 
+#ifdef CCRIFT_MSW
+		void setMainWindowHandle(HWND handle)
+		{
+			mParentWindow = handle;
+		};
+#endif
+
 		virtual void start(HINSTANCE hinst = NULL) = 0;
 		virtual void stop() = 0;
 
@@ -66,12 +73,15 @@ namespace CCRift
 		virtual void setActive(bool active) = 0;
 
 	protected:
-		IDevice() : contextualMenuCallback([](ContextualMenuOptions){}) {}
+		IDevice() : mParentWindow(0), contextualMenuCallback([](ContextualMenuOptions){}) {}
 		IDevice(IDevice const&) = delete;
 		void operator=(IDevice const&) = delete;
 
 		std::function<void(ContextualMenuOptions)> contextualMenuCallback;
-		
+
+#ifdef CCRIFT_MSW
+		HWND mParentWindow;
+#endif
 
 	};
 }

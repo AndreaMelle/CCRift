@@ -12,8 +12,7 @@ CCRiftPlugin::CCRiftPlugin(
 {
 	// Here, you could make sure hardware is available
 
-	mPreviewDevice = &IDevice<GLFWPreviewDevice>::Instance();
-	mPreviewDevice->start();
+	
 
 	copyConvertStringLiteralIntoUTF16(PLUGIN_DISPLAY_NAME, outPluginInfo->outDisplayName);
 
@@ -24,6 +23,7 @@ CCRiftPlugin::CCRiftPlugin(
 	outPluginInfo->outVideoDefaultEnabled = kPrTrue;
 	outPluginInfo->outHasSetup = kPrFalse; //kPrTrue
 
+
 	// Acquire any suites needed!
 	mSuites.SPBasic = ioStdParms->piSuites->utilFuncs->getSPBasicSuite();
 	//mSuites.SPBasic->AcquireSuite(kPrSDKPlayModuleAudioSuite, kPrSDKPlayModuleAudioSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&mSuites.PlayModuleAudioSuite)));
@@ -31,6 +31,17 @@ CCRiftPlugin::CCRiftPlugin(
 	mSuites.SPBasic->AcquireSuite(kPrSDKSequenceInfoSuite, kPrSDKSequenceInfoSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&mSuites.SequenceInfoSuite)));
 	mSuites.SPBasic->AcquireSuite(kPrSDKThreadedWorkSuite, kPrSDKThreadedWorkSuiteVersion3, const_cast<const void**>(reinterpret_cast<void**>(&mSuites.ThreadedWorkSuite)));
 	mSuites.SPBasic->AcquireSuite(kPrSDKTimeSuite, kPrSDKTimeSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&mSuites.TimeSuite)));
+
+	mPreviewDevice = &IDevice<GLFWPreviewDevice>::Instance();
+
+#ifdef CCRIFT_MSW
+	mSuites.SPBasic->AcquireSuite(kPrSDKWindowSuite, kPrSDKWindowSuiteVersion, const_cast<const void**>(reinterpret_cast<void**>(&mSuites.WindowSuite)));
+	prWnd wH = mSuites.WindowSuite->GetMainWindow();
+
+	if(mPreviewDevice)
+		mPreviewDevice->setMainWindowHandle(wH);
+#endif
+	//mPreviewDevice->start();
 }
 
 CCRiftPlugin::~CCRiftPlugin()
@@ -42,7 +53,10 @@ CCRiftPlugin::~CCRiftPlugin()
 	mSuites.SPBasic->ReleaseSuite(kPrSDKThreadedWorkSuite, kPrSDKThreadedWorkSuiteVersion3);
 	mSuites.SPBasic->ReleaseSuite(kPrSDKTimeSuite, kPrSDKTimeSuiteVersion);
 
-	mPreviewDevice->stop();
+	if (mPreviewDevice)
+	{
+		mPreviewDevice->stop();
+	}
 
 }
 
@@ -63,10 +77,10 @@ tmResult CCRiftPlugin::NeedsReset(
 	const tmStdParms* inStdParms,
 	prBool* outResetModule)
 {
-	if (mPreviewDevice && !mPreviewDevice->isRunning())
+	/*if (mPreviewDevice && !mPreviewDevice->isRunning())
 	{
 		mPreviewDevice->start();
-	}
+	}*/
 	
 	return tmResult_Success;
 }
@@ -75,7 +89,16 @@ void* CCRiftPlugin::CreateInstance(
 	const tmStdParms* inStdParms,
 	tmInstance* inInstance)
 {
+#ifdef CCRIFT_MSW
+	prWnd wH = mSuites.WindowSuite->GetMainWindow();
 
+	if (mPreviewDevice)
+		mPreviewDevice->setMainWindowHandle(wH);
+#endif
+	if (mPreviewDevice && !mPreviewDevice->isRunning())
+	{
+		mPreviewDevice->start();
+	}
 	return new CCRiftInstance(inInstance, mDevice, mSettings, mSuites, mPreviewDevice);
 }
 
@@ -84,4 +107,8 @@ void CCRiftPlugin::DisposeInstance(
 	tmInstance* inInstance)
 {
 	delete (CCRiftInstance*)inInstance->ioPrivateInstanceData;
+	if (mPreviewDevice)
+	{
+		mPreviewDevice->stop();
+	}
 }

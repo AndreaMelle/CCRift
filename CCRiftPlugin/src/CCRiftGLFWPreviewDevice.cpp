@@ -14,6 +14,11 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 	IDevice<GLFWPreviewDevice>::Instance().glfwKeyCallback(window, key, scancode, action, mods);
 }
 
+static void close_callback(GLFWwindow* window)
+{
+	glfwSetWindowShouldClose(window, GL_FALSE);
+}
+
 GLFWPreviewDevice::GLFWPreviewDevice()
 : mWindowSize(glm::ivec2(960, 540))
     , mFrameSize(glm::ivec2(1920, 960))
@@ -68,7 +73,13 @@ void GLFWPreviewDevice::setActive(bool active)
 {
 	if (active)
 	{
-		//mContext->BringWindowToFront();
+#ifdef IS_PLUGIN
+#ifdef CCRIFT_MSW
+		HWND h = glfwGetWin32Window(window);
+		SetFocus(h);
+		SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+#endif
+#endif
 	}
 	else
 	{
@@ -188,6 +199,51 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	glfwSwapInterval(1);
 
 	glfwSetKeyCallback(window, key_callback);
+
+#ifdef IS_PLUGIN
+	glfwSetWindowCloseCallback(window, close_callback);
+	#ifdef CCRIFT_MSW
+
+	HWND h = glfwGetWin32Window(window);
+	SetFocus(h);
+	SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+
+	//int count;
+	//GLFWmonitor** monitors = glfwGetMonitors(&count);
+
+	//if (IsWindow(mParentWindow))// && count >= 2)
+	//{
+		
+		// Only handling the left case
+		/*RECT r;
+		if(GetWindowRect(mParentWindow, &r))
+		{
+			glfwSetWindowPos(window, r.right, r.top);
+		}*/
+		
+
+		/*HMONITOR mNativeParentMonitor = MonitorFromWindow(mParentWindow, MONITOR_DEFAULTTONEAREST);
+
+		for (int i = 0; i < count; i++)
+		{
+			HMONITOR m = (HMONITOR)(*(monitors + i));
+			if(m != mNativeParentMonitor)
+			{
+				MONITORINFO target;
+				target.cbSize = sizeof(MONITORINFO);
+				GetMonitorInfo(m, &target);
+				RECT r = target.rcWork;
+				glfwSetWindowPos(window, r.right, r.top);
+			}
+		}*/
+
+	//}
+
+	
+	LONG_PTR style = GetWindowLongPtr(h, GWL_STYLE);
+	SetWindowLongPtr(h, GWL_STYLE, style & ~WS_SYSMENU);
+	#endif
+#endif
 	//glfwSetInputMode(window, GLFW_STICKY_MOUSE_BUTTONS, GL_TRUE);
 	
 	mScene = new Scene();
@@ -342,11 +398,13 @@ HRESULT GLFWPreviewDevice::deviceTeardown()
 
 void GLFWPreviewDevice::glfwKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+#ifndef IS_PLUGIN
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
 		this->stop();
 	}
+#endif
 }
 
 void GLFWPreviewDevice::glfwErrorCallback(int error, const char* description)

@@ -135,6 +135,7 @@ extern "C" {
 			//outModule->StartPlaybackClock = TransmitModule::StartPlaybackClock;
 			//outModule->StopPlaybackClock = TransmitModule::StopPlaybackClock;
 			outModule->PushVideo = TransmitModule::PushVideo;
+			outModule->DisposeInstance = TransmitModule::DisposeInstance;
 		}
 		else
 		{
