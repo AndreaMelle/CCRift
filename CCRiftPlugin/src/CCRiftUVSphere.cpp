@@ -51,11 +51,15 @@ void UVSphere::AddVertex(const Vertex& v)
 
 void UVSphere::AllocateBuffers()
 {
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 	vertexBuffer = new VertexBuffer(&Vertices[0], numVertices * sizeof(Vertices[0]));
+	glBindVertexArray(0);
 }
 
 void UVSphere::FreeBuffers()
 {
+	glDeleteVertexArrays(1, &vao);
 	delete vertexBuffer;
 	vertexBuffer = nullptr;
 }
@@ -123,13 +127,13 @@ void UVSphere::AddSolidSphere(float radius, float segments)
 void UVSphere::Render(glm::mat4 view, glm::mat4 proj)
 {
 	glm::mat4 combined = proj * view * Mat;
-	
+
 	glUseProgram(Fill->program);
 	glUniform1i(glGetUniformLocation(Fill->program, "Texture0"), 0);
 	glUniformMatrix4fv(glGetUniformLocation(Fill->program, "matWVP"), 1, GL_FALSE, &combined[0][0]);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, Fill->texture->GetTexturePointer());
-	
+
 	if (mShowGrid && mGridTexture)
 	{
 		glUniform1i(glGetUniformLocation(Fill->program, "Texture1"), 1);
@@ -143,18 +147,21 @@ void UVSphere::Render(glm::mat4 view, glm::mat4 proj)
 		glUniform1f(glGetUniformLocation(Fill->program, "mix"), 0.0f);
 	}
 	
+	glBindVertexArray(vao);
+
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer->buffer);
 	glEnableVertexAttribArray(posLoc);
 	glEnableVertexAttribArray(uvLoc);
 	glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
 	glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-	
+
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, numVertices);
-	
+
 	glDisableVertexAttribArray(posLoc);
 	glDisableVertexAttribArray(uvLoc);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 
 	glUseProgram(0);
 

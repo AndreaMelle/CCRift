@@ -13,11 +13,11 @@ Scene::~Scene()
 bool Scene::init(glm::ivec2 windowSize, glm::ivec2 frameSize)
 {
 	static const GLchar* VertexShaderSrc =
-		"#version 120\n"
+		"#version 330\n"
 		"uniform mat4 matWVP;\n"
-		"attribute vec3 Position;\n"
-		"attribute vec2 TexCoord;\n"
-		"varying vec2 oTexCoord;\n"
+		"in vec3 Position;\n"
+		"in vec2 TexCoord;\n"
+		"out vec2 oTexCoord;\n"
 		"void main()\n"
 		"{\n"
 		"   gl_Position = matWVP * vec4(Position, 1);\n"
@@ -25,17 +25,18 @@ bool Scene::init(glm::ivec2 windowSize, glm::ivec2 frameSize)
 		"}\n";
 
 	static const char* FragmentShaderSrc =
-		"#version 120\n"
+		"#version 330\n"
 		"uniform sampler2D Texture0;\n"
 		"uniform sampler2D Texture1;\n"
 		"uniform float mix;\n"
-		"varying vec2 oTexCoord;\n"
+		"in vec2 oTexCoord;\n"
+		"out vec4 color;\n"
 		"void main()\n"
 		"{\n"
 		"   vec3 FrameColor = texture2D(Texture0, oTexCoord).rgb;\n"
 		"   vec3 GridColor = texture2D(Texture1, oTexCoord).rgb;\n"
 		"   vec3 MixColor = (1.0 - mix) * FrameColor + mix * GridColor;\n"
-		"   gl_FragColor = vec4(MixColor, 1.0);\n"
+		"   color = vec4(MixColor, 1.0);\n"
 		"}\n";
 
 	

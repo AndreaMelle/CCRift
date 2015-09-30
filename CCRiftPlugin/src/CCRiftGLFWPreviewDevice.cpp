@@ -1,79 +1,14 @@
 #include "CCRiftGLFWPreviewDevice.h"
 #include "DummyPopupView.h"
+#include "Eigen/Core"
+#include "nanogui/window.h"
+#include "nanogui/label.h"
+#include "nanogui/button.h"
+#include "nanogui/layout.h"
+#include "nanogui/checkbox.h"
 
 using namespace std;
 using namespace CCRift;
-
-static void HandleRButtonDown(NSWindow* window, float ptx, float pty)
-{
-    NSRect    graphicsRect;  // contains an origin, width, height
-    graphicsRect = NSMakeRect(200, 200, 50, 100);
-    //—————————–
-    // Create Menu and Dummy View
-    //—————————–
-    NSMenu* nsMenu = [[[NSMenu alloc] initWithTitle:@"Contextual Menu"] autorelease];
-    DummyPopupView* nsView = [[[DummyPopupView alloc] initWithFrame:graphicsRect] autorelease];
-    
-    NSMenuItem* item = [nsMenu addItemWithTitle:@"Menu Item# 1" action:@selector(OnMenuSelection:) keyEquivalent:@""];
-    [item setTarget:nsView];
-    [item setTag:1];
-    
-    item = [nsMenu addItemWithTitle:@"Menu Item #2" action:@selector(OnMenuSelection:) keyEquivalent:@""];
-    [item setTarget:nsView];
-    [item setTag:2];
-    
-    //———————————————————————————————
-    // Providing a valid windowNumber is key in getting the Menu to display in the proper location
-    //———————————————————————————————
-    int windowNumber = [(NSWindow*)window windowNumber];
-    NSRect frame = [(NSWindow*)window frame];
-    
-    NSPoint wp = {ptx, frame.size.height - pty};  // Origin in lower left
-    NSEvent* event = [NSEvent otherEventWithType:NSApplicationDefined
-                                        location:wp
-                                   modifierFlags:NSApplicationDefined
-                                       timestamp: (NSTimeInterval) 0
-                                    windowNumber: windowNumber
-                                         context: [NSGraphicsContext currentContext]
-                                         subtype:0
-                                           data1: 0
-                                           data2: 0];
-    
-    [NSMenu popUpContextMenu:nsMenu withEvent:event forView:nsView];
-    NSMenuItem* MenuItem = [nsView MenuItem];
-    
-    switch ([MenuItem tag])
-    {
-        case 1:
-            break;
-        case 2:
-            break;
-    }
-    
-    
-    
-}
-
-static void error_callback(int error, const char* description)
-{
-	//printf(description);
-	IDevice<GLFWPreviewDevice>::Instance().glfwErrorCallback(error, description);
-}
-
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	IDevice<GLFWPreviewDevice>::Instance().glfwKeyCallback(window, key, scancode, action, mods);
-}
-
-static void close_callback(GLFWwindow* window)
-{
-	glfwSetWindowShouldClose(window, GL_FALSE);
-}
-
-static void size_callback(GLFWwindow* window, int width, int height)
-{
-	IDevice<GLFWPreviewDevice>::Instance().glfwResizeCallback(window, width, height);
-}
 
 GLFWPreviewDevice::GLFWPreviewDevice()
 : mWindowSize(glm::ivec2(960, 540))
@@ -95,9 +30,9 @@ GLFWPreviewDevice::GLFWPreviewDevice()
     , mActive(false)
 	, verticalFovDegrees(60.0f)
     , contextualMenuCallback([](ContextualMenuOptions){})
-
-
-	
+	, mXPos(0)
+	, mYPos(0)
+	, mTogglePopup(false)
 {
 	mFrameBufferLength = mFrameSize.x * mFrameSize.y * mFrameBufferDepth;
 	mFrameDataBuffer = new unsigned char[mFrameBufferLength];
@@ -193,22 +128,30 @@ void GLFWPreviewDevice::stop()
 
 HRESULT GLFWPreviewDevice::deviceSetup()
 {
-	glfwSetErrorCallback(error_callback);
+	glfwSetErrorCallback([](int error, const char* description){
+		//printf(description);
+		IDevice<GLFWPreviewDevice>::Instance().glfwErrorCallback(error, description);
+	});
 
 	if (!glfwInit())
 	{
 		//MessageBoxA(NULL, "Failed to initialize OpenGL context.", "CCRift Preview", MB_ICONERROR | MB_OK);
 		return E_FAIL;
 	}
-
-	//glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_SAMPLES, 0);
+    glfwWindowHint(GLFW_RED_BITS, 8);
+    glfwWindowHint(GLFW_GREEN_BITS, 8);
+    glfwWindowHint(GLFW_BLUE_BITS, 8);
+    glfwWindowHint(GLFW_ALPHA_BITS, 8);
+    glfwWindowHint(GLFW_STENCIL_BITS, 8);
+    glfwWindowHint(GLFW_DEPTH_BITS, 24);
 
 	window = glfwCreateWindow(mWindowSize.x, mWindowSize.y, "CCRift Panorama Preview", NULL, NULL);
-
 
 	if (!window)
 	{
@@ -219,7 +162,7 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 
 	glfwMakeContextCurrent(window);
 
-	//glewExperimental = GL_TRUE;
+	glewExperimental = GL_TRUE;
 
     if(glewInit() != GLEW_OK)
     {
@@ -229,11 +172,7 @@ HRESULT GLFWPreviewDevice::deviceSetup()
     
 	glfwSwapInterval(1);
 
-	glfwSetKeyCallback(window, key_callback);
-	glfwSetWindowSizeCallback(window, size_callback);
-
 #ifdef IS_PLUGIN
-	glfwSetWindowCloseCallback(window, close_callback);
 	#ifdef CCRIFT_MSW
 
 	HWND h = glfwGetWin32Window(window);
@@ -287,6 +226,69 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		return E_FAIL;
 	}
 
+	mGUI = new nanogui::Screen(window);
+	popupMenu = new nanogui::Window(mGUI, "");
+	
+	popupMenu->setLayout(new nanogui::GroupLayout());
+
+	nanogui::Button *bAbout = new nanogui::Button(popupMenu, "About");
+	nanogui::Button *bReset = new nanogui::Button(popupMenu, "Reset");
+	nanogui::CheckBox *cGrid = new nanogui::CheckBox(popupMenu, "Grid");
+	nanogui::CheckBox *cTop = new nanogui::CheckBox(popupMenu, "Always On Top");
+
+	cGrid->setChecked(mScene->getSphere()->Grid());
+	cTop->setChecked(mAlwaysOnTop);
+
+	bAbout->setCallback([&](){
+		contextualMenuCallback(CONTEXTUAL_MENU_ABOUT);
+		popupMenu->setVisible(false);
+	});
+
+	bReset->setCallback([&](){
+		contextualMenuCallback(CONTEXTUAL_MENU_RESET);
+		popupMenu->setVisible(false);
+	});
+
+	cGrid->setCallback([&](bool check){
+		contextualMenuCallback(CONTEXTUAL_MENU_GRIDTOGGLE);
+		popupMenu->setVisible(false);
+	});
+
+	cTop->setCallback([&](bool check){
+		contextualMenuCallback(CONTEXTUAL_MENU_ALWAYSONTOP);
+		popupMenu->setVisible(false);
+	});
+
+	mGUI->performLayout(mGUI->nvgContext());
+
+
+	glfwSetCursorPosCallback(window, [](GLFWwindow *w, double x, double y){
+		IDevice<GLFWPreviewDevice>::Instance().glfwCursorPosCallback(w, x, y);
+	});
+
+	glfwSetMouseButtonCallback(window, [](GLFWwindow* w, int button, int action, int modifiers) {
+		IDevice<GLFWPreviewDevice>::Instance().glfwMouseButtonCallback(w, button, action, modifiers);
+	});
+
+	glfwSetKeyCallback(window, [](GLFWwindow* w, int key, int scancode, int action, int mods) {
+		IDevice<GLFWPreviewDevice>::Instance().glfwKeyCallback(w, key, scancode, action, mods);
+	});
+
+	glfwSetScrollCallback(window, [](GLFWwindow* w, double x, double y) {
+		IDevice<GLFWPreviewDevice>::Instance().glfwScrollCallback(w, x, y);
+	});
+
+	glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height) {
+		IDevice<GLFWPreviewDevice>::Instance().glfwResizeCallback(window, width, height);
+
+	});
+	
+#ifdef IS_PLUGIN
+	glfwSetWindowCloseCallback(window, [](GLFWwindow* window) {
+		glfwSetWindowShouldClose(window, GL_FALSE);
+	});
+#endif
+
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
@@ -333,29 +335,21 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	// Turn off vsync to let the compositor do its magic
 	//wglSwapIntervalEXT(0);
 
+	mGUI->setVisible(true);
+	popupMenu->setVisible(false);
+
+
 	return S_OK;
 }
 
 glm::vec3 GLFWPreviewDevice::handleMouseInput()
 {
-	double xpos, ypos;
-	glfwGetCursorPos(window, &xpos, &ypos);
-
 	int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
-
-	//TODO: this totally does not account for mouse going out the window!!!!
-	if (state == GLFW_PRESS && !wasDown)
+	
+	if (wasDown && state == GLFW_PRESS)
 	{
-		onMouseDownMouseX = (float)xpos;
-		onMouseDownMouseY = (float)ypos;
-		onMouseDownLon = lon;
-		onMouseDownLat = lat;
-		wasDown = true;
-	}
-	else if (wasDown && state == GLFW_PRESS)
-	{
-		lon = (onMouseDownMouseX - (float)xpos) * mMouseSensitivity + onMouseDownLon;
-		lat = ((float)ypos - onMouseDownMouseY) * mMouseSensitivity + onMouseDownLat;
+		lon = (onMouseDownMouseX - (float)mXPos) * mMouseSensitivity + onMouseDownLon;
+		lat = ((float)mYPos - onMouseDownMouseY) * mMouseSensitivity + onMouseDownLat;
 	}
 	else
 	{
@@ -370,46 +364,6 @@ glm::vec3 GLFWPreviewDevice::handleMouseInput()
 	result.x = 500.0f * sin(phi) * cos(theta);
 	result.y = 500.0f * cos(phi);
 	result.z = 500.0f * sin(phi) * sin(theta);
-
-	state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
-
-	if (state == GLFW_PRESS)
-	{
-#ifdef CCRIFT_MSW
-		HMENU hPopupMenu = CreatePopupMenu();
-		InsertMenuW(hPopupMenu, 0, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_RESET, L"Reset");
-		
-		UINT gridFlags = MF_BYPOSITION | MF_STRING | (mScene->getSphere()->Grid() ? MF_CHECKED : 0);
-		InsertMenuW(hPopupMenu, 1, gridFlags, CONTEXTUAL_MENU_GRIDTOGGLE, L"Grid");
-#ifdef IS_PLUGIN
-		UINT ontopFlags = MF_BYPOSITION | MF_STRING | (mAlwaysOnTop ? MF_CHECKED : 0);
-		InsertMenuW(hPopupMenu, 2, ontopFlags, CONTEXTUAL_MENU_ALWAYSONTOP, L"Always On Top");
-#endif
-		InsertMenuW(hPopupMenu, 3, MF_SEPARATOR | MF_BYPOSITION, 0, NULL);
-		InsertMenuW(hPopupMenu, 4, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_ABOUT, L"About");
-
-		HWND h = glfwGetWin32Window(window);
-		RECT rcWindow, rcClient;
-		GetWindowRect(h, &rcWindow);
-		GetClientRect(h, &rcClient);
-
-		int ptDiff = (rcWindow.bottom - rcWindow.top) - rcClient.bottom;
-
-		int sel = TrackPopupMenuEx(hPopupMenu,
-			TPM_TOPALIGN | TPM_LEFTALIGN | TPM_RETURNCMD,
-			rcWindow.left + (int)xpos,
-			rcWindow.top + (int)ypos + ptDiff, h, NULL);
-
-		contextualMenuCallback((ContextualMenuOptions)sel);
-
-		DestroyMenu(hPopupMenu);
-#else
-#ifdef CCRIFT_MAC
-        NSWindow* h = glfwGetCocoaWindow(window);
-        HandleRButtonDown(h, xpos, ypos);
-#endif
-#endif
-	}
 
 	return result;
 }
@@ -431,10 +385,11 @@ HRESULT GLFWPreviewDevice::deviceUpdate()
 
 		//glViewport(0, 0, mWindowSize.x, mWindowSize.y);
 		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glCullFace(GL_FRONT);
 
 		mScene->render(view, mProj);
+		mGUI->render();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -451,11 +406,98 @@ HRESULT GLFWPreviewDevice::deviceTeardown()
 {
 	mScene->release();
 	delete mScene;
+	delete mGUI;
+
+	//if (popupMenu)
+	//	delete popupMenu;
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
 
 	return S_OK;
+}
+
+void GLFWPreviewDevice::glfwCursorPosCallback(GLFWwindow* w, double x, double y)
+{
+	if (window != w) return;
+
+	mXPos = x;
+	mYPos = y;
+
+	mGUI->onCursorPos(w, x, y);
+}
+
+void GLFWPreviewDevice::glfwMouseButtonCallback(GLFWwindow* w, int button, int action, int modifiers)
+{
+	if (w != window) return;
+
+	if (mGUI->onMouseButton(w, button, action, modifiers)) return;
+
+	int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+
+	if (state == GLFW_PRESS)
+	{
+		popupMenu->setVisible(false);
+	}
+
+	if (state == GLFW_PRESS && !wasDown)
+	{
+		onMouseDownMouseX = (float)mXPos;
+		onMouseDownMouseY = (float)mYPos;
+		onMouseDownLon = lon;
+		onMouseDownLat = lat;
+		wasDown = true;
+	}
+
+	state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
+
+	if (state == GLFW_PRESS)
+	{
+		popupMenu->setVisible(true);
+		popupMenu->setPosition(Eigen::Vector2i(mXPos, mYPos));
+	}
+
+//#ifdef CCRIFT_MSW
+//		HMENU hPopupMenu = CreatePopupMenu();
+//		InsertMenuW(hPopupMenu, 0, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_RESET, L"Reset");
+//
+//		UINT gridFlags = MF_BYPOSITION | MF_STRING | (mScene->getSphere()->Grid() ? MF_CHECKED : 0);
+//		InsertMenuW(hPopupMenu, 1, gridFlags, CONTEXTUAL_MENU_GRIDTOGGLE, L"Grid");
+//#ifdef IS_PLUGIN
+//		UINT ontopFlags = MF_BYPOSITION | MF_STRING | (mAlwaysOnTop ? MF_CHECKED : 0);
+//		InsertMenuW(hPopupMenu, 2, ontopFlags, CONTEXTUAL_MENU_ALWAYSONTOP, L"Always On Top");
+//#endif
+//		InsertMenuW(hPopupMenu, 3, MF_SEPARATOR | MF_BYPOSITION, 0, NULL);
+//		InsertMenuW(hPopupMenu, 4, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_ABOUT, L"About");
+//
+//		HWND h = glfwGetWin32Window(window);
+//		RECT rcWindow, rcClient;
+//		GetWindowRect(h, &rcWindow);
+//		GetClientRect(h, &rcClient);
+//
+//		int ptDiff = (rcWindow.bottom - rcWindow.top) - rcClient.bottom;
+//
+//		int sel = TrackPopupMenuEx(hPopupMenu,
+//			TPM_TOPALIGN | TPM_LEFTALIGN | TPM_RETURNCMD,
+//			rcWindow.left + (int)mXPos,
+//			rcWindow.top + (int)mYPos + ptDiff, h, NULL);
+//
+//		contextualMenuCallback((ContextualMenuOptions)sel);
+//
+//		DestroyMenu(hPopupMenu);
+//#else
+//#ifdef CCRIFT_MAC
+//		NSWindow* h = glfwGetCocoaWindow(window);
+//		HandleRButtonDown(h, xpos, ypos);
+//#endif
+//#endif
+	//}
+}
+
+void GLFWPreviewDevice::glfwScrollCallback(GLFWwindow* w, double x, double y)
+{
+	if (window != w) return;
+	mGUI->onScroll(w, x, y);
 }
 
 void GLFWPreviewDevice::glfwResizeCallback(GLFWwindow* w, int width, int height)
@@ -469,6 +511,8 @@ void GLFWPreviewDevice::glfwResizeCallback(GLFWwindow* w, int width, int height)
 	float verticalFovRadians = verticalFovDegrees * M_PI / 180.0f;
 	mProj = glm::perspectiveFovRH(verticalFovRadians, (float)mWindowSize.x, (float)mWindowSize.y, 0.1f, 100.0f); //RH
 	glViewport(0, 0, mWindowSize.x, mWindowSize.y);
+
+	mGUI->onResize(w, width, height);
 }
 
 void GLFWPreviewDevice::glfwKeyCallback(GLFWwindow* w, int key, int scancode, int action, int mods)
@@ -480,6 +524,9 @@ void GLFWPreviewDevice::glfwKeyCallback(GLFWwindow* w, int key, int scancode, in
 		this->stop();
 	}
 #endif
+
+	mGUI->onKey(w, key, scancode, action, mods);
+
 }
 
 void GLFWPreviewDevice::glfwErrorCallback(int error, const char* description)

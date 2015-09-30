@@ -5,6 +5,7 @@
 #include "CCRiftScene.h"
 #include "CCRiftOGLPlatform.h"
 #include "CCRiftIDevice.h"
+#include "nanogui/screen.h"
 
 namespace CCRift
 {
@@ -40,13 +41,17 @@ namespace CCRift
 		virtual void setActive(bool active) override;
 
 		void glfwErrorCallback(int error, const char* description);
-		void glfwKeyCallback(GLFWwindow* w, int key, int scancode, int action, int mods);
 		void glfwResizeCallback(GLFWwindow* w, int width, int height);
+		void glfwCursorPosCallback(GLFWwindow* w, double x, double y);
+		void glfwMouseButtonCallback(GLFWwindow* w, int button, int action, int modifiers);
+		void glfwKeyCallback(GLFWwindow* w, int key, int scancode, int action, int mods);
+		void glfwScrollCallback(GLFWwindow* w, double x, double y);
 
 	protected:
 		GLFWPreviewDevice();
 		GLFWwindow* window;
 
+		nanogui::Screen *mGUI;
 		Scene* mScene;
 		glm::ivec2 mWindowSize;
 		glm::ivec2 mFrameSize;
@@ -65,6 +70,8 @@ namespace CCRift
 		std::atomic<bool> mFrameDataNewFlag;
 		std::mutex mFrameDataMutex;
 
+		double mXPos;
+		double mYPos;
 		float onMouseDownMouseX;
 		float onMouseDownMouseY;
 		float lon;
@@ -75,6 +82,7 @@ namespace CCRift
 		bool wasDown;
 		bool mAlwaysOnTop;
 		bool mActive;
+		nanogui::Window *popupMenu;
 
         glm::vec3 handleMouseInput();
 
@@ -90,11 +98,6 @@ namespace CCRift
 
 
 	};
-
-	static void CreateContextualMenu(std::function<void(ContextualMenuOptions)>& contextualMenuCallback)
-	{
-
-	}
 
 }
 

@@ -46,6 +46,7 @@ namespace CCRift
 
 		GLuint posLoc;
 		GLuint uvLoc;
+		GLuint vao;
 		VertexBuffer  * vertexBuffer;
 
 		void FreeBuffers();

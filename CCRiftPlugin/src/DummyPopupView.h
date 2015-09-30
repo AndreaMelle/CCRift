@@ -6,6 +6,9 @@
 //
 //
 
+#include "CCRiftCommons.h"
+
+#ifdef CCRIFT_MAC
 #import <Cocoa/Cocoa.h>
 
 @interface DummyPopupView : NSView
@@ -17,3 +20,4 @@
 -(NSMenuItem*)MenuItem;
 
 @end
+#endif

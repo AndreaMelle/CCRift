@@ -153,7 +153,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(SolutionDir)\..\src;$(SolutionDir)\..\src\PrSDK;$(SolutionDir)\..\src\StandalonePreview;$(SolutionDir)\..\resources;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\include;$(SolutionDir)\..\deps\glm;$(SolutionDir)\..\deps\glew-1.13.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\include;$(SolutionDir)\..\deps\glew-1.13.0\include;$(SolutionDir)\..\deps\nanogui\ext\nanovg\src;$(SolutionDir)\..\deps\nanogui\ext\eigen\;$(SolutionDir)\..\resources\fonts\;$(SolutionDir)\..\deps\nanogui\include;$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(SolutionDir)\..\src;$(SolutionDir)\..\src\PrSDK;$(SolutionDir)\..\resources;$(SolutionDir)\..\deps\glm</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
@@ -172,7 +172,7 @@
       <TargetMachine>MachineX64</TargetMachine>
       <ImportLibrary>$(IntDir)/$(TargetName).lib</ImportLibrary>
       <ProgramDatabaseFile>$(IntDir)$(TargetName).pdb</ProgramDatabaseFile>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\lib-vc2013\glfw3dll.lib;$(SolutionDir)\..\deps\glew-1.13.0\lib\$(Configuration)\$(Platform)\glew32sd.lib;$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\lib-vc2013\glfw3dll.lib;$(SolutionDir)\..\deps\glew-1.13.0\lib\$(Configuration)\$(Platform)\glew32sd.lib;$(SolutionDir)\..\builds\nanogui\$(Platform)\$(Configuration)\NanoGUI.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>$(IntDir)$(TargetName).bsc</OutputFile>
@@ -209,13 +209,13 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(SolutionDir)\..\src;$(SolutionDir)\..\src\PrSDK;$(SolutionDir)\..\src\StandalonePreview;$(SolutionDir)\..\resources;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\include;$(SolutionDir)\..\deps\glm;$(SolutionDir)\..\deps\glew-1.13.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\include;$(SolutionDir)\..\deps\glew-1.13.0\include;$(SolutionDir)\..\deps\nanogui\ext\nanovg\src;$(SolutionDir)\..\deps\nanogui\ext\eigen\;$(SolutionDir)\..\resources\fonts\;$(SolutionDir)\..\deps\nanogui\include;$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(SolutionDir)\..\src;$(SolutionDir)\..\src\PrSDK;$(SolutionDir)\..\resources;$(SolutionDir)\..\deps\glm</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
-      <PreprocessorDefinitions>_WINDLL;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDLL;GLEW_STATIC;IS_PLUGIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>PRWIN_ENV;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -228,7 +228,7 @@
       </DataExecutionPrevention>
       <TargetMachine>MachineX64</TargetMachine>
       <ImportLibrary>$(IntDir)/$(TargetName).lib</ImportLibrary>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\lib-vc2013\glfw3dll.lib;$(SolutionDir)\..\deps\glew-1.13.0\lib\$(Configuration)\$(Platform)\glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\lib-vc2013\glfw3dll.lib;$(SolutionDir)\..\deps\glew-1.13.0\lib\$(Configuration)\$(Platform)\glew32s.lib;$(SolutionDir)\..\builds\nanogui\$(Platform)\$(Configuration)\NanoGUI.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <OutputFile>$(IntDir)$(TargetName).bsc</OutputFile>
