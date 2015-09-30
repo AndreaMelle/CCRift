@@ -149,8 +149,8 @@ tmResult CCRiftInstance::PushVideo(const tmStdParms* inStdParms,
 	// This is where a transmit plug-in could queue up the frame to an actual hardware device.
 	//
 
-	LONG w = abs(frameBounds.right - frameBounds.left);
-	LONG h = abs(frameBounds.top - frameBounds.bottom);
+	short w = abs(frameBounds.right - frameBounds.left);
+	short h = abs(frameBounds.top - frameBounds.bottom);
 
 	if (mSelfActive && mPreviewDevice && !mPreviewDevice->isRunning())
 	{

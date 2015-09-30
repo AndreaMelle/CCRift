@@ -60,7 +60,7 @@
 		#define GLFW_EXPOSE_NATIVE_WGL
 		#else
 			#ifdef CCRIFT_MAC
-				#define GLFW_EXPOSE_NATIVE_X11
+				#define GLFW_EXPOSE_NATIVE_COCOA
 				#define GLFW_EXPOSE_NATIVE_NSGL
 			#endif
 		#endif
@@ -70,7 +70,7 @@
             #include <GL/glew.h>
         #endif
 		#include <GLFW/glfw3.h>
-		#include <GLFW\glfw3native.h>
+		#include <GLFW/glfw3native.h>
 		#include <glm/fwd.hpp>
 		#include <glm/glm.hpp>
 		#include <glm/gtc/quaternion.hpp>

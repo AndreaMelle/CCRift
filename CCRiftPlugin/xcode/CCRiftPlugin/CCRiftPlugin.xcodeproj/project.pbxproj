@@ -20,6 +20,7 @@
 		3C681C571BBB1D1A00E76EB3 /* CCRiftPluginEntryPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C521BBB1D1A00E76EB3 /* CCRiftPluginEntryPoint.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C581BBB1D1A00E76EB3 /* CCRiftPlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C541BBB1D1A00E76EB3 /* CCRiftPlugin.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C591BBB1D1A00E76EB3 /* CCRiftInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C561BBB1D1A00E76EB3 /* CCRiftInstance.cpp */; settings = {ASSET_TAGS = (); }; };
+		3CA554621BBB2F60007EC2B9 /* DummyPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CA554611BBB2F60007EC2B9 /* DummyPopupView.m */; settings = {ASSET_TAGS = (); }; };
 		7E48CD0F1700FCA400D1EFDC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E48CD0E1700FCA400D1EFDC /* Cocoa.framework */; };
 		7EFEE1D115E5641300B7561D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFEE1D015E5641300B7561D /* Foundation.framework */; };
 		8D576314048677EA00EA77CD /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */; };
@@ -159,6 +160,8 @@
 		3C681C541BBB1D1A00E76EB3 /* CCRiftPlugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftPlugin.cpp; path = ../../src/CCRiftPlugin/CCRiftPlugin.cpp; sourceTree = "<group>"; };
 		3C681C551BBB1D1A00E76EB3 /* CCRiftInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftInstance.h; path = ../../src/CCRiftPlugin/CCRiftInstance.h; sourceTree = "<group>"; };
 		3C681C561BBB1D1A00E76EB3 /* CCRiftInstance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftInstance.cpp; path = ../../src/CCRiftPlugin/CCRiftInstance.cpp; sourceTree = "<group>"; };
+		3CA554601BBB2F60007EC2B9 /* DummyPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DummyPopupView.h; path = ../../src/DummyPopupView.h; sourceTree = "<group>"; };
+		3CA554611BBB2F60007EC2B9 /* DummyPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DummyPopupView.m; path = ../../src/DummyPopupView.m; sourceTree = "<group>"; };
 		7E48CD0E1700FCA400D1EFDC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		7EFEE1D015E5641300B7561D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8D576316048677EA00EA77CD /* CCRiftPlugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CCRiftPlugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,6 +233,8 @@
 				3C681C481BBB1D0500E76EB3 /* CCRiftFrameTexture.cpp */,
 				3C681C491BBB1D0500E76EB3 /* CCRiftCommons.h */,
 				3C681C4A1BBB1D0500E76EB3 /* CCRiftBufferHelpers.h */,
+				3CA554601BBB2F60007EC2B9 /* DummyPopupView.h */,
+				3CA554611BBB2F60007EC2B9 /* DummyPopupView.m */,
 			);
 			name = CCRift;
 			sourceTree = "<group>";
@@ -435,6 +440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CA554621BBB2F60007EC2B9 /* DummyPopupView.m in Sources */,
 				3C681C4D1BBB1D0500E76EB3 /* CCRiftScene.cpp in Sources */,
 				3C681C4F1BBB1D0500E76EB3 /* CCRiftIDevice.cpp in Sources */,
 				3C681C4C1BBB1D0500E76EB3 /* CCRiftUVSphere.cpp in Sources */,
@@ -465,6 +471,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = IS_PLUGIN;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = (
 					../../../Headers/,
@@ -518,6 +525,7 @@
 				CONFIGURATION_BUILD_DIR = "/Library/Application Support/Adobe/Common/Plug-ins/7.0/MediaCore";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = IS_PLUGIN;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = (
 					../../../Headers/,

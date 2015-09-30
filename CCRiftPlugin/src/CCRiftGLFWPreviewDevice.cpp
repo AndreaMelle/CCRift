@@ -1,11 +1,62 @@
 #include "CCRiftGLFWPreviewDevice.h"
+#include "DummyPopupView.h"
 
 using namespace std;
 using namespace CCRift;
 
+static void HandleRButtonDown(NSWindow* window, float ptx, float pty)
+{
+    NSRect    graphicsRect;  // contains an origin, width, height
+    graphicsRect = NSMakeRect(200, 200, 50, 100);
+    //—————————–
+    // Create Menu and Dummy View
+    //—————————–
+    NSMenu* nsMenu = [[[NSMenu alloc] initWithTitle:@"Contextual Menu"] autorelease];
+    DummyPopupView* nsView = [[[DummyPopupView alloc] initWithFrame:graphicsRect] autorelease];
+    
+    NSMenuItem* item = [nsMenu addItemWithTitle:@"Menu Item# 1" action:@selector(OnMenuSelection:) keyEquivalent:@""];
+    [item setTarget:nsView];
+    [item setTag:1];
+    
+    item = [nsMenu addItemWithTitle:@"Menu Item #2" action:@selector(OnMenuSelection:) keyEquivalent:@""];
+    [item setTarget:nsView];
+    [item setTag:2];
+    
+    //———————————————————————————————
+    // Providing a valid windowNumber is key in getting the Menu to display in the proper location
+    //———————————————————————————————
+    int windowNumber = [(NSWindow*)window windowNumber];
+    NSRect frame = [(NSWindow*)window frame];
+    
+    NSPoint wp = {ptx, frame.size.height - pty};  // Origin in lower left
+    NSEvent* event = [NSEvent otherEventWithType:NSApplicationDefined
+                                        location:wp
+                                   modifierFlags:NSApplicationDefined
+                                       timestamp: (NSTimeInterval) 0
+                                    windowNumber: windowNumber
+                                         context: [NSGraphicsContext currentContext]
+                                         subtype:0
+                                           data1: 0
+                                           data2: 0];
+    
+    [NSMenu popUpContextMenu:nsMenu withEvent:event forView:nsView];
+    NSMenuItem* MenuItem = [nsView MenuItem];
+    
+    switch ([MenuItem tag])
+    {
+        case 1:
+            break;
+        case 2:
+            break;
+    }
+    
+    
+    
+}
+
 static void error_callback(int error, const char* description)
 {
-	printf(description);
+	//printf(description);
 	IDevice<GLFWPreviewDevice>::Instance().glfwErrorCallback(error, description);
 }
 
@@ -37,11 +88,15 @@ GLFWPreviewDevice::GLFWPreviewDevice()
     , onMouseDownLat(0)
     , mMouseSensitivity(0.1f)
     , wasDown(false)
-    , mActive(false)
+#ifdef CCRIFT_MSW
 	, mParentWindow(0)
-	, contextualMenuCallback([](ContextualMenuOptions){})
+#endif
+    , mAlwaysOnTop(false)
+    , mActive(false)
 	, verticalFovDegrees(60.0f)
-	, mAlwaysOnTop(false)
+    , contextualMenuCallback([](ContextualMenuOptions){})
+
+
 	
 {
 	mFrameBufferLength = mFrameSize.x * mFrameSize.y * mFrameBufferDepth;
@@ -348,6 +403,11 @@ glm::vec3 GLFWPreviewDevice::handleMouseInput()
 		contextualMenuCallback((ContextualMenuOptions)sel);
 
 		DestroyMenu(hPopupMenu);
+#else
+#ifdef CCRIFT_MAC
+        NSWindow* h = glfwGetCocoaWindow(window);
+        HandleRButtonDown(h, xpos, ypos);
+#endif
 #endif
 	}
 
