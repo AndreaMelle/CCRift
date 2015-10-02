@@ -6,7 +6,7 @@ NANOGUI_NAMESPACE_BEGIN
 
 Theme::Theme(NVGcontext *ctx) {
     mStandardFontSize                 = 16;
-    mButtonFontSize                   = 20;
+    mButtonFontSize                   = 16;
     mWindowCornerRadius               = 2;
     mWindowHeaderHeight               = 30;
     mWindowDropShadowSize             = 10;
@@ -23,11 +23,11 @@ Theme::Theme(NVGcontext *ctx) {
     mIconColor                        = mTextColor;
 
     mButtonGradientTopFocused         = Color(64, 255);
-    mButtonGradientBotFocused         = Color(48, 255);
+    mButtonGradientBotFocused         = Color(64, 255);
     mButtonGradientTopUnfocused       = Color(74, 255);
-    mButtonGradientBotUnfocused       = Color(58, 255);
+    mButtonGradientBotUnfocused       = Color(74, 255);
     mButtonGradientTopPushed          = Color(41, 255);
-    mButtonGradientBotPushed          = Color(29, 255);
+    mButtonGradientBotPushed          = Color(41, 255);
 
     /* Window-related */
     mWindowFillUnfocused              = Color(43, 230);

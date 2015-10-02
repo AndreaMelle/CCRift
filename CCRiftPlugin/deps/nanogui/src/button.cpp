@@ -96,9 +96,8 @@ void Button::draw(NVGcontext *ctx) {
     }
 
     nvgBeginPath(ctx);
-
-    nvgRoundedRect(ctx, mPos.x() + 1, mPos.y() + 1.0f, mSize.x() - 2,
-                   mSize.y() - 2, mTheme->mButtonCornerRadius - 1);
+	nvgRoundedRect(ctx, 0, mPos.y(), mParent->width(),
+                   mSize.y(), mTheme->mButtonCornerRadius - 1);
 
 
     if (mBackgroundColor.w() != 0) {
@@ -113,7 +112,7 @@ void Button::draw(NVGcontext *ctx) {
     nvgFillPaint(ctx, bg);
     nvgFill(ctx);
 
-    nvgBeginPath(ctx);
+    /*nvgBeginPath(ctx);
 
     nvgRoundedRect(ctx, mPos.x() + 0.5f, mPos.y() + (mPushed ? 0.5f : 1.5f), mSize.x() - 1,
                    mSize.y() - 1 - (mPushed ? 0.0f : 1.0f), mTheme->mButtonCornerRadius);
@@ -124,7 +123,7 @@ void Button::draw(NVGcontext *ctx) {
     nvgRoundedRect(ctx, mPos.x() + 0.5f, mPos.y() + 0.5f, mSize.x() - 1,
                    mSize.y() - 2, mTheme->mButtonCornerRadius);
     nvgStrokeColor(ctx, mTheme->mBorderDark);
-    nvgStroke(ctx);
+    nvgStroke(ctx);*/
 
     nvgFontSize(ctx, mFontSize == -1 ? mTheme->mButtonFontSize : mFontSize);
     nvgFontFace(ctx, "sans-bold");

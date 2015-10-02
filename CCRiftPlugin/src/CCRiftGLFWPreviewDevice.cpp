@@ -32,7 +32,6 @@ GLFWPreviewDevice::GLFWPreviewDevice()
     , contextualMenuCallback([](ContextualMenuOptions){})
 	, mXPos(0)
 	, mYPos(0)
-	, mTogglePopup(false)
 {
 	mFrameBufferLength = mFrameSize.x * mFrameSize.y * mFrameBufferDepth;
 	mFrameDataBuffer = new unsigned char[mFrameBufferLength];
@@ -229,15 +228,23 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	mGUI = new nanogui::Screen(window);
 	popupMenu = new nanogui::Window(mGUI, "");
 	
-	popupMenu->setLayout(new nanogui::GroupLayout());
+	nanogui::GroupLayout *layout = new nanogui::GroupLayout();
+	layout->setSpacing(0);
+	layout->setMargin(0);
+	popupMenu->setLayout(layout);
 
 	nanogui::Button *bAbout = new nanogui::Button(popupMenu, "About");
-	nanogui::Button *bReset = new nanogui::Button(popupMenu, "Reset");
-	nanogui::CheckBox *cGrid = new nanogui::CheckBox(popupMenu, "Grid");
-	nanogui::CheckBox *cTop = new nanogui::CheckBox(popupMenu, "Always On Top");
+	bAbout->setWidth(popupMenu->width());
 
-	cGrid->setChecked(mScene->getSphere()->Grid());
-	cTop->setChecked(mAlwaysOnTop);
+	nanogui::Button *bReset = new nanogui::Button(popupMenu, "Reset");
+	nanogui::Button *cGrid = new nanogui::Button(popupMenu, "Grid");
+	nanogui::Button *cTop = new nanogui::Button(popupMenu, "Always On Top");
+
+	cGrid->setButtonFlags(nanogui::Button::ToggleButton);
+	cTop->setButtonFlags(nanogui::Button::ToggleButton);
+
+	cGrid->setPushed(mScene->getSphere()->Grid());
+	cTop->setPushed(mAlwaysOnTop);
 
 	bAbout->setCallback([&](){
 		contextualMenuCallback(CONTEXTUAL_MENU_ABOUT);
@@ -249,18 +256,17 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		popupMenu->setVisible(false);
 	});
 
-	cGrid->setCallback([&](bool check){
+	cGrid->setChangeCallback([&](bool check){
 		contextualMenuCallback(CONTEXTUAL_MENU_GRIDTOGGLE);
 		popupMenu->setVisible(false);
 	});
 
-	cTop->setCallback([&](bool check){
+	cTop->setChangeCallback([&](bool check){
 		contextualMenuCallback(CONTEXTUAL_MENU_ALWAYSONTOP);
 		popupMenu->setVisible(false);
 	});
 
 	mGUI->performLayout(mGUI->nvgContext());
-
 
 	glfwSetCursorPosCallback(window, [](GLFWwindow *w, double x, double y){
 		IDevice<GLFWPreviewDevice>::Instance().glfwCursorPosCallback(w, x, y);
