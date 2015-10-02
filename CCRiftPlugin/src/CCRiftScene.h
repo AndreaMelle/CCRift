@@ -25,7 +25,7 @@ namespace CCRift
 	private:
 		UVSphere *sphere;
 		//float aspectRatio;
-
+        
 		GLuint createShader(GLenum type, const GLchar* src);
 	};
 

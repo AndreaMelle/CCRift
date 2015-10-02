@@ -16,6 +16,7 @@ MAIN
     
     mDevice->start(hinst);
 
+#ifdef CCRIFT_MSW
 	size_t demoDataSize = mDevice->preferredFrameHeight()
 		* mDevice->preferredFrameWidth()
 		* mDevice->preferredFrameDepth();
@@ -42,6 +43,7 @@ MAIN
 	}
 
 	mDevice->stop();
+#endif
 
 	return 0;
 }

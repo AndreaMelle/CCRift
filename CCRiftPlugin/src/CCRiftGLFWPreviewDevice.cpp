@@ -1,5 +1,4 @@
 #include "CCRiftGLFWPreviewDevice.h"
-#include "DummyPopupView.h"
 #include "Eigen/Core"
 #include "nanogui/window.h"
 #include "nanogui/label.h"
@@ -7,14 +6,21 @@
 #include "nanogui/layout.h"
 #include "nanogui/checkbox.h"
 
+#ifdef CCRIFT_MAC
+#include "CocoaUtils.h"
+#endif
+
 using namespace std;
 using namespace CCRift;
 
 GLFWPreviewDevice::GLFWPreviewDevice()
 : mWindowSize(glm::ivec2(960, 540))
     , mFrameSize(glm::ivec2(1920, 960))
+
 	, mDeviceRunning(false)
     , mFrameBufferDepth(4)
+    , mXPos(0)
+    , mYPos(0)
     , onMouseDownMouseX(0)
     , onMouseDownMouseY(0)
     , lon(0)
@@ -28,11 +34,8 @@ GLFWPreviewDevice::GLFWPreviewDevice()
 #endif
     , mAlwaysOnTop(false)
     , mActive(false)
-	, verticalFovDegrees(60.0f)
+    , verticalFovDegrees(60.0f)
     , contextualMenuCallback([](ContextualMenuOptions){})
-	, mXPos(0)
-	, mYPos(0)
-	, mTogglePopup(false)
 {
 	mFrameBufferLength = mFrameSize.x * mFrameSize.y * mFrameBufferDepth;
 	mFrameDataBuffer = new unsigned char[mFrameBufferLength];
@@ -115,6 +118,52 @@ void GLFWPreviewDevice::start(HINSTANCE hinst)
 		mDeviceRunning = false;
 	};
     
+#ifndef IS_PLUGIN
+    #ifdef CCRIFT_MAC
+    
+    HRESULT hr;
+    hr = deviceSetup();
+    
+    if (FAILED(hr))
+    {
+        deviceTeardown();
+        mDeviceRunning = false;
+        return;
+    }
+    
+    size_t demoDataSize = preferredFrameHeight()
+    * preferredFrameWidth()
+    * preferredFrameDepth();
+    
+    unsigned char *demoData = new unsigned char[demoDataSize];
+    
+    memset(demoData, 0, demoDataSize);
+        
+        for (int i = 0; i < demoDataSize; i++)
+        {
+            demoData[i] = rand() % 255;
+        }
+
+    pushFrame(demoData);
+    
+    mProcess.mRunning = true;
+    while (mProcess.mRunning)
+    {
+        hr = deviceUpdate();
+        
+        if (FAILED(hr))
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(33));
+            continue;
+        }
+    }
+    
+    deviceTeardown();
+    
+    mDeviceRunning = false;
+    #endif
+#endif
+    
 	mProcess.start();
 
 }
@@ -139,10 +188,18 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		return E_FAIL;
 	}
 	
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef CCRIFT_MAC
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+#else
+#ifdef CCRIFT_MSW
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#endif
+#endif
+	
 	glfwWindowHint(GLFW_SAMPLES, 0);
     glfwWindowHint(GLFW_RED_BITS, 8);
     glfwWindowHint(GLFW_GREEN_BITS, 8);
@@ -161,9 +218,11 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	}
 
 	glfwMakeContextCurrent(window);
-
+    
+#ifdef CCRIFT_MSW
 	glewExperimental = GL_TRUE;
-
+#endif
+    
     if(glewInit() != GLEW_OK)
     {
         //printf("Failed to initialize GLEW\n");
@@ -178,7 +237,6 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	HWND h = glfwGetWin32Window(window);
 	SetFocus(h);
 	SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-	mAlwaysOnTop = true;
 
 	//int count;
 	//GLFWmonitor** monitors = glfwGetMonitors(&count);
@@ -214,7 +272,13 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	
 	LONG_PTR style = GetWindowLongPtr(h, GWL_STYLE);
 	SetWindowLongPtr(h, GWL_STYLE, style & ~WS_SYSMENU);
+    #else
+        #ifdef CCRIFT_MAC
+    CocoaChangeWindowOrder(glfwGetCocoaWindow(window), kCGMaximumWindowLevelKey);
+    CocoaHideWindowCloseButton(glfwGetCocoaWindow(window), true);
+        #endif
 	#endif
+    mAlwaysOnTop = true;
 #endif
 	//glfwSetInputMode(window, GLFW_STICKY_MOUSE_BUTTONS, GL_TRUE);
 	
@@ -306,6 +370,10 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 #ifdef CCRIFT_MSW
 			HWND h = glfwGetWin32Window(window);
 			MessageBoxA(h, "v0.1\n\nSeptember 2015\n\nandrea.melle@happyfinish.com", "About", MB_ICONINFORMATION | MB_OK);
+#else
+#ifdef CCRIFT_MAC
+            CocoaShowMessagePopup("v0.1\n\nSeptember 2015\n\nandrea.melle@happyfinish.com");
+#endif
 #endif
 		}
 		else if (sel == CONTEXTUAL_MENU_GRIDTOGGLE)
@@ -326,10 +394,24 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 			}
 			else
 				SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-			mAlwaysOnTop = !mAlwaysOnTop;
+#else
+#ifdef CCRIFT_MAC
+
+            if (mAlwaysOnTop)
+            {
+                CocoaChangeWindowOrder(glfwGetCocoaWindow(window), kCGBaseWindowLevelKey);
+            }
+            else
+            {
+                CocoaChangeWindowOrder(glfwGetCocoaWindow(window), kCGMaximumWindowLevelKey);
+            }
 #endif
+            mAlwaysOnTop = !mAlwaysOnTop;
+#endif
+
 #endif
 		}
+        
 	};
 
 	// Turn off vsync to let the compositor do its magic

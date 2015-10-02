@@ -13,7 +13,7 @@
 #endif
 
 #include <GLFW/glfw3.h>
-#include <nanovg.h>
+#include "nanovg.h"
 
 NANOGUI_NAMESPACE_BEGIN
 

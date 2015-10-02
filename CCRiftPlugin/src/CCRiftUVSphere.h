@@ -46,9 +46,12 @@ namespace CCRift
 
 		GLuint posLoc;
 		GLuint uvLoc;
-		GLuint vao;
 		VertexBuffer  * vertexBuffer;
 
+#ifdef CCRIFT_MSW
+        GLuint vao;
+#endif
+        
 		void FreeBuffers();
 		void AddVertex(const Vertex& v);
 

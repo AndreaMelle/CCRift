@@ -10,11 +10,11 @@ CCRiftInstance::CCRiftInstance(const tmInstance* inInstance,
 	const SDKSettings& inSettings,
 	const SDKSuites& inSuites,
 	GLFWPreviewDevice* previewDevice)
-	: mDevice(inDevice)
-	, mSettings(inSettings)
-	, mSuites(inSuites)
-	, mPreviewDevice(previewDevice)
+	//: mDevice(inDevice)
+	//, mSettings(inSettings)
+    : mSuites(inSuites)
 	, mSelfActive(false)
+    , mPreviewDevice(previewDevice)
 {
 	mPlaying = kPrFalse;
 	mSuites.TimeSuite->GetTicksPerSecond(&mTicksPerSecond);
@@ -90,10 +90,10 @@ tmResult CCRiftInstance::PushVideo(const tmStdParms* inStdParms,
 	csSDK_uint32	parNum				= 0,
 					parDen				= 0;
 	PrPixelFormat	pixelFormat			= PrPixelFormat_Invalid;
-	int				audioSampleCount	= 0;
+	//int				audioSampleCount	= 0;
 	PrTime			zeroPointTime		= 0;
 	prBool			dropFrame			= kPrFalse;
-	prSuiteError	returnValue			= 0;
+	//prSuiteError	returnValue			= 0;
 
 	frameTimeInSeconds = (float) inPushVideo->inTime / mTicksPerSecond;
 	mSuites.PPixSuite->GetBounds(inPushVideo->inFrames[0].inFrame, &frameBounds);
@@ -163,7 +163,7 @@ tmResult CCRiftInstance::PushVideo(const tmStdParms* inStdParms,
 			&& w == mPreviewDevice->preferredFrameWidth()
 			&& h == mPreviewDevice->preferredFrameHeight())
 		{
-			char *data;
+			char *data = 0;
 
 			for (int i = 0; i < inPushVideo->inFrameCount; i++)
 			{

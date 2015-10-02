@@ -44,15 +44,15 @@ namespace CCRift
 			const tmPushVideo* inPushVideo);
 
 	private:
-		SDKDevicePtr				mDevice;
-		SDKSettings					mSettings;
+		//SDKDevicePtr				mDevice;
+		//SDKSettings					mSettings;
 		SDKSuites					mSuites;
 
 		PrTime mTicksPerSecond;
 		PrTime mVideoFrameRate;
 
 
-		float						mPlaybackSpeed;
+		//float						mPlaybackSpeed;
 		prBool						mPlaying;
 		prBool						mSelfActive;
 

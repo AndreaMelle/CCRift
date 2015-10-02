@@ -1,4 +1,5 @@
 #include "CCRiftUVSphere.h"
+#include "CocoaUtils.h"
 
 using namespace CCRift;
 
@@ -22,7 +23,7 @@ UVSphere::UVSphere(glm::vec3 pos, ShaderFill * fill)
 	mGridTexture = loadBMPFromResource(IDB_BITMAP1);
 #else
     #ifdef CCRIFT_MAC
-    mGridTexture = loadBMPFromResource("grid.bmp");
+    mGridTexture = (CCRift::FrameTexture*)CocoaLoadBitmap("grid.BMP");
     #endif
 #endif
 
@@ -51,15 +52,22 @@ void UVSphere::AddVertex(const Vertex& v)
 
 void UVSphere::AllocateBuffers()
 {
+#ifdef CCRIFT_MSW
 	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-	vertexBuffer = new VertexBuffer(&Vertices[0], numVertices * sizeof(Vertices[0]));
-	glBindVertexArray(0);
+	//glBindVertexArray(vao);
+#endif
+    
+    vertexBuffer = new VertexBuffer(&Vertices[0], numVertices * sizeof(Vertices[0]));
+	
+	//glBindVertexArray(0);
 }
 
 void UVSphere::FreeBuffers()
 {
+#ifdef CCRIFT_MSW
 	glDeleteVertexArrays(1, &vao);
+#endif
+    
 	delete vertexBuffer;
 	vertexBuffer = nullptr;
 }
@@ -128,6 +136,10 @@ void UVSphere::Render(glm::mat4 view, glm::mat4 proj)
 {
 	glm::mat4 combined = proj * view * Mat;
 
+#ifdef CCRIFT_MSW
+    glBindVertexArray(vao);
+#endif
+    
 	glUseProgram(Fill->program);
 	glUniform1i(glGetUniformLocation(Fill->program, "Texture0"), 0);
 	glUniformMatrix4fv(glGetUniformLocation(Fill->program, "matWVP"), 1, GL_FALSE, &combined[0][0]);
@@ -147,23 +159,25 @@ void UVSphere::Render(glm::mat4 view, glm::mat4 proj)
 		glUniform1f(glGetUniformLocation(Fill->program, "mix"), 0.0f);
 	}
 	
-	glBindVertexArray(vao);
-
+	
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer->buffer);
+    
 	glEnableVertexAttribArray(posLoc);
-	glEnableVertexAttribArray(uvLoc);
 	glVertexAttribPointer(posLoc, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
-	glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+	
+    glEnableVertexAttribArray(uvLoc);
+    glVertexAttribPointer(uvLoc, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
+	
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, numVertices);
 
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, numVertices);
-
-	glDisableVertexAttribArray(posLoc);
+    glDisableVertexAttribArray(posLoc);
 	glDisableVertexAttribArray(uvLoc);
-
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+    
+#ifdef CCRIFT_MSW
 	glBindVertexArray(0);
-
+#endif
+    
 	glUseProgram(0);
-
 	
 }

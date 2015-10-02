@@ -55,11 +55,12 @@ static CCRift::FrameTexture* loadBMPFromResource(DWORD resourcename)
 }
 #endif
 
-#ifdef CCRIFT_MAC
-static CCRift::FrameTexture* loadBMPFromResource(const char* resourcename)
-{
-    return nullptr;
-}
-#endif
+//#ifdef CCRIFT_MAC
+//#include "CocoaUtils.h"
+//static CCRift::FrameTexture* loadBMPFromResource(const char* resourcename)
+//{
+//    return (CCRift::FrameTexture*)CocoaLoadBitmap(resourcename);
+//}
+//#endif
 
 #endif //__CCRIFT_FRAMETEXTURE_H__
