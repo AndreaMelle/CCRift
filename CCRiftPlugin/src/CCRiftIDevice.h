@@ -21,7 +21,7 @@ namespace CCRift
 		CONTEXTUAL_MENU_GRIDTOGGLE,
 		CONTEXTUAL_MENU_ALWAYSONTOP,
 		CONTEXTUAL_MENU_LAST
-	};
+	} ContextualMenuOptions;
 
 	class Process
 	{

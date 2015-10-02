@@ -41,6 +41,12 @@
     <ClInclude Include="..\..\src\CCRiftGLFWPreviewDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\WinUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PlatformUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\CCRiftOGLPlatform.cpp">
@@ -67,8 +73,17 @@
     <ClCompile Include="..\..\src\CCRiftGLFWPreviewDevice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\WinUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PlatformUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\resources\Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\resources\grid.BMP" />
   </ItemGroup>
 </Project>

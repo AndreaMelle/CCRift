@@ -12,7 +12,8 @@ ColorWheel::ColorWheel(Widget *parent, const Vector3f& rgb)
 
     float max = std::max({ r, g, b });
     float min = std::min({ r, g, b });
-    float h, s, l = (max + min) / 2;
+    float h = 0;
+    float s, l = (max + min) / 2;
 
     if (max == min) {
         mHue   = 0.;

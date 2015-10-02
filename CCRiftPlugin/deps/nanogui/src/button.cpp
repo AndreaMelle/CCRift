@@ -96,8 +96,8 @@ void Button::draw(NVGcontext *ctx) {
     }
 
     nvgBeginPath(ctx);
-	nvgRoundedRect(ctx, 0, mPos.y(), mParent->width(),
-                   mSize.y(), mTheme->mButtonCornerRadius - 1);
+	nvgRoundedRect(ctx, mPos.x() + 1, mPos.y() + 1.0f, mSize.x() - 2,
+		mSize.y() - 2, mTheme->mButtonCornerRadius - 1);
 
 
     if (mBackgroundColor.w() != 0) {

@@ -65,7 +65,7 @@ struct ShaderFill
 		{
 			GLchar msg[1024];
 			glGetProgramInfoLog(program, sizeof(msg), 0, msg);
-			printf(msg);
+			printf("%s", msg);
 			//OVR_DEBUG_LOG(("Linking shaders failed: %s\n", msg));
 		}
 	}

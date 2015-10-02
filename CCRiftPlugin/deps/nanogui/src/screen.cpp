@@ -6,8 +6,47 @@
 #include <iostream>
 #include <map>
 
-#define NANOVG_GL3_IMPLEMENTATION
-#include <nanovg_gl.h>
+#if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
+    #if defined(WINAPI_PARTITION_DESKTOP)
+        #if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+            #define NANOVG_MSW
+        #else
+            #error "Compile error: WINRT not supported"
+        #endif
+    #else
+        #define NANOVG_MSW
+    #endif
+#elif defined(linux) || defined(__linux) || defined(__linux__)
+    #error "Compile error: Linux not supported"
+#elif defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__)
+    #if TARGET_OS_IPHONE
+        #error "Compile error: iOS not supported"
+    #else
+        #define NANOVG_MAC
+    #endif
+#else
+    #error "Nanovg compile error: Unknown platform"
+#endif
+
+#ifdef NANOVG_MAC
+    #define NANOVG_GL2_IMPLEMENTATION
+#else
+    #ifdef NANOVG_MSW
+        #define NANOVG_GL3_IMPLEMENTATION
+    #endif
+#endif
+
+#include "nanovg_gl.h"
+
+#ifdef NANOVG_GL3_IMPLEMENTATION
+    #define NANOVG_CREATE nvgCreateGL3
+    #define NANOVG_DELETE nvgDeleteGL3
+#else
+    #ifdef NANOVG_GL2_IMPLEMENTATION
+        #define NANOVG_CREATE nvgCreateGL2
+        #define NANOVG_DELETE nvgDeleteGL2
+    #endif
+#endif
 
 NANOGUI_NAMESPACE_BEGIN
 
@@ -17,9 +56,9 @@ Screen::Screen(GLFWwindow* w)
 {
 
 #ifdef NDEBUG
-    mNVGContext = nvgCreateGL3(NVG_STENCIL_STROKES | NVG_ANTIALIAS);
+    mNVGContext = NANOVG_CREATE(NVG_STENCIL_STROKES | NVG_ANTIALIAS);
 #else
-    mNVGContext = nvgCreateGL3(NVG_STENCIL_STROKES | NVG_ANTIALIAS | NVG_DEBUG);
+    mNVGContext = NANOVG_CREATE(NVG_STENCIL_STROKES | NVG_ANTIALIAS | NVG_DEBUG);
 #endif
 
     mTheme = new Theme(mNVGContext);
@@ -38,7 +77,7 @@ Screen::Screen(GLFWwindow* w)
 
 Screen::~Screen() {
     delete mTheme;
-    nvgDeleteGL3(mNVGContext);
+    NANOVG_DELETE(mNVGContext);
 }
 
 bool Screen::onKey(GLFWwindow* w, int key, int scancode, int action, int mods)

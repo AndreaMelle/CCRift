@@ -118,7 +118,7 @@ typedef struct ovrFovPort_
 #define	PLUGIN_DISPLAY_NAME	L"CCRift Preview"
 
 #ifndef M_PI
-    #define M_PI 3.14159265f
+    #define M_PI 3.14159265358979323846264338327f
 #endif
 
 typedef struct

@@ -12,33 +12,59 @@ Scene::~Scene()
 
 bool Scene::init(glm::ivec2 windowSize, glm::ivec2 frameSize)
 {
-	static const GLchar* VertexShaderSrc =
-		"#version 330\n"
-		"uniform mat4 matWVP;\n"
-		"in vec3 Position;\n"
-		"in vec2 TexCoord;\n"
-		"out vec2 oTexCoord;\n"
-		"void main()\n"
-		"{\n"
-		"   gl_Position = matWVP * vec4(Position, 1);\n"
-		"   oTexCoord   = TexCoord;\n"
-		"}\n";
+//	static const GLchar* VertexShaderSrc =
+//		"#version 150 core\n"
+//		"uniform mat4 matWVP;\n"
+//		"in vec3 Position;\n"
+//		"in vec2 TexCoord;\n"
+//		"out vec2 oTexCoord;\n"
+//		"void main()\n"
+//		"{\n"
+//		"   gl_Position = matWVP * vec4(Position, 1);\n"
+//		"   oTexCoord   = TexCoord;\n"
+//		"}\n";
+//
+//	static const char* FragmentShaderSrc =
+//		"#version 150 core\n"
+//		"uniform sampler2D Texture0;\n"
+//		"uniform sampler2D Texture1;\n"
+//		"uniform float mix;\n"
+//		"in vec2 oTexCoord;\n"
+//		"out vec4 color;\n"
+//		"void main()\n"
+//		"{\n"
+//		"   vec3 FrameColor = texture2D(Texture0, oTexCoord).rgb;\n"
+//		"   vec3 GridColor = texture2D(Texture1, oTexCoord).rgb;\n"
+//		"   vec3 MixColor = (1.0 - mix) * FrameColor + mix * GridColor;\n"
+//		"   color = vec4(MixColor, 1.0);\n"
+//		"}\n";
 
-	static const char* FragmentShaderSrc =
-		"#version 330\n"
-		"uniform sampler2D Texture0;\n"
-		"uniform sampler2D Texture1;\n"
-		"uniform float mix;\n"
-		"in vec2 oTexCoord;\n"
-		"out vec4 color;\n"
-		"void main()\n"
-		"{\n"
-		"   vec3 FrameColor = texture2D(Texture0, oTexCoord).rgb;\n"
-		"   vec3 GridColor = texture2D(Texture1, oTexCoord).rgb;\n"
-		"   vec3 MixColor = (1.0 - mix) * FrameColor + mix * GridColor;\n"
-		"   color = vec4(MixColor, 1.0);\n"
-		"}\n";
-
+    static const GLchar* VertexShaderSrc =
+    //"#version 150\n"
+    "uniform mat4 matWVP;\n"
+    "attribute vec3 Position;\n"
+    "attribute vec2 TexCoord;\n"
+    "varying vec2 oTexCoord;\n"
+    "void main()\n"
+    "{\n"
+    "   gl_Position = matWVP * vec4(Position, 1);\n"
+    "   oTexCoord   = TexCoord;\n"
+    "}\n";
+    
+    static const char* FragmentShaderSrc =
+    //"#version 150\n"
+    "uniform sampler2D Texture0;\n"
+    "uniform sampler2D Texture1;\n"
+    "uniform float mix;\n"
+    "varying vec2 oTexCoord;\n"
+    //"varying vec4 color;\n"
+    "void main()\n"
+    "{\n"
+    "   vec3 FrameColor = texture2D(Texture0, oTexCoord).rgb;\n"
+    "   vec3 GridColor = texture2D(Texture1, oTexCoord).rgb;\n"
+    "   vec3 MixColor = (1.0 - mix) * FrameColor + mix * GridColor;\n"
+    "   gl_FragColor = vec4(MixColor, 1.0);\n"
+    "}\n";
 	
 
 	GLuint    vshader = createShader(GL_VERTEX_SHADER, VertexShaderSrc);
@@ -62,7 +88,7 @@ bool Scene::init(glm::ivec2 windowSize, glm::ivec2 frameSize)
 	glDeleteShader(fshader);
 
     sphere = new UVSphere(glm::vec3(0, 0, 0), grid_material);
-	sphere->AddSolidSphere(10.0f, 32.0f);
+	sphere->AddSolidSphere(10.0f, 64.0f);
 	sphere->AllocateBuffers();
 
 	return true;

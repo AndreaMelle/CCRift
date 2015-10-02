@@ -161,6 +161,8 @@
     <ClInclude Include="..\..\src\CCRiftScene.h" />
     <ClInclude Include="..\..\src\CCRiftUVSphere.h" />
     <ClInclude Include="..\..\src\CCRiftWinPreviewDevice.h" />
+    <ClInclude Include="..\..\src\PlatformUtils.h" />
+    <ClInclude Include="..\..\src\WinUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\CCRiftFrameTexture.cpp" />
@@ -170,10 +172,15 @@
     <ClCompile Include="..\..\src\CCRiftScene.cpp" />
     <ClCompile Include="..\..\src\CCRiftUVSphere.cpp" />
     <ClCompile Include="..\..\src\CCRiftWinPreviewDevice.cpp" />
+    <ClCompile Include="..\..\src\PlatformUtils.cpp" />
     <ClCompile Include="..\..\src\StandalonePreview\StandalonePreview.cpp" />
+    <ClCompile Include="..\..\src\WinUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\..\resources\Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\resources\grid.BMP" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

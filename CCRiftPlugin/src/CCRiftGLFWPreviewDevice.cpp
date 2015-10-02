@@ -1,5 +1,4 @@
 #include "CCRiftGLFWPreviewDevice.h"
-#include "DummyPopupView.h"
 #include "Eigen/Core"
 #include "nanogui/window.h"
 #include "nanogui/label.h"
@@ -7,14 +6,19 @@
 #include "nanogui/layout.h"
 #include "nanogui/checkbox.h"
 
+#include "PlatformUtils.h"
+
 using namespace std;
 using namespace CCRift;
 
 GLFWPreviewDevice::GLFWPreviewDevice()
 : mWindowSize(glm::ivec2(960, 540))
     , mFrameSize(glm::ivec2(1920, 960))
+
 	, mDeviceRunning(false)
     , mFrameBufferDepth(4)
+    , mXPos(0)
+    , mYPos(0)
     , onMouseDownMouseX(0)
     , onMouseDownMouseY(0)
     , lon(0)
@@ -28,10 +32,8 @@ GLFWPreviewDevice::GLFWPreviewDevice()
 #endif
     , mAlwaysOnTop(false)
     , mActive(false)
-	, verticalFovDegrees(60.0f)
+    , verticalFovDegrees(60.0f)
     , contextualMenuCallback([](ContextualMenuOptions){})
-	, mXPos(0)
-	, mYPos(0)
 {
 	mFrameBufferLength = mFrameSize.x * mFrameSize.y * mFrameBufferDepth;
 	mFrameDataBuffer = new unsigned char[mFrameBufferLength];
@@ -62,13 +64,6 @@ void GLFWPreviewDevice::setActive(bool active)
 {
 	if (active)
 	{
-//#ifdef IS_PLUGIN
-//#ifdef CCRIFT_MSW
-//		HWND h = glfwGetWin32Window(window);
-//		SetFocus(h);
-//		SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-//#endif
-//#endif
 	}
 	else
 	{
@@ -114,6 +109,52 @@ void GLFWPreviewDevice::start(HINSTANCE hinst)
 		mDeviceRunning = false;
 	};
     
+#ifndef IS_PLUGIN
+    #ifdef CCRIFT_MAC
+    
+    HRESULT hr;
+    hr = deviceSetup();
+    
+    if (FAILED(hr))
+    {
+        deviceTeardown();
+        mDeviceRunning = false;
+        return;
+    }
+    
+    size_t demoDataSize = preferredFrameHeight()
+    * preferredFrameWidth()
+    * preferredFrameDepth();
+    
+    unsigned char *demoData = new unsigned char[demoDataSize];
+    
+    memset(demoData, 0, demoDataSize);
+        
+        for (int i = 0; i < demoDataSize; i++)
+        {
+            demoData[i] = rand() % 255;
+        }
+
+    pushFrame(demoData);
+    
+    mProcess.mRunning = true;
+    while (mProcess.mRunning)
+    {
+        hr = deviceUpdate();
+        
+        if (FAILED(hr))
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(33));
+            continue;
+        }
+    }
+    
+    deviceTeardown();
+    
+    mDeviceRunning = false;
+    #endif
+#endif
+    
 	mProcess.start();
 
 }
@@ -138,10 +179,18 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		return E_FAIL;
 	}
 	
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef CCRIFT_MAC
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+#else
+#ifdef CCRIFT_MSW
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#endif
+#endif
+	
 	glfwWindowHint(GLFW_SAMPLES, 0);
     glfwWindowHint(GLFW_RED_BITS, 8);
     glfwWindowHint(GLFW_GREEN_BITS, 8);
@@ -160,9 +209,11 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	}
 
 	glfwMakeContextCurrent(window);
-
+    
+#ifdef CCRIFT_MSW
 	glewExperimental = GL_TRUE;
-
+#endif
+    
     if(glewInit() != GLEW_OK)
     {
         //printf("Failed to initialize GLEW\n");
@@ -172,48 +223,9 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	glfwSwapInterval(1);
 
 #ifdef IS_PLUGIN
-	#ifdef CCRIFT_MSW
-
-	HWND h = glfwGetWin32Window(window);
-	SetFocus(h);
-	SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-	mAlwaysOnTop = true;
-
-	//int count;
-	//GLFWmonitor** monitors = glfwGetMonitors(&count);
-
-	//if (IsWindow(mParentWindow))// && count >= 2)
-	//{
-		
-		// Only handling the left case
-		/*RECT r;
-		if(GetWindowRect(mParentWindow, &r))
-		{
-			glfwSetWindowPos(window, r.right, r.top);
-		}*/
-		
-
-		/*HMONITOR mNativeParentMonitor = MonitorFromWindow(mParentWindow, MONITOR_DEFAULTTONEAREST);
-
-		for (int i = 0; i < count; i++)
-		{
-			HMONITOR m = (HMONITOR)(*(monitors + i));
-			if(m != mNativeParentMonitor)
-			{
-				MONITORINFO target;
-				target.cbSize = sizeof(MONITORINFO);
-				GetMonitorInfo(m, &target);
-				RECT r = target.rcWork;
-				glfwSetWindowPos(window, r.right, r.top);
-			}
-		}*/
-
-	//}
-
-	
-	LONG_PTR style = GetWindowLongPtr(h, GWL_STYLE);
-	SetWindowLongPtr(h, GWL_STYLE, style & ~WS_SYSMENU);
-	#endif
+	SetWindowAlwaysOnTop(window);
+	HideWindowCloseButton(window);
+    mAlwaysOnTop = true;
 #endif
 	//glfwSetInputMode(window, GLFW_STICKY_MOUSE_BUTTONS, GL_TRUE);
 	
@@ -229,8 +241,8 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	popupMenu = new nanogui::Window(mGUI, "");
 	
 	nanogui::GroupLayout *layout = new nanogui::GroupLayout();
-	layout->setSpacing(0);
-	layout->setMargin(0);
+	//layout->setSpacing(0);
+	//layout->setMargin(0);
 	popupMenu->setLayout(layout);
 
 	nanogui::Button *bAbout = new nanogui::Button(popupMenu, "About");
@@ -309,10 +321,7 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		}
 		else if (sel == CONTEXTUAL_MENU_ABOUT)
 		{
-#ifdef CCRIFT_MSW
-			HWND h = glfwGetWin32Window(window);
-			MessageBoxA(h, "v0.1\n\nSeptember 2015\n\nandrea.melle@happyfinish.com", "About", MB_ICONINFORMATION | MB_OK);
-#endif
+			ShowMessagePopup(window, "v0.1\n\nSeptember 2015\n\nandrea.melle@happyfinish.com", "About");
 		}
 		else if (sel == CONTEXTUAL_MENU_GRIDTOGGLE)
 		{
@@ -322,20 +331,14 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		else if (sel == CONTEXTUAL_MENU_ALWAYSONTOP)
 		{
 #ifdef IS_PLUGIN
-#ifdef CCRIFT_MSW
-			HWND h = glfwGetWin32Window(window);
-			SetFocus(h);
 			if (mAlwaysOnTop)
-			{
-				SetWindowPos(h, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-				SetWindowPos(h, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-			}
+				ResetWindowAlwaysOnTop(window);
 			else
-				SetWindowPos(h, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-			mAlwaysOnTop = !mAlwaysOnTop;
-#endif
+				SetWindowAlwaysOnTop(window);
+            mAlwaysOnTop = !mAlwaysOnTop;
 #endif
 		}
+        
 	};
 
 	// Turn off vsync to let the compositor do its magic
@@ -462,42 +465,6 @@ void GLFWPreviewDevice::glfwMouseButtonCallback(GLFWwindow* w, int button, int a
 		popupMenu->setVisible(true);
 		popupMenu->setPosition(Eigen::Vector2i(mXPos, mYPos));
 	}
-
-//#ifdef CCRIFT_MSW
-//		HMENU hPopupMenu = CreatePopupMenu();
-//		InsertMenuW(hPopupMenu, 0, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_RESET, L"Reset");
-//
-//		UINT gridFlags = MF_BYPOSITION | MF_STRING | (mScene->getSphere()->Grid() ? MF_CHECKED : 0);
-//		InsertMenuW(hPopupMenu, 1, gridFlags, CONTEXTUAL_MENU_GRIDTOGGLE, L"Grid");
-//#ifdef IS_PLUGIN
-//		UINT ontopFlags = MF_BYPOSITION | MF_STRING | (mAlwaysOnTop ? MF_CHECKED : 0);
-//		InsertMenuW(hPopupMenu, 2, ontopFlags, CONTEXTUAL_MENU_ALWAYSONTOP, L"Always On Top");
-//#endif
-//		InsertMenuW(hPopupMenu, 3, MF_SEPARATOR | MF_BYPOSITION, 0, NULL);
-//		InsertMenuW(hPopupMenu, 4, MF_BYPOSITION | MF_STRING, CONTEXTUAL_MENU_ABOUT, L"About");
-//
-//		HWND h = glfwGetWin32Window(window);
-//		RECT rcWindow, rcClient;
-//		GetWindowRect(h, &rcWindow);
-//		GetClientRect(h, &rcClient);
-//
-//		int ptDiff = (rcWindow.bottom - rcWindow.top) - rcClient.bottom;
-//
-//		int sel = TrackPopupMenuEx(hPopupMenu,
-//			TPM_TOPALIGN | TPM_LEFTALIGN | TPM_RETURNCMD,
-//			rcWindow.left + (int)mXPos,
-//			rcWindow.top + (int)mYPos + ptDiff, h, NULL);
-//
-//		contextualMenuCallback((ContextualMenuOptions)sel);
-//
-//		DestroyMenu(hPopupMenu);
-//#else
-//#ifdef CCRIFT_MAC
-//		NSWindow* h = glfwGetCocoaWindow(window);
-//		HandleRButtonDown(h, xpos, ypos);
-//#endif
-//#endif
-	//}
 }
 
 void GLFWPreviewDevice::glfwScrollCallback(GLFWwindow* w, double x, double y)
