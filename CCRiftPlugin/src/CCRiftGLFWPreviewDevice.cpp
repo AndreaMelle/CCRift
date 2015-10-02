@@ -398,6 +398,7 @@ HRESULT GLFWPreviewDevice::deviceUpdate()
 		glCullFace(GL_FRONT);
 
 		mScene->render(view, mProj);
+
 		mGUI->render();
 
 		glfwSwapBuffers(window);
