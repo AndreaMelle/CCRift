@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C0B7A311BBE74DC009C9670 /* gridUpsideDown.BMP in Resources */ = {isa = PBXBuildFile; fileRef = 3C0B7A301BBE74DC009C9670 /* gridUpsideDown.BMP */; settings = {ASSET_TAGS = (); }; };
+		3C0B7A391BBE76D2009C9670 /* PlatformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C0B7A381BBE76D2009C9670 /* PlatformUtils.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C361BBB1C7600E76EB3 /* SDK_Segment_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681BD71BBB1C7600E76EB3 /* SDK_Segment_Utils.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C371BBB1C7600E76EB3 /* SDK_File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681BD91BBB1C7600E76EB3 /* SDK_File.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C381BBB1C7600E76EB3 /* adobesdk in Resources */ = {isa = PBXBuildFile; fileRef = 3C681C351BBB1C7600E76EB3 /* adobesdk */; settings = {ASSET_TAGS = (); }; };
@@ -45,7 +47,6 @@
 		3CB454241BBC635A00CC57C2 /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453ED1BBC635A00CC57C2 /* button.cpp */; settings = {ASSET_TAGS = (); }; };
 		3CB454251BBC635A00CC57C2 /* nanovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4540A1BBC635A00CC57C2 /* nanovg.c */; settings = {ASSET_TAGS = (); }; };
 		3CB454281BBC636A00CC57C2 /* fontResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB454271BBC636A00CC57C2 /* fontResources.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454801BBD955D00CC57C2 /* grid.BMP in Resources */ = {isa = PBXBuildFile; fileRef = 3CB4547F1BBD955D00CC57C2 /* grid.BMP */; settings = {ASSET_TAGS = (); }; };
 		3CB4548E1BBDB40900CC57C2 /* CocoaUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4548C1BBDB40900CC57C2 /* CocoaUtils.mm */; settings = {ASSET_TAGS = (); }; };
 		7E48CD0F1700FCA400D1EFDC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E48CD0E1700FCA400D1EFDC /* Cocoa.framework */; };
 		7EFEE1D115E5641300B7561D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFEE1D015E5641300B7561D /* Foundation.framework */; };
@@ -54,6 +55,9 @@
 
 /* Begin PBXFileReference section */
 		0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		3C0B7A301BBE74DC009C9670 /* gridUpsideDown.BMP */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = gridUpsideDown.BMP; path = ../../resources/gridUpsideDown.BMP; sourceTree = "<group>"; };
+		3C0B7A371BBE76D2009C9670 /* PlatformUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlatformUtils.h; path = ../../src/PlatformUtils.h; sourceTree = "<group>"; };
+		3C0B7A381BBE76D2009C9670 /* PlatformUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlatformUtils.cpp; path = ../../src/PlatformUtils.cpp; sourceTree = "<group>"; };
 		3C681BC81BBB1C7600E76EB3 /* SPTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPTypes.h; path = ../../src/PrSDK/SPTypes.h; sourceTree = "<group>"; };
 		3C681BC91BBB1C7600E76EB3 /* SPSuites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPSuites.h; path = ../../src/PrSDK/SPSuites.h; sourceTree = "<group>"; };
 		3C681BCA1BBB1C7600E76EB3 /* SPStrngs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPStrngs.h; path = ../../src/PrSDK/SPStrngs.h; sourceTree = "<group>"; };
@@ -245,7 +249,6 @@
 		3CB4540D1BBC635A00CC57C2 /* fontstash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fontstash.h; path = ../../deps/nanogui/ext/nanovg/src/fontstash.h; sourceTree = "<group>"; };
 		3CB454261BBC636A00CC57C2 /* fontResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fontResources.h; path = ../../resources/fonts/fontResources.h; sourceTree = "<group>"; };
 		3CB454271BBC636A00CC57C2 /* fontResources.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fontResources.cpp; path = ../../resources/fonts/fontResources.cpp; sourceTree = "<group>"; };
-		3CB4547F1BBD955D00CC57C2 /* grid.BMP */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = grid.BMP; path = ../../resources/grid.BMP; sourceTree = "<group>"; };
 		3CB4548C1BBDB40900CC57C2 /* CocoaUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CocoaUtils.mm; path = ../../src/CocoaUtils.mm; sourceTree = "<group>"; };
 		3CB4548D1BBDB40900CC57C2 /* CocoaUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaUtils.h; path = ../../src/CocoaUtils.h; sourceTree = "<group>"; };
 		7E48CD0E1700FCA400D1EFDC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -271,7 +274,7 @@
 		089C166AFE841209C02AAC07 /* Transmitter */ = {
 			isa = PBXGroup;
 			children = (
-				3CB4547F1BBD955D00CC57C2 /* grid.BMP */,
+				3C0B7A301BBE74DC009C9670 /* gridUpsideDown.BMP */,
 				3CB453D61BBC631E00CC57C2 /* nanogui */,
 				3C681C391BBB1CE700E76EB3 /* PluginSource */,
 				3C681BC71BBB1C5E00E76EB3 /* PrSDK */,
@@ -306,6 +309,8 @@
 		08FB77AFFE84173DC02AAC07 /* CCRift */ = {
 			isa = PBXGroup;
 			children = (
+				3C0B7A371BBE76D2009C9670 /* PlatformUtils.h */,
+				3C0B7A381BBE76D2009C9670 /* PlatformUtils.cpp */,
 				3CB4548C1BBDB40900CC57C2 /* CocoaUtils.mm */,
 				3CB4548D1BBDB40900CC57C2 /* CocoaUtils.h */,
 				3C681C3A1BBB1D0500E76EB3 /* CCRiftWinPreviewDevice.h */,
@@ -584,7 +589,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C681C381BBB1C7600E76EB3 /* adobesdk in Resources */,
-				3CB454801BBD955D00CC57C2 /* grid.BMP in Resources */,
+				3C0B7A311BBE74DC009C9670 /* gridUpsideDown.BMP in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,6 +618,7 @@
 				3C681C4C1BBB1D0500E76EB3 /* CCRiftUVSphere.cpp in Sources */,
 				3CB4541E1BBC635A00CC57C2 /* graph.cpp in Sources */,
 				3CB4548E1BBDB40900CC57C2 /* CocoaUtils.mm in Sources */,
+				3C0B7A391BBE76D2009C9670 /* PlatformUtils.cpp in Sources */,
 				3CB454101BBC635A00CC57C2 /* vscrollpanel.cpp in Sources */,
 				3CB454231BBC635A00CC57C2 /* checkbox.cpp in Sources */,
 				3CB4541B1BBC635A00CC57C2 /* label.cpp in Sources */,
@@ -648,6 +654,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "/Library/Application Support/Adobe/Common/Plug-ins/7.0/MediaCore";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -709,7 +716,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "/Library/Application Support/Adobe/Common/Plug-ins/7.0/MediaCore";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_MODEL_TUNING = G5;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					GLEW_STATIC,

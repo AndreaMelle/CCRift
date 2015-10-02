@@ -7,23 +7,23 @@
 //
 
 #import "CocoaUtils.h"
-#import "CCRiftFrameTexture.h"
+
 
 #import <Foundation/Foundation.h>
 
 
 @interface CocoaUtils : NSObject
-+ (void*)LoadBitmap:(NSString*)file;
++ (CCRift::FrameTexture*)LoadBitmap:(NSString*)file;
 + (void)ShowMessagePopup:(NSString*) msg;
 @end
 
 @implementation CocoaUtils
 
-+ (void*) LoadBitmap:(NSString*)file
++ (CCRift::FrameTexture*) LoadBitmap:(NSString*)file
 {
 #ifdef IS_PLUGIN
     NSBundle* myBundle = [NSBundle bundleWithIdentifier:@"com.yourcompany.CCRiftPlugin"];
-    NSString* bundlepath = [myBundle pathForResource:@"grid" ofType:@"BMP"];
+    NSString* bundlepath = [myBundle pathForResource:@"gridUpsideDown" ofType:@"BMP"];
     NSImage * image = [[NSImage alloc] initWithContentsOfFile:bundlepath];
 #else
     NSImage * image = [[NSImage alloc] initWithContentsOfFile:file];
@@ -80,25 +80,32 @@
 
 @end
 
-void CocoaChangeWindowOrder(id window, int level)
+void CocoaSetWindowAlwaysOnTop(GLFWwindow* window)
 {
-    NSWindow* h = (NSWindow*)window;
-    h.level = level;
+    NSWindow* h = (NSWindow*)glfwGetCocoaWindow(window);
+    h.level = kCGMaximumWindowLevelKey;
 }
 
-void* CocoaLoadBitmap(const char* filename)
+void CocoaResetWindowAlwaysOnTop(GLFWwindow* window)
 {
-    return (void*)[CocoaUtils LoadBitmap:[NSString stringWithUTF8String:filename]];
+    NSWindow* h = (NSWindow*)glfwGetCocoaWindow(window);
+    h.level = kCGBaseWindowLevelKey;
 }
 
-void CocoaShowMessagePopup(const char* msg)
+void CocoaHideWindowCloseButton(GLFWwindow* window)
+{
+    NSWindow* h = (NSWindow*)glfwGetCocoaWindow(window);
+    [[h standardWindowButton:NSWindowCloseButton] setHidden:YES];
+}
+
+CCRift::FrameTexture* CocoaLoadBitmap(const char* filename)
+{
+    return [CocoaUtils LoadBitmap:[NSString stringWithUTF8String:filename]];
+}
+
+void CocoaShowMessagePopup(GLFWwindow* window, const char* msg, const char* title)
 {
     [CocoaUtils ShowMessagePopup:[NSString stringWithUTF8String:msg]];
-}
-
-void CocoaHideWindowCloseButton(id window, bool hide)
-{
-    [[(NSWindow*)window standardWindowButton:NSWindowCloseButton] setHidden:hide];
 }
 
 //[[glfwGetCocoaWindow(window) standardWindowButton:NSWindowMiniaturizeButton] setHidden:YES];
