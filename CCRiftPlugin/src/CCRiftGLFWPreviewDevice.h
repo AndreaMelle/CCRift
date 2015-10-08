@@ -6,11 +6,39 @@
 #include "CCRiftOGLPlatform.h"
 #include "CCRiftIDevice.h"
 #include "nanogui/screen.h"
+#include <map>
 
 namespace CCRift
 {
 	class GLFWPreviewDevice : public IDevice<GLFWPreviewDevice>
 	{
+	public:
+
+		typedef enum FOVOption
+		{
+			FOV_MINIMUM,
+			FOV_HANDHELD,
+			FOV_DK2,
+			FOV_GEARVR,
+			FOV_CARDBOARD,
+			FOV_CUSTOM_DEFAULT,
+			FOV_MAXIMUM
+		} FOVOption;
+
+		typedef struct FOVInfo
+		{
+		public:
+			FOVInfo() {}
+			FOVInfo(FOVOption _option, float _fovDeg, std::string _name)
+				: option(_option)
+				, fovDegrees(_fovDeg)
+				, name(_name) {}
+
+			FOVOption option;
+			float fovDegrees;
+			std::string name;
+		};
+
 		friend IDevice;
 	public:
 		
@@ -46,6 +74,8 @@ namespace CCRift
 		void glfwMouseButtonCallback(GLFWwindow* w, int button, int action, int modifiers);
 		void glfwKeyCallback(GLFWwindow* w, int key, int scancode, int action, int mods);
 		void glfwScrollCallback(GLFWwindow* w, double x, double y);
+
+		void setFieldOfView(float vFOV);
 
 	protected:
 		GLFWPreviewDevice();
@@ -91,6 +121,8 @@ namespace CCRift
         glm::mat4 mProj;
 
 		std::function<void(ContextualMenuOptions)> contextualMenuCallback;
+
+		static std::map<FOVOption, FOVInfo> gFovOptions;
 
 #ifdef CCRIFT_MSW
 		HWND mParentWindow;

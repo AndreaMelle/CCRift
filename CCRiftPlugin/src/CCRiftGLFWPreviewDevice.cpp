@@ -5,11 +5,27 @@
 #include "nanogui/button.h"
 #include "nanogui/layout.h"
 #include "nanogui/checkbox.h"
+#include "nanogui/popup.h"
+#include "nanogui/popupbutton.h"
+#include "nanogui/slider.h"
+#include "nanogui/textbox.h"
+#include "nanogui/combobox.h"
 
 #include "PlatformUtils.h"
 
 using namespace std;
 using namespace CCRift;
+
+std::map<GLFWPreviewDevice::FOVOption, GLFWPreviewDevice::FOVInfo> GLFWPreviewDevice::gFovOptions = 
+{
+	{ GLFWPreviewDevice::FOV_MINIMUM, FOVInfo(GLFWPreviewDevice::FOV_MINIMUM, 10.0f, "Minimum (10)") },
+	{ GLFWPreviewDevice::FOV_HANDHELD, FOVInfo(GLFWPreviewDevice::FOV_HANDHELD, 60.0f, "Handheld (60)") },
+	{ GLFWPreviewDevice::FOV_DK2, FOVInfo(GLFWPreviewDevice::FOV_DK2, 100.0f, "Oculus Rift DK2 (100)") },
+	{ GLFWPreviewDevice::FOV_GEARVR, FOVInfo(GLFWPreviewDevice::FOV_GEARVR, 90.0f, "Samsung GearVR (90)") },
+	{ GLFWPreviewDevice::FOV_CARDBOARD, FOVInfo(GLFWPreviewDevice::FOV_CARDBOARD, 85.0f, "Google Cardboard (85)") },
+	{ GLFWPreviewDevice::FOV_CUSTOM_DEFAULT, FOVInfo(GLFWPreviewDevice::FOV_CUSTOM_DEFAULT, 70.0f, "Custom") },
+	{ GLFWPreviewDevice::FOV_MAXIMUM, FOVInfo(GLFWPreviewDevice::FOV_MAXIMUM, 150.0f, "Maximum (150)") },
+};
 
 GLFWPreviewDevice::GLFWPreviewDevice()
 : mWindowSize(glm::ivec2(960, 540))
@@ -32,15 +48,14 @@ GLFWPreviewDevice::GLFWPreviewDevice()
 #endif
     , mAlwaysOnTop(false)
     , mActive(false)
-    , verticalFovDegrees(60.0f)
     , contextualMenuCallback([](ContextualMenuOptions){})
 {
 	mFrameBufferLength = mFrameSize.x * mFrameSize.y * mFrameBufferDepth;
 	mFrameDataBuffer = new unsigned char[mFrameBufferLength];
 
 	mAspectRatio = (float)mWindowSize.x / (float)mWindowSize.y;
-	float verticalFovRadians = verticalFovDegrees * M_PI / 180.0f;
-	mProj = glm::perspectiveFovRH(verticalFovRadians, (float)mWindowSize.x, (float)mWindowSize.y, 0.1f, 100.0f); //RH
+
+	setFieldOfView(60.0f);
 }
 
 GLFWPreviewDevice::~GLFWPreviewDevice()
@@ -48,6 +63,13 @@ GLFWPreviewDevice::~GLFWPreviewDevice()
 	this->stop();
 	if (mFrameDataBuffer)
 		delete[] mFrameDataBuffer;
+}
+
+void GLFWPreviewDevice::setFieldOfView(float vFOV)
+{
+	verticalFovDegrees = vFOV;
+	float verticalFovRadians = verticalFovDegrees * M_PI / 180.0f;
+	mProj = glm::perspectiveFovRH(verticalFovRadians, (float)mWindowSize.x, (float)mWindowSize.y, 0.1f, 100.0f); //RH
 }
 
 void GLFWPreviewDevice::pushFrame(const void* data)
@@ -239,24 +261,95 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 
 	mGUI = new nanogui::Screen(window);
 	popupMenu = new nanogui::Window(mGUI, "");
-	
+
+	popupMenu->setFixedWidth(200);
+
 	nanogui::GroupLayout *layout = new nanogui::GroupLayout();
+	popupMenu->setLayout(layout);
+	
 	//layout->setSpacing(0);
 	//layout->setMargin(0);
-	popupMenu->setLayout(layout);
-
+	
+	new nanogui::Label(popupMenu, "General", "sans-bold");
 	nanogui::Button *bAbout = new nanogui::Button(popupMenu, "About");
-	bAbout->setWidth(popupMenu->width());
-
 	nanogui::Button *bReset = new nanogui::Button(popupMenu, "Reset");
 	nanogui::Button *cGrid = new nanogui::Button(popupMenu, "Grid");
-	nanogui::Button *cTop = new nanogui::Button(popupMenu, "Always On Top");
-
 	cGrid->setButtonFlags(nanogui::Button::ToggleButton);
+	nanogui::Button *cTop = new nanogui::Button(popupMenu, "Always On Top");
 	cTop->setButtonFlags(nanogui::Button::ToggleButton);
+
+	new nanogui::Label(popupMenu, "Field of View", "sans-bold");
+	
+
+	nanogui::ComboBox* fovComboBox = new nanogui::ComboBox(popupMenu, {
+		gFovOptions[FOV_DK2].name,
+		gFovOptions[FOV_GEARVR].name,
+		gFovOptions[FOV_CARDBOARD].name,
+		gFovOptions[FOV_HANDHELD].name,
+		gFovOptions[FOV_CUSTOM_DEFAULT].name
+	});
+
+	nanogui::Slider *slider = new nanogui::Slider(popupMenu);
+	
+	nanogui::TextBox *textBox = new nanogui::TextBox(popupMenu);
+	textBox->setUnits("deg");
+	textBox->setFixedSize(nanogui::Vector2i(60, 25));
+	
+
+	fovComboBox->setCallback([&, slider, textBox](int value) {
+
+		bool showSlider = false;
+
+		switch (value)
+		{
+		case 0:
+			//Oculus Rift DK2
+			setFieldOfView(gFovOptions[FOV_DK2].fovDegrees);
+			break;
+		case 1:
+			//Gear VR
+			setFieldOfView(gFovOptions[FOV_GEARVR].fovDegrees);
+			break;
+		case 2:
+			//Google Cardboard
+			setFieldOfView(gFovOptions[FOV_CARDBOARD].fovDegrees);
+			break;
+		case 3:
+			//Handheld
+			setFieldOfView(gFovOptions[FOV_HANDHELD].fovDegrees);
+			break;
+		case 4:
+			showSlider = true;
+			setFieldOfView(std::max<float>(gFovOptions[FOV_MINIMUM].fovDegrees, slider->value() * gFovOptions[FOV_MAXIMUM].fovDegrees));
+			break;
+		default:
+			break;
+		}
+
+		slider->setEnabled(showSlider);
+		slider->setVisible(showSlider);
+		textBox->setVisible(showSlider);
+
+	});
+	
+	fovComboBox->setSelectedIndex(3);
+	setFieldOfView(gFovOptions[FOV_HANDHELD].fovDegrees);
+
+	textBox->setValue(std::to_string((int)(gFovOptions[FOV_CUSTOM_DEFAULT].fovDegrees)));
+	textBox->setVisible(false);
+	slider->setEnabled(false);
+	slider->setVisible(false);
+	slider->setValue(gFovOptions[FOV_CUSTOM_DEFAULT].fovDegrees / gFovOptions[FOV_MAXIMUM].fovDegrees);
 
 	cGrid->setPushed(mScene->getSphere()->Grid());
 	cTop->setPushed(mAlwaysOnTop);
+
+	slider->setCallback([&, textBox](float value) {
+		textBox->setValue(std::to_string((int)(std::max<float>(gFovOptions[FOV_MINIMUM].fovDegrees, value * gFovOptions[FOV_MAXIMUM].fovDegrees))));
+	});
+	slider->setFinalCallback([&](float value) {
+		setFieldOfView(std::max<float>(gFovOptions[FOV_MINIMUM].fovDegrees, value * gFovOptions[FOV_MAXIMUM].fovDegrees));
+	});
 
 	bAbout->setCallback([&](){
 		contextualMenuCallback(CONTEXTUAL_MENU_ABOUT);
@@ -279,6 +372,7 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	});
 
 	mGUI->performLayout(mGUI->nvgContext());
+
 
 	glfwSetCursorPosCallback(window, [](GLFWwindow *w, double x, double y){
 		IDevice<GLFWPreviewDevice>::Instance().glfwCursorPosCallback(w, x, y);

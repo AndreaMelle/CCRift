@@ -55,7 +55,7 @@ tmResult CCRiftInstance::ActivateDeactivate(const tmStdParms* inStdParms,
 	sprintf_s(	outputString, 255,
 				"<%i> ActivateDeactivate called ",
 				clock());
-	OutputDebugString(outputString);
+	OutputDebugStringA(outputString);
 	#elif defined PRMAC_ENV
 	NSLog(@"ActivateDeactivate called.");
 	#endif
@@ -115,7 +115,7 @@ tmResult CCRiftInstance::PushVideo(const tmStdParms* inStdParms,
 				(float) parNum / parDen,
 				pixelFormat,
 				inPushVideo->inFrameCount);
-	OutputDebugString(outputString);
+	OutputDebugStringA(outputString);
 
 	if (inPushVideo->inPlayMode == playmode_Scrubbing)
 	{
@@ -132,7 +132,7 @@ tmResult CCRiftInstance::PushVideo(const tmStdParms* inStdParms,
 		sprintf_s(	outputString, 255,
 					" Stopped.\n");
 	}
-	OutputDebugString(outputString);
+	OutputDebugStringA(outputString);
 
 	#elif defined PRMAC_ENV
 		

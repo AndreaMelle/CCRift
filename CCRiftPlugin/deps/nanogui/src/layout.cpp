@@ -137,8 +137,8 @@ void GroupLayout::performLayout(NVGcontext *ctx, Widget *widget) const {
 
         height += cs.y();
 
-        if (label)
-            indent = !label->caption().empty();
+        //if (label)
+            //indent = !label->caption().empty();
     }
 }
 

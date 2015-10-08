@@ -75,6 +75,7 @@
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <PlatformToolset>v120</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -232,7 +233,8 @@
       </DataExecutionPrevention>
       <TargetMachine>MachineX64</TargetMachine>
       <ImportLibrary>$(IntDir)/$(TargetName).lib</ImportLibrary>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\lib-vc2013\glfw3dll.lib;$(SolutionDir)\..\deps\glew-1.13.0\lib\$(Configuration)\$(Platform)\glew32s.lib;$(SolutionDir)\..\builds\nanogui\$(Platform)\$(Configuration)\NanoGUI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\lib-vc2013\glfw3.lib;$(SolutionDir)\..\deps\glew-1.13.0\lib\$(Configuration)\$(Platform)\glew32s.lib;$(SolutionDir)\..\builds\nanogui\$(Platform)\$(Configuration)\NanoGUI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
     <Bscmake>
       <OutputFile>$(IntDir)$(TargetName).bsc</OutputFile>
