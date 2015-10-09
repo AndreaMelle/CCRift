@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5453A4DE-6A90-474D-B2E6-95E8DC1E94D3}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>StandalonePreview</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\builds\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\temp\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\builds\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)\temp\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\include;$(SolutionDir)\..\deps\glew-1.13.0\include;$(SolutionDir)\..\deps\nanogui\ext\nanovg\src;$(SolutionDir)\..\deps\nanogui\ext\eigen\;$(SolutionDir)\..\resources\fonts\;$(SolutionDir)\..\deps\nanogui\include;$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(SolutionDir)\..\src;$(SolutionDir)\..\src\PrSDK;$(SolutionDir)\..\src\StandalonePreview;$(SolutionDir)\..\resources;$(SolutionDir)\..\deps\glm</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\lib-vc2013\glfw3dll.lib;$(SolutionDir)\..\deps\glew-1.13.0\lib\$(Configuration)\$(Platform)\glew32sd.lib;$(SolutionDir)\..\builds\nanogui\$(Platform)\$(Configuration)\NanoGUI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_LIB;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\include;$(SolutionDir)\..\deps\glew-1.13.0\include;$(SolutionDir)\..\deps\nanogui\ext\nanovg\src;$(SolutionDir)\..\deps\nanogui\ext\eigen\;$(SolutionDir)\..\resources\fonts\;$(SolutionDir)\..\deps\nanogui\include;$(OVRSDKDIR)\LibOVR\Include\;$(OVRSDKDIR)\LibOVRKernel\Src\;$(SolutionDir)\..\src;$(SolutionDir)\..\src\PrSDK;$(SolutionDir)\..\src\StandalonePreview;$(SolutionDir)\..\resources;$(SolutionDir)\..\deps\glm</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;$(OVRSDKDIR)\LibOVRKernel/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVRKernel.lib;$(OVRSDKDIR)\LibOVR/Lib/Windows/$(Platform)/$(Configuration)/VS2013/LibOVR.lib;$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\lib-vc2013\glfw3dll.lib;$(SolutionDir)\..\deps\glew-1.13.0\lib\$(Configuration)\$(Platform)\glew32s.lib;$(SolutionDir)\..\builds\nanogui\$(Platform)\$(Configuration)\NanoGUI.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\resources\resource.h" />
+    <ClInclude Include="..\..\src\CCRiftBufferHelpers.h" />
+    <ClInclude Include="..\..\src\CCRiftCommons.h" />
+    <ClInclude Include="..\..\src\CCRiftFrameTexture.h" />
+    <ClInclude Include="..\..\src\CCRiftGLFWPreviewDevice.h" />
+    <ClInclude Include="..\..\src\CCRiftIDevice.h" />
+    <ClInclude Include="..\..\src\CCRiftOGLPlatform.h" />
+    <ClInclude Include="..\..\src\CCRiftScene.h" />
+    <ClInclude Include="..\..\src\CCRiftUVSphere.h" />
+    <ClInclude Include="..\..\src\CCRiftWinPreviewDevice.h" />
+    <ClInclude Include="..\..\src\GuiManager.h" />
+    <ClInclude Include="..\..\src\PlatformUtils.h" />
+    <ClInclude Include="..\..\src\CCRiftTimer.h" />
+    <ClInclude Include="..\..\src\WinUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\CCRiftFrameTexture.cpp" />
+    <ClCompile Include="..\..\src\CCRiftGLFWPreviewDevice.cpp" />
+    <ClCompile Include="..\..\src\CCRiftIDevice.cpp" />
+    <ClCompile Include="..\..\src\CCRiftOGLPlatform.cpp" />
+    <ClCompile Include="..\..\src\CCRiftScene.cpp" />
+    <ClCompile Include="..\..\src\CCRiftUVSphere.cpp" />
+    <ClCompile Include="..\..\src\CCRiftWinPreviewDevice.cpp" />
+    <ClCompile Include="..\..\src\GuiManager.cpp" />
+    <ClCompile Include="..\..\src\PlatformUtils.cpp" />
+    <ClCompile Include="..\..\src\StandalonePreview\StandalonePreview.cpp" />
+    <ClCompile Include="..\..\src\CCRiftTimer.cpp" />
+    <ClCompile Include="..\..\src\WinUtils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\..\resources\Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\resources\grid.BMP" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
