@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <vector>
+#include <map>
 #include <stdint.h>
 
 #if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
@@ -115,7 +116,7 @@ typedef struct ovrFovPort_
     #define VALIDATE(x, msg) if (!(x)) { MessageBoxA(NULL, (msg), "CCRift Preview", MB_ICONERROR | MB_OK); exit(-1); }
 #endif
 
-#define	PLUGIN_DISPLAY_NAME	L"CCRift Preview"
+
 
 #ifndef M_PI
     #define M_PI 3.14159265358979323846264338327f
@@ -155,9 +156,49 @@ static HMODULE GetMyModuleHandle()
 }
 #endif
 
+namespace CCRift
+{
+	typedef enum FOVOption
+	{
+		FOV_MINIMUM,
+		FOV_HANDHELD,
+		FOV_DK2,
+		FOV_GEARVR,
+		FOV_CARDBOARD,
+		FOV_CUSTOM_DEFAULT,
+		FOV_MAXIMUM
+	} FOVOption;
 
+	typedef struct FOVInfo
+	{
+	public:
+		FOVInfo() {}
+		FOVInfo(FOVOption _option, float _fovDeg, std::string _name)
+			: option(_option)
+			, fovDegrees(_fovDeg)
+			, name(_name) {}
 
+		FOVOption option;
+		float fovDegrees;
+		std::string name;
+	} FOVInfo;
 
+	static std::map<FOVOption, FOVInfo> gFovOptions =
+	{
+		{ FOV_MINIMUM, FOVInfo(FOV_MINIMUM, 10.0f, "Minimum (10\xc2\xb0)") },
+		{ FOV_HANDHELD, FOVInfo(FOV_HANDHELD, 60.0f, "Handheld (60\xc2\xb0)") },
+		{ FOV_DK2, FOVInfo(FOV_DK2, 100.0f, "Oculus Rift DK2 (100\xc2\xb0)") },
+		{ FOV_GEARVR, FOVInfo(FOV_GEARVR, 90.0f, "Samsung GearVR (90\xc2\xb0)") },
+		{ FOV_CARDBOARD, FOVInfo(FOV_CARDBOARD, 85.0f, "Google Cardboard (85\xc2\xb0)") },
+		{ FOV_CUSTOM_DEFAULT, FOVInfo(FOV_CUSTOM_DEFAULT, 70.0f, "Custom") },
+		{ FOV_MAXIMUM, FOVInfo(FOV_MAXIMUM, 150.0f, "Maximum (150\xc2\xb0)") },
+	};
+
+	static std::string gWindowTitle = "Panorama Preview";
+
+}
+
+#define	PLUGIN_DISPLAY_NAME	L"Panorama Preview"
 
 
 #endif //__CCRIFT_COMMONS_H__s

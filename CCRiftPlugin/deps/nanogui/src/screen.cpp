@@ -73,6 +73,9 @@ Screen::Screen(GLFWwindow* w)
 	glfwGetFramebufferSize(w, &mFBSize[0], &mFBSize[1]);
 	glfwGetWindowSize(w, &mSize[0], &mSize[1]);
 	glViewport(0, 0, mFBSize[0], mFBSize[1]);
+
+	
+
 }
 
 Screen::~Screen() {
@@ -104,6 +107,8 @@ void Screen::onResize(GLFWwindow* w, int width, int height)
 	glfwGetFramebufferSize(w, &mFBSize[0], &mFBSize[1]);
 	glfwGetWindowSize(w, &mSize[0], &mSize[1]);
 	glViewport(0, 0, mFBSize[0], mFBSize[1]);
+
+	didResize(mSize[0], mSize[1]);
 }
 
 void Screen::onCursorPos(GLFWwindow* w, double x, double y)

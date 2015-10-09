@@ -12,7 +12,7 @@ void TextBox::draw(NVGcontext* ctx) {
         mPos.x() + 1, mPos.y() + 1 + 1.5f, mSize.x() - 2, mSize.y() - 2,
         3, 4, Color(255,32), Color(32, 32));
 
-    nvgBeginPath(ctx);
+    /*nvgBeginPath(ctx);
     nvgRoundedRect(ctx, mPos.x() + 1, mPos.y() + 1 + 1.5f, mSize.x() - 2, mSize.y() - 2, 3);
     nvgFillPaint(ctx, bg);
     nvgFill(ctx);
@@ -20,9 +20,9 @@ void TextBox::draw(NVGcontext* ctx) {
     nvgBeginPath(ctx);
     nvgRoundedRect(ctx, mPos.x() + 0.5f, mPos.y() + 0.5f, mSize.x() - 1, mSize.y() - 1, 3.5f);
     nvgStrokeColor(ctx, Color(0,48));
-    nvgStroke(ctx);
+    nvgStroke(ctx);*/
 
-    nvgFontSize(ctx, mTheme->mStandardFontSize);
+	nvgFontSize(ctx, 25.0f);
     nvgFontFace(ctx, "sans");
     float uw = 0, drawPos = mPos.x() + mSize.x() - mSize.y() * 0.5f;
 
@@ -41,9 +41,9 @@ void TextBox::draw(NVGcontext* ctx) {
         nvgFill(ctx);
     } else if (!mUnits.empty()) {
         uw = nvgTextBounds(ctx, 0,0, mUnits.c_str(), nullptr, nullptr);
-        nvgFillColor(ctx, Color(255, mEnabled ? 64 : 32));
+		nvgFillColor(ctx, mEnabled ? mTheme->mTextColor : mTheme->mDisabledTextColor);
         nvgTextAlign(ctx, NVG_ALIGN_RIGHT | NVG_ALIGN_MIDDLE);
-        nvgText(ctx, mPos.x() + mSize.x() - mSize.y() * 0.3f,
+        nvgText(ctx, mPos.x() + mSize.x() - mSize.y() * 0.4f,
                 mPos.y() + mSize.y() * 0.5f, mUnits.c_str(), nullptr);
     } else {
         nvgTextAlign(ctx, NVG_ALIGN_CENTER | NVG_ALIGN_MIDDLE);

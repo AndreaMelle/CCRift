@@ -30,8 +30,10 @@
     <ClInclude Include="..\..\src\CCRiftPlugin\CCRiftInstance.h" />
     <ClInclude Include="..\..\src\CCRiftPlugin\CCRiftPlugin.h" />
     <ClInclude Include="..\..\src\CCRiftScene.h" />
+    <ClInclude Include="..\..\src\CCRiftTimer.h" />
     <ClInclude Include="..\..\src\CCRiftUVSphere.h" />
     <ClInclude Include="..\..\src\CCRiftWinPreviewDevice.h" />
+    <ClInclude Include="..\..\src\GuiManager.h" />
     <ClInclude Include="..\..\src\PlatformUtils.h" />
     <ClInclude Include="..\..\src\WinUtils.h" />
   </ItemGroup>
@@ -44,8 +46,10 @@
     <ClCompile Include="..\..\src\CCRiftPlugin\CCRiftPlugin.cpp" />
     <ClCompile Include="..\..\src\CCRiftPlugin\CCRiftPluginEntryPoint.cpp" />
     <ClCompile Include="..\..\src\CCRiftScene.cpp" />
+    <ClCompile Include="..\..\src\CCRiftTimer.cpp" />
     <ClCompile Include="..\..\src\CCRiftUVSphere.cpp" />
     <ClCompile Include="..\..\src\CCRiftWinPreviewDevice.cpp" />
+    <ClCompile Include="..\..\src\GuiManager.cpp" />
     <ClCompile Include="..\..\src\PlatformUtils.cpp" />
     <ClCompile Include="..\..\src\PrSDK\SDK_File.cpp" />
     <ClCompile Include="..\..\src\WinUtils.cpp" />

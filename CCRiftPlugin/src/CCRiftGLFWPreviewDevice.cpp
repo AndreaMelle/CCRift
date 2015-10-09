@@ -1,31 +1,12 @@
 #include "CCRiftGLFWPreviewDevice.h"
-#include "Eigen/Core"
-#include "nanogui/window.h"
-#include "nanogui/label.h"
-#include "nanogui/button.h"
-#include "nanogui/layout.h"
-#include "nanogui/checkbox.h"
-#include "nanogui/popup.h"
-#include "nanogui/popupbutton.h"
-#include "nanogui/slider.h"
-#include "nanogui/textbox.h"
-#include "nanogui/combobox.h"
+
 
 #include "PlatformUtils.h"
 
 using namespace std;
 using namespace CCRift;
 
-std::map<GLFWPreviewDevice::FOVOption, GLFWPreviewDevice::FOVInfo> GLFWPreviewDevice::gFovOptions = 
-{
-	{ GLFWPreviewDevice::FOV_MINIMUM, FOVInfo(GLFWPreviewDevice::FOV_MINIMUM, 10.0f, "Minimum (10)") },
-	{ GLFWPreviewDevice::FOV_HANDHELD, FOVInfo(GLFWPreviewDevice::FOV_HANDHELD, 60.0f, "Handheld (60)") },
-	{ GLFWPreviewDevice::FOV_DK2, FOVInfo(GLFWPreviewDevice::FOV_DK2, 100.0f, "Oculus Rift DK2 (100)") },
-	{ GLFWPreviewDevice::FOV_GEARVR, FOVInfo(GLFWPreviewDevice::FOV_GEARVR, 90.0f, "Samsung GearVR (90)") },
-	{ GLFWPreviewDevice::FOV_CARDBOARD, FOVInfo(GLFWPreviewDevice::FOV_CARDBOARD, 85.0f, "Google Cardboard (85)") },
-	{ GLFWPreviewDevice::FOV_CUSTOM_DEFAULT, FOVInfo(GLFWPreviewDevice::FOV_CUSTOM_DEFAULT, 70.0f, "Custom") },
-	{ GLFWPreviewDevice::FOV_MAXIMUM, FOVInfo(GLFWPreviewDevice::FOV_MAXIMUM, 150.0f, "Maximum (150)") },
-};
+
 
 GLFWPreviewDevice::GLFWPreviewDevice()
 : mWindowSize(glm::ivec2(960, 540))
@@ -48,7 +29,7 @@ GLFWPreviewDevice::GLFWPreviewDevice()
 #endif
     , mAlwaysOnTop(false)
     , mActive(false)
-    , contextualMenuCallback([](ContextualMenuOptions){})
+	, mShouldShowSplashScreen(true)
 {
 	mFrameBufferLength = mFrameSize.x * mFrameSize.y * mFrameBufferDepth;
 	mFrameDataBuffer = new unsigned char[mFrameBufferLength];
@@ -221,7 +202,7 @@ HRESULT GLFWPreviewDevice::deviceSetup()
     glfwWindowHint(GLFW_STENCIL_BITS, 8);
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
 
-	window = glfwCreateWindow(mWindowSize.x, mWindowSize.y, "CCRift Panorama Preview", NULL, NULL);
+	window = glfwCreateWindow(mWindowSize.x, mWindowSize.y, gWindowTitle.c_str(), NULL, NULL);
 
 	if (!window)
 	{
@@ -259,120 +240,42 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		return E_FAIL;
 	}
 
-	mGUI = new nanogui::Screen(window);
-	popupMenu = new nanogui::Window(mGUI, "");
+	mGUI = new GuiManager(window);
+	mGUI->create(mWindowSize.x, mWindowSize.y);
 
-	popupMenu->setFixedWidth(200);
-
-	nanogui::GroupLayout *layout = new nanogui::GroupLayout();
-	popupMenu->setLayout(layout);
-	
-	//layout->setSpacing(0);
-	//layout->setMargin(0);
-	
-	new nanogui::Label(popupMenu, "General", "sans-bold");
-	nanogui::Button *bAbout = new nanogui::Button(popupMenu, "About");
-	nanogui::Button *bReset = new nanogui::Button(popupMenu, "Reset");
-	nanogui::Button *cGrid = new nanogui::Button(popupMenu, "Grid");
-	cGrid->setButtonFlags(nanogui::Button::ToggleButton);
-	nanogui::Button *cTop = new nanogui::Button(popupMenu, "Always On Top");
-	cTop->setButtonFlags(nanogui::Button::ToggleButton);
-
-	new nanogui::Label(popupMenu, "Field of View", "sans-bold");
-	
-
-	nanogui::ComboBox* fovComboBox = new nanogui::ComboBox(popupMenu, {
-		gFovOptions[FOV_DK2].name,
-		gFovOptions[FOV_GEARVR].name,
-		gFovOptions[FOV_CARDBOARD].name,
-		gFovOptions[FOV_HANDHELD].name,
-		gFovOptions[FOV_CUSTOM_DEFAULT].name
+	mGUI->setAboutOptionCallback([&](){
+		ShowMessagePopup(window, "v0.1\n\nSeptember 2015\n\nandrea.melle@happyfinish.com", "About");
 	});
 
-	nanogui::Slider *slider = new nanogui::Slider(popupMenu);
+	mGUI->setResetOptionCallback([&](){
+		lat = 0;
+		lon = 0;
+	});
+
+	mGUI->setGridOptionCallback([&](bool value){
+		mScene->getSphere()->toggleGrid();
+	});
+
+	mGUI->setGridOption(mScene->getSphere()->Grid());
 	
-	nanogui::TextBox *textBox = new nanogui::TextBox(popupMenu);
-	textBox->setUnits("deg");
-	textBox->setFixedSize(nanogui::Vector2i(60, 25));
-	
-
-	fovComboBox->setCallback([&, slider, textBox](int value) {
-
-		bool showSlider = false;
-
-		switch (value)
-		{
-		case 0:
-			//Oculus Rift DK2
-			setFieldOfView(gFovOptions[FOV_DK2].fovDegrees);
-			break;
-		case 1:
-			//Gear VR
-			setFieldOfView(gFovOptions[FOV_GEARVR].fovDegrees);
-			break;
-		case 2:
-			//Google Cardboard
-			setFieldOfView(gFovOptions[FOV_CARDBOARD].fovDegrees);
-			break;
-		case 3:
-			//Handheld
-			setFieldOfView(gFovOptions[FOV_HANDHELD].fovDegrees);
-			break;
-		case 4:
-			showSlider = true;
-			setFieldOfView(std::max<float>(gFovOptions[FOV_MINIMUM].fovDegrees, slider->value() * gFovOptions[FOV_MAXIMUM].fovDegrees));
-			break;
-		default:
-			break;
-		}
-
-		slider->setEnabled(showSlider);
-		slider->setVisible(showSlider);
-		textBox->setVisible(showSlider);
-
+	mGUI->setAlwaysOnTopOptionCallback([&](bool value){
+#ifdef IS_PLUGIN
+		if (mAlwaysOnTop)
+			ResetWindowAlwaysOnTop(window);
+		else
+			SetWindowAlwaysOnTop(window);
+		mAlwaysOnTop = !mAlwaysOnTop;
+#endif
 	});
 	
-	fovComboBox->setSelectedIndex(3);
+	mGUI->setAlwaysOnTopOption(mAlwaysOnTop);
+	
+	mGUI->setFovChangeOptionCallback([&](float value) {
+		setFieldOfView(value);
+	});
+
+	mGUI->setFovOption(gFovOptions[FOV_HANDHELD]);
 	setFieldOfView(gFovOptions[FOV_HANDHELD].fovDegrees);
-
-	textBox->setValue(std::to_string((int)(gFovOptions[FOV_CUSTOM_DEFAULT].fovDegrees)));
-	textBox->setVisible(false);
-	slider->setEnabled(false);
-	slider->setVisible(false);
-	slider->setValue(gFovOptions[FOV_CUSTOM_DEFAULT].fovDegrees / gFovOptions[FOV_MAXIMUM].fovDegrees);
-
-	cGrid->setPushed(mScene->getSphere()->Grid());
-	cTop->setPushed(mAlwaysOnTop);
-
-	slider->setCallback([&, textBox](float value) {
-		textBox->setValue(std::to_string((int)(std::max<float>(gFovOptions[FOV_MINIMUM].fovDegrees, value * gFovOptions[FOV_MAXIMUM].fovDegrees))));
-	});
-	slider->setFinalCallback([&](float value) {
-		setFieldOfView(std::max<float>(gFovOptions[FOV_MINIMUM].fovDegrees, value * gFovOptions[FOV_MAXIMUM].fovDegrees));
-	});
-
-	bAbout->setCallback([&](){
-		contextualMenuCallback(CONTEXTUAL_MENU_ABOUT);
-		popupMenu->setVisible(false);
-	});
-
-	bReset->setCallback([&](){
-		contextualMenuCallback(CONTEXTUAL_MENU_RESET);
-		popupMenu->setVisible(false);
-	});
-
-	cGrid->setChangeCallback([&](bool check){
-		contextualMenuCallback(CONTEXTUAL_MENU_GRIDTOGGLE);
-		popupMenu->setVisible(false);
-	});
-
-	cTop->setChangeCallback([&](bool check){
-		contextualMenuCallback(CONTEXTUAL_MENU_ALWAYSONTOP);
-		popupMenu->setVisible(false);
-	});
-
-	mGUI->performLayout(mGUI->nvgContext());
-
 
 	glfwSetCursorPosCallback(window, [](GLFWwindow *w, double x, double y){
 		IDevice<GLFWPreviewDevice>::Instance().glfwCursorPosCallback(w, x, y);
@@ -407,40 +310,14 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	glFrontFace(GL_CW);
 	glEnable(GL_CULL_FACE);
 
-	contextualMenuCallback = [&](ContextualMenuOptions sel){
-		if (sel == CONTEXTUAL_MENU_RESET)
-		{
-			lat = 0;
-			lon = 0;
-		}
-		else if (sel == CONTEXTUAL_MENU_ABOUT)
-		{
-			ShowMessagePopup(window, "v0.1\n\nSeptember 2015\n\nandrea.melle@happyfinish.com", "About");
-		}
-		else if (sel == CONTEXTUAL_MENU_GRIDTOGGLE)
-		{
-			mScene->getSphere()->toggleGrid();
-
-		}
-		else if (sel == CONTEXTUAL_MENU_ALWAYSONTOP)
-		{
-#ifdef IS_PLUGIN
-			if (mAlwaysOnTop)
-				ResetWindowAlwaysOnTop(window);
-			else
-				SetWindowAlwaysOnTop(window);
-            mAlwaysOnTop = !mAlwaysOnTop;
-#endif
-		}
-        
-	};
-
 	// Turn off vsync to let the compositor do its magic
 	//wglSwapIntervalEXT(0);
 
-	mGUI->setVisible(true);
-	popupMenu->setVisible(false);
-
+	if (mShouldShowSplashScreen)
+	{
+		mGUI->showSplashScreen(true);
+		mSplashScreenTimer.start();
+	}
 
 	return S_OK;
 }
@@ -475,6 +352,13 @@ HRESULT GLFWPreviewDevice::deviceUpdate()
 {
 	if (!glfwWindowShouldClose(window))
 	{
+		if (mShouldShowSplashScreen && mSplashScreenTimer.getSeconds() > 2.0)
+		{
+			mGUI->showSplashScreen(false);
+			mSplashScreenTimer.stop();
+			mShouldShowSplashScreen = false;
+		}
+
 		/*glfwGetFramebufferSize(window, &width, &height);
 		ratio = width / (float)height;*/
 
@@ -539,9 +423,10 @@ void GLFWPreviewDevice::glfwMouseButtonCallback(GLFWwindow* w, int button, int a
 
 	int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
 
+	//TODO: handle this inside mGUI itself, overriding onMouseButon
 	if (state == GLFW_PRESS)
 	{
-		popupMenu->setVisible(false);
+		mGUI->dismissPopupMenu();
 	}
 
 	if (state == GLFW_PRESS && !wasDown)
@@ -551,14 +436,6 @@ void GLFWPreviewDevice::glfwMouseButtonCallback(GLFWwindow* w, int button, int a
 		onMouseDownLon = lon;
 		onMouseDownLat = lat;
 		wasDown = true;
-	}
-
-	state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT);
-
-	if (state == GLFW_PRESS)
-	{
-		popupMenu->setVisible(true);
-		popupMenu->setPosition(Eigen::Vector2i(mXPos, mYPos));
 	}
 }
 
@@ -579,7 +456,6 @@ void GLFWPreviewDevice::glfwResizeCallback(GLFWwindow* w, int width, int height)
 	float verticalFovRadians = verticalFovDegrees * M_PI / 180.0f;
 	mProj = glm::perspectiveFovRH(verticalFovRadians, (float)mWindowSize.x, (float)mWindowSize.y, 0.1f, 100.0f); //RH
 	glViewport(0, 0, mWindowSize.x, mWindowSize.y);
-
 	mGUI->onResize(w, width, height);
 }
 
@@ -589,7 +465,8 @@ void GLFWPreviewDevice::glfwKeyCallback(GLFWwindow* w, int key, int scancode, in
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
-		this->stop();
+		return;
+		//this->stop();
 	}
 #endif
 

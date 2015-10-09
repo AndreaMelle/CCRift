@@ -5,40 +5,13 @@
 #include "CCRiftScene.h"
 #include "CCRiftOGLPlatform.h"
 #include "CCRiftIDevice.h"
-#include "nanogui/screen.h"
+#include "GuiManager.h"
 #include <map>
 
 namespace CCRift
 {
 	class GLFWPreviewDevice : public IDevice<GLFWPreviewDevice>
 	{
-	public:
-
-		typedef enum FOVOption
-		{
-			FOV_MINIMUM,
-			FOV_HANDHELD,
-			FOV_DK2,
-			FOV_GEARVR,
-			FOV_CARDBOARD,
-			FOV_CUSTOM_DEFAULT,
-			FOV_MAXIMUM
-		} FOVOption;
-
-		typedef struct FOVInfo
-		{
-		public:
-			FOVInfo() {}
-			FOVInfo(FOVOption _option, float _fovDeg, std::string _name)
-				: option(_option)
-				, fovDegrees(_fovDeg)
-				, name(_name) {}
-
-			FOVOption option;
-			float fovDegrees;
-			std::string name;
-		};
-
 		friend IDevice;
 	public:
 		
@@ -81,7 +54,10 @@ namespace CCRift
 		GLFWPreviewDevice();
 		GLFWwindow* window;
 
-		nanogui::Screen *mGUI;
+		GuiManager *mGUI;
+		Timer mSplashScreenTimer;
+		bool mShouldShowSplashScreen;
+
 		Scene* mScene;
 		glm::ivec2 mWindowSize;
 		glm::ivec2 mFrameSize;
@@ -112,7 +88,7 @@ namespace CCRift
 		bool wasDown;
 		bool mAlwaysOnTop;
 		bool mActive;
-		nanogui::Window *popupMenu;
+		
 
         glm::vec3 handleMouseInput();
 
@@ -120,9 +96,6 @@ namespace CCRift
 		float mAspectRatio;
         glm::mat4 mProj;
 
-		std::function<void(ContextualMenuOptions)> contextualMenuCallback;
-
-		static std::map<FOVOption, FOVInfo> gFovOptions;
 
 #ifdef CCRIFT_MSW
 		HWND mParentWindow;

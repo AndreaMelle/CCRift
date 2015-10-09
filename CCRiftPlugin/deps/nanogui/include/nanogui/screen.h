@@ -11,8 +11,13 @@ class Screen : public Widget
     friend class Window;
 public:
 	Screen(GLFWwindow* w);
-
     virtual ~Screen();
+
+	/*
+		Override this to populate the screen with your widgets
+	*/
+	virtual void create(int winWidth, int winHeight) = 0;
+	virtual void didResize(int winWidth, int winHeight) = 0;
 
 	bool onKey(GLFWwindow* w, int key, int scancode, int action, int mods);
 	void onResize(GLFWwindow* w, int width, int height);
@@ -36,7 +41,7 @@ protected:
     void centerWindow(Window *window);
     void moveWindowToFront(Window *window);
 
-public:
+protected:
     NVGcontext *mNVGContext;
     std::vector<Widget *> mFocusPath;
     Vector2i mFBSize;

@@ -13,16 +13,6 @@
 
 namespace CCRift
 {
-	typedef enum ContextualMenuOptions
-	{
-		CONTEXTUAL_MENU_NONE,
-		CONTEXTUAL_MENU_RESET,
-		CONTEXTUAL_MENU_ABOUT,
-		CONTEXTUAL_MENU_GRIDTOGGLE,
-		CONTEXTUAL_MENU_ALWAYSONTOP,
-		CONTEXTUAL_MENU_LAST
-	} ContextualMenuOptions;
-
 	class Process
 	{
 	public:

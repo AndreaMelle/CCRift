@@ -161,7 +161,9 @@
     <ClInclude Include="..\..\src\CCRiftScene.h" />
     <ClInclude Include="..\..\src\CCRiftUVSphere.h" />
     <ClInclude Include="..\..\src\CCRiftWinPreviewDevice.h" />
+    <ClInclude Include="..\..\src\GuiManager.h" />
     <ClInclude Include="..\..\src\PlatformUtils.h" />
+    <ClInclude Include="..\..\src\CCRiftTimer.h" />
     <ClInclude Include="..\..\src\WinUtils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -172,8 +174,10 @@
     <ClCompile Include="..\..\src\CCRiftScene.cpp" />
     <ClCompile Include="..\..\src\CCRiftUVSphere.cpp" />
     <ClCompile Include="..\..\src\CCRiftWinPreviewDevice.cpp" />
+    <ClCompile Include="..\..\src\GuiManager.cpp" />
     <ClCompile Include="..\..\src\PlatformUtils.cpp" />
     <ClCompile Include="..\..\src\StandalonePreview\StandalonePreview.cpp" />
+    <ClCompile Include="..\..\src\CCRiftTimer.cpp" />
     <ClCompile Include="..\..\src\WinUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
