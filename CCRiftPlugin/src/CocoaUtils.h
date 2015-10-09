@@ -7,18 +7,19 @@
 //
 
 #include "CCRiftCommons.h"
+#import "CCRiftFrameTexture.h"
 
 #ifdef CCRIFT_MAC
 
 extern "C"
 {
-    void* CocoaLoadBitmap(const char* filename);
+    CCRift::FrameTexture* CocoaLoadBitmap(const char* filename);
     
-    void CocoaShowMessagePopup(const char* msg);
+    void CocoaShowMessagePopup(GLFWwindow* window, const char* msg, const char* title);
     
-    void CocoaChangeWindowOrder(id window, int level);
-    
-    void CocoaHideWindowCloseButton(id window, bool hide);
+    void CocoaSetWindowAlwaysOnTop(GLFWwindow* window);
+    void CocoaResetWindowAlwaysOnTop(GLFWwindow* window);
+    void CocoaHideWindowCloseButton(GLFWwindow* window);
 }
 
 #endif

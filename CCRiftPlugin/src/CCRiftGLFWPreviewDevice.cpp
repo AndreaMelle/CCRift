@@ -6,8 +6,6 @@
 using namespace std;
 using namespace CCRift;
 
-
-
 GLFWPreviewDevice::GLFWPreviewDevice()
 : mWindowSize(glm::ivec2(960, 540))
     , mFrameSize(glm::ivec2(1920, 960))
@@ -242,6 +240,11 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 
 	mGUI = new GuiManager(window);
 	mGUI->create(mWindowSize.x, mWindowSize.y);
+    
+    mGUI->setGridOption(mScene->getSphere()->Grid());
+    mGUI->setAlwaysOnTopOption(mAlwaysOnTop);
+    mGUI->setFovOption(gFovOptions[FOV_HANDHELD]);
+    setFieldOfView(gFovOptions[FOV_HANDHELD].fovDegrees);
 
 	mGUI->setAboutOptionCallback([&](){
 		ShowMessagePopup(window, "v0.1\n\nSeptember 2015\n\nandrea.melle@happyfinish.com", "About");
@@ -256,8 +259,6 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		mScene->getSphere()->toggleGrid();
 	});
 
-	mGUI->setGridOption(mScene->getSphere()->Grid());
-	
 	mGUI->setAlwaysOnTopOptionCallback([&](bool value){
 #ifdef IS_PLUGIN
 		if (mAlwaysOnTop)
@@ -267,15 +268,10 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		mAlwaysOnTop = !mAlwaysOnTop;
 #endif
 	});
-	
-	mGUI->setAlwaysOnTopOption(mAlwaysOnTop);
-	
+    
 	mGUI->setFovChangeOptionCallback([&](float value) {
 		setFieldOfView(value);
 	});
-
-	mGUI->setFovOption(gFovOptions[FOV_HANDHELD]);
-	setFieldOfView(gFovOptions[FOV_HANDHELD].fovDegrees);
 
 	glfwSetCursorPosCallback(window, [](GLFWwindow *w, double x, double y){
 		IDevice<GLFWPreviewDevice>::Instance().glfwCursorPosCallback(w, x, y);

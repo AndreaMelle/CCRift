@@ -19,7 +19,7 @@ UVSphere::UVSphere(glm::vec3 pos, ShaderFill * fill)
 	Mat = glm::mat4_cast(Rot);
 	Mat = glm::translate(Mat, Pos);
 
-	mGridTexture = LoadTextureFromBitmap("grid.BMP");
+	mGridTexture = LoadTextureFromBitmap("gridUpsideDown.BMP");
 
 	Fill = fill;
 	

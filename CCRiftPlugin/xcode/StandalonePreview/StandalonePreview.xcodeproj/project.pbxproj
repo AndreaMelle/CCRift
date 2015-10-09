@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C47C46A1BC85E7A000F0E45 /* CCRiftTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C47C4661BC85E7A000F0E45 /* CCRiftTimer.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C47C46B1BC85E7A000F0E45 /* GuiManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C47C4681BC85E7A000F0E45 /* GuiManager.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C47C4711BC85EA8000F0E45 /* PlatformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C47C46F1BC85EA8000F0E45 /* PlatformUtils.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C8157391BB6FEF1008E68E7 /* StandalonePreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C8157381BB6FEF1008E68E7 /* StandalonePreview.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C81574D1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C81573B1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C81574E1BB6FF09008E68E7 /* CCRiftUVSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C81573D1BB6FF09008E68E7 /* CCRiftUVSphere.cpp */; settings = {ASSET_TAGS = (); }; };
@@ -42,17 +39,16 @@
 		3CB454791BBD5B8100CC57C2 /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB454411BBD5B8100CC57C2 /* button.cpp */; settings = {ASSET_TAGS = (); }; };
 		3CB4547A1BBD5B8100CC57C2 /* nanovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4545E1BBD5B8100CC57C2 /* nanovg.c */; settings = {ASSET_TAGS = (); }; };
 		3CB4547E1BBD5D4000CC57C2 /* fontResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4547D1BBD5D4000CC57C2 /* fontResources.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454821BBD956900CC57C2 /* grid.BMP in Resources */ = {isa = PBXBuildFile; fileRef = 3CB454811BBD956900CC57C2 /* grid.BMP */; settings = {ASSET_TAGS = (); }; };
 		3CB4548B1BBDB3B600CC57C2 /* CocoaUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3CB454891BBDB3B600CC57C2 /* CocoaUtils.mm */; settings = {ASSET_TAGS = (); }; };
+		3CEAE66D1BC8605100A6BC49 /* CCRiftTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAE6691BC8605100A6BC49 /* CCRiftTimer.cpp */; settings = {ASSET_TAGS = (); }; };
+		3CEAE66E1BC8605100A6BC49 /* GuiManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAE66B1BC8605100A6BC49 /* GuiManager.cpp */; settings = {ASSET_TAGS = (); }; };
+		3CEAE6761BC860B000A6BC49 /* PlatformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C0B7A351BBE7515009C9670 /* PlatformUtils.cpp */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3C47C4661BC85E7A000F0E45 /* CCRiftTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftTimer.cpp; path = ../../src/CCRiftTimer.cpp; sourceTree = "<group>"; };
-		3C47C4671BC85E7A000F0E45 /* CCRiftTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftTimer.h; path = ../../src/CCRiftTimer.h; sourceTree = "<group>"; };
-		3C47C4681BC85E7A000F0E45 /* GuiManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiManager.cpp; path = ../../src/GuiManager.cpp; sourceTree = "<group>"; };
-		3C47C4691BC85E7A000F0E45 /* GuiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiManager.h; path = ../../src/GuiManager.h; sourceTree = "<group>"; };
-		3C47C46F1BC85EA8000F0E45 /* PlatformUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlatformUtils.cpp; path = ../../src/PlatformUtils.cpp; sourceTree = "<group>"; };
-		3C47C4701BC85EA8000F0E45 /* PlatformUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlatformUtils.h; path = ../../src/PlatformUtils.h; sourceTree = "<group>"; };
+		3C0B7A321BBE74E5009C9670 /* gridUpsideDown.BMP */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = gridUpsideDown.BMP; path = ../../resources/gridUpsideDown.BMP; sourceTree = "<group>"; };
+		3C0B7A341BBE7515009C9670 /* PlatformUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlatformUtils.h; path = ../../src/PlatformUtils.h; sourceTree = "<group>"; };
+		3C0B7A351BBE7515009C9670 /* PlatformUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlatformUtils.cpp; path = ../../src/PlatformUtils.cpp; sourceTree = "<group>"; };
 		3C8157221BB68E18008E68E7 /* StandalonePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandalonePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C8157301BB68E18008E68E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C8157381BB6FEF1008E68E7 /* StandalonePreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StandalonePreview.cpp; path = ../../../src/StandalonePreview/StandalonePreview.cpp; sourceTree = "<group>"; };
@@ -129,9 +125,12 @@
 		3CB454611BBD5B8100CC57C2 /* fontstash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fontstash.h; path = ../../deps/nanogui/ext/nanovg/src/fontstash.h; sourceTree = "<group>"; };
 		3CB4547C1BBD5D4000CC57C2 /* fontResources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fontResources.h; path = ../../resources/fonts/fontResources.h; sourceTree = "<group>"; };
 		3CB4547D1BBD5D4000CC57C2 /* fontResources.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fontResources.cpp; path = ../../resources/fonts/fontResources.cpp; sourceTree = "<group>"; };
-		3CB454811BBD956900CC57C2 /* grid.BMP */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = grid.BMP; path = ../../resources/grid.BMP; sourceTree = "<group>"; };
 		3CB454891BBDB3B600CC57C2 /* CocoaUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CocoaUtils.mm; path = ../../src/CocoaUtils.mm; sourceTree = "<group>"; };
 		3CB4548A1BBDB3B600CC57C2 /* CocoaUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaUtils.h; path = ../../src/CocoaUtils.h; sourceTree = "<group>"; };
+		3CEAE6691BC8605100A6BC49 /* CCRiftTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftTimer.cpp; path = ../../src/CCRiftTimer.cpp; sourceTree = "<group>"; };
+		3CEAE66A1BC8605100A6BC49 /* CCRiftTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftTimer.h; path = ../../src/CCRiftTimer.h; sourceTree = "<group>"; };
+		3CEAE66B1BC8605100A6BC49 /* GuiManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiManager.cpp; path = ../../src/GuiManager.cpp; sourceTree = "<group>"; };
+		3CEAE66C1BC8605100A6BC49 /* GuiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiManager.h; path = ../../src/GuiManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +147,7 @@
 		3C8157191BB68E18008E68E7 = {
 			isa = PBXGroup;
 			children = (
-				3CB454811BBD956900CC57C2 /* grid.BMP */,
+				3C0B7A321BBE74E5009C9670 /* gridUpsideDown.BMP */,
 				3CB4547B1BBD5D2500CC57C2 /* Resources */,
 				3CB454291BBD5B5000CC57C2 /* nanogui */,
 				3C8157551BB6FF13008E68E7 /* CCRift */,
@@ -177,12 +176,12 @@
 		3C8157551BB6FF13008E68E7 /* CCRift */ = {
 			isa = PBXGroup;
 			children = (
-				3C47C46F1BC85EA8000F0E45 /* PlatformUtils.cpp */,
-				3C47C4701BC85EA8000F0E45 /* PlatformUtils.h */,
-				3C47C4661BC85E7A000F0E45 /* CCRiftTimer.cpp */,
-				3C47C4671BC85E7A000F0E45 /* CCRiftTimer.h */,
-				3C47C4681BC85E7A000F0E45 /* GuiManager.cpp */,
-				3C47C4691BC85E7A000F0E45 /* GuiManager.h */,
+				3CEAE6691BC8605100A6BC49 /* CCRiftTimer.cpp */,
+				3CEAE66A1BC8605100A6BC49 /* CCRiftTimer.h */,
+				3CEAE66B1BC8605100A6BC49 /* GuiManager.cpp */,
+				3CEAE66C1BC8605100A6BC49 /* GuiManager.h */,
+				3C0B7A341BBE7515009C9670 /* PlatformUtils.h */,
+				3C0B7A351BBE7515009C9670 /* PlatformUtils.cpp */,
 				3CB454891BBDB3B600CC57C2 /* CocoaUtils.mm */,
 				3CB4548A1BBDB3B600CC57C2 /* CocoaUtils.h */,
 				3C81573A1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.h */,
@@ -333,7 +332,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CB454821BBD956900CC57C2 /* grid.BMP in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,9 +352,9 @@
 				3CB4546D1BBD5B8100CC57C2 /* messagedialog.cpp in Sources */,
 				3CB4547E1BBD5D4000CC57C2 /* fontResources.cpp in Sources */,
 				3CB454631BBD5B8100CC57C2 /* widget.cpp in Sources */,
-				3C47C46A1BC85E7A000F0E45 /* CCRiftTimer.cpp in Sources */,
-				3C47C46B1BC85E7A000F0E45 /* GuiManager.cpp in Sources */,
-				3C47C4711BC85EA8000F0E45 /* PlatformUtils.cpp in Sources */,
+				3CEAE66D1BC8605100A6BC49 /* CCRiftTimer.cpp in Sources */,
+				3CEAE66E1BC8605100A6BC49 /* GuiManager.cpp in Sources */,
+				3CEAE6761BC860B000A6BC49 /* PlatformUtils.cpp in Sources */,
 				3C8157521BB6FF09008E68E7 /* CCRiftIDevice.cpp in Sources */,
 				3CB454711BBD5B8100CC57C2 /* imagepanel.cpp in Sources */,
 				3CB4546C1BBD5B8100CC57C2 /* nanogui.cpp in Sources */,

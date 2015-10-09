@@ -7,14 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-<<<<<<< HEAD
-		3C47C46A1BC85E7A000F0E45 /* CCRiftTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C47C4661BC85E7A000F0E45 /* CCRiftTimer.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C47C46B1BC85E7A000F0E45 /* GuiManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C47C4681BC85E7A000F0E45 /* GuiManager.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C47C4711BC85EA8000F0E45 /* PlatformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C47C46F1BC85EA8000F0E45 /* PlatformUtils.cpp */; settings = {ASSET_TAGS = (); }; };
-=======
 		3C0B7A331BBE74E5009C9670 /* gridUpsideDown.BMP in Resources */ = {isa = PBXBuildFile; fileRef = 3C0B7A321BBE74E5009C9670 /* gridUpsideDown.BMP */; settings = {ASSET_TAGS = (); }; };
 		3C0B7A361BBE7515009C9670 /* PlatformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C0B7A351BBE7515009C9670 /* PlatformUtils.cpp */; settings = {ASSET_TAGS = (); }; };
->>>>>>> cprest
 		3C8157391BB6FEF1008E68E7 /* StandalonePreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C8157381BB6FEF1008E68E7 /* StandalonePreview.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C81574D1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C81573B1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C81574E1BB6FF09008E68E7 /* CCRiftUVSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C81573D1BB6FF09008E68E7 /* CCRiftUVSphere.cpp */; settings = {ASSET_TAGS = (); }; };
@@ -51,18 +45,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-<<<<<<< HEAD
-		3C47C4661BC85E7A000F0E45 /* CCRiftTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftTimer.cpp; path = ../../src/CCRiftTimer.cpp; sourceTree = "<group>"; };
-		3C47C4671BC85E7A000F0E45 /* CCRiftTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftTimer.h; path = ../../src/CCRiftTimer.h; sourceTree = "<group>"; };
-		3C47C4681BC85E7A000F0E45 /* GuiManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiManager.cpp; path = ../../src/GuiManager.cpp; sourceTree = "<group>"; };
-		3C47C4691BC85E7A000F0E45 /* GuiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiManager.h; path = ../../src/GuiManager.h; sourceTree = "<group>"; };
-		3C47C46F1BC85EA8000F0E45 /* PlatformUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlatformUtils.cpp; path = ../../src/PlatformUtils.cpp; sourceTree = "<group>"; };
-		3C47C4701BC85EA8000F0E45 /* PlatformUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlatformUtils.h; path = ../../src/PlatformUtils.h; sourceTree = "<group>"; };
-=======
 		3C0B7A321BBE74E5009C9670 /* gridUpsideDown.BMP */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = gridUpsideDown.BMP; path = ../../resources/gridUpsideDown.BMP; sourceTree = "<group>"; };
 		3C0B7A341BBE7515009C9670 /* PlatformUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlatformUtils.h; path = ../../src/PlatformUtils.h; sourceTree = "<group>"; };
 		3C0B7A351BBE7515009C9670 /* PlatformUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlatformUtils.cpp; path = ../../src/PlatformUtils.cpp; sourceTree = "<group>"; };
->>>>>>> cprest
 		3C8157221BB68E18008E68E7 /* StandalonePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandalonePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C8157301BB68E18008E68E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C8157381BB6FEF1008E68E7 /* StandalonePreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StandalonePreview.cpp; path = ../../../src/StandalonePreview/StandalonePreview.cpp; sourceTree = "<group>"; };
@@ -186,17 +171,8 @@
 		3C8157551BB6FF13008E68E7 /* CCRift */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-				3C47C46F1BC85EA8000F0E45 /* PlatformUtils.cpp */,
-				3C47C4701BC85EA8000F0E45 /* PlatformUtils.h */,
-				3C47C4661BC85E7A000F0E45 /* CCRiftTimer.cpp */,
-				3C47C4671BC85E7A000F0E45 /* CCRiftTimer.h */,
-				3C47C4681BC85E7A000F0E45 /* GuiManager.cpp */,
-				3C47C4691BC85E7A000F0E45 /* GuiManager.h */,
-=======
 				3C0B7A341BBE7515009C9670 /* PlatformUtils.h */,
 				3C0B7A351BBE7515009C9670 /* PlatformUtils.cpp */,
->>>>>>> cprest
 				3CB454891BBDB3B600CC57C2 /* CocoaUtils.mm */,
 				3CB4548A1BBDB3B600CC57C2 /* CocoaUtils.h */,
 				3C81573A1BB6FF09008E68E7 /* CCRiftWinPreviewDevice.h */,
@@ -368,13 +344,7 @@
 				3CB4546D1BBD5B8100CC57C2 /* messagedialog.cpp in Sources */,
 				3CB4547E1BBD5D4000CC57C2 /* fontResources.cpp in Sources */,
 				3CB454631BBD5B8100CC57C2 /* widget.cpp in Sources */,
-<<<<<<< HEAD
-				3C47C46A1BC85E7A000F0E45 /* CCRiftTimer.cpp in Sources */,
-				3C47C46B1BC85E7A000F0E45 /* GuiManager.cpp in Sources */,
-				3C47C4711BC85EA8000F0E45 /* PlatformUtils.cpp in Sources */,
-=======
 				3C0B7A361BBE7515009C9670 /* PlatformUtils.cpp in Sources */,
->>>>>>> cprest
 				3C8157521BB6FF09008E68E7 /* CCRiftIDevice.cpp in Sources */,
 				3CB454711BBD5B8100CC57C2 /* imagepanel.cpp in Sources */,
 				3CB4546C1BBD5B8100CC57C2 /* nanogui.cpp in Sources */,
@@ -505,14 +475,10 @@
 					../../deps/nanogui/include,
 					../../deps/nanogui/ext/nanovg/src,
 					../../resources/fonts,
-					"../../deps/glew-1.13.0/include",
 				);
 				INFOPLIST_FILE = StandalonePreview/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"../../deps/glfw-3.1.1/mac/x86_64/Debug",
-					"../../deps/glew-1.13.0/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "../../deps/glfw-3.1.1/mac/x86_64/Debug";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = (
@@ -536,7 +502,7 @@
 					CoreFoundation,
 					"-framework",
 					CoreVideo,
-					"../../deps/glew-1.13.0/lib/libGLEW.a",
+					/usr/lib/libGLEW.a,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = companyname.StandalonePreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -570,14 +536,10 @@
 					../../deps/nanogui/include,
 					../../deps/nanogui/ext/nanovg/src,
 					../../resources/fonts,
-					"../../deps/glew-1.13.0/include",
 				);
 				INFOPLIST_FILE = StandalonePreview/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"../../deps/glfw-3.1.1/mac/x86_64/Debug",
-					"../../deps/glew-1.13.0/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "../../deps/glfw-3.1.1/mac/x86_64/Debug";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = (
 					"-DNDEBUG",
@@ -604,7 +566,7 @@
 					CoreFoundation,
 					"-framework",
 					CoreVideo,
-					"../../deps/glew-1.13.0/lib/libGLEW.a",
+					/usr/lib/libGLEW.a,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = companyname.StandalonePreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
