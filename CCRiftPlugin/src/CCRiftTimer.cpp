@@ -2,7 +2,7 @@
 
 using namespace CCRift;
 
-#if (defined( CCRIFT_MAC ) )
+#if (defined( CCRIFT_MSW ) )
 	#include <windows.h>
 #endif
 

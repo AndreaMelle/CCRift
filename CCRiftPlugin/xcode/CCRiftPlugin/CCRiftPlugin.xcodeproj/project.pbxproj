@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C47C4641BC85E66000F0E45 /* CCRiftTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C47C4601BC85E66000F0E45 /* CCRiftTimer.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C47C4651BC85E66000F0E45 /* GuiManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C47C4621BC85E66000F0E45 /* GuiManager.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C47C46E1BC85E9D000F0E45 /* PlatformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C47C46C1BC85E9D000F0E45 /* PlatformUtils.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C361BBB1C7600E76EB3 /* SDK_Segment_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681BD71BBB1C7600E76EB3 /* SDK_Segment_Utils.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C371BBB1C7600E76EB3 /* SDK_File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681BD91BBB1C7600E76EB3 /* SDK_File.cpp */; settings = {ASSET_TAGS = (); }; };
 		3C681C381BBB1C7600E76EB3 /* adobesdk in Resources */ = {isa = PBXBuildFile; fileRef = 3C681C351BBB1C7600E76EB3 /* adobesdk */; settings = {ASSET_TAGS = (); }; };
@@ -54,6 +57,12 @@
 
 /* Begin PBXFileReference section */
 		0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		3C47C4601BC85E66000F0E45 /* CCRiftTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftTimer.cpp; path = ../../src/CCRiftTimer.cpp; sourceTree = "<group>"; };
+		3C47C4611BC85E66000F0E45 /* CCRiftTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftTimer.h; path = ../../src/CCRiftTimer.h; sourceTree = "<group>"; };
+		3C47C4621BC85E66000F0E45 /* GuiManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiManager.cpp; path = ../../src/GuiManager.cpp; sourceTree = "<group>"; };
+		3C47C4631BC85E66000F0E45 /* GuiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiManager.h; path = ../../src/GuiManager.h; sourceTree = "<group>"; };
+		3C47C46C1BC85E9D000F0E45 /* PlatformUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlatformUtils.cpp; path = ../../src/PlatformUtils.cpp; sourceTree = "<group>"; };
+		3C47C46D1BC85E9D000F0E45 /* PlatformUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlatformUtils.h; path = ../../src/PlatformUtils.h; sourceTree = "<group>"; };
 		3C681BC81BBB1C7600E76EB3 /* SPTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPTypes.h; path = ../../src/PrSDK/SPTypes.h; sourceTree = "<group>"; };
 		3C681BC91BBB1C7600E76EB3 /* SPSuites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPSuites.h; path = ../../src/PrSDK/SPSuites.h; sourceTree = "<group>"; };
 		3C681BCA1BBB1C7600E76EB3 /* SPStrngs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPStrngs.h; path = ../../src/PrSDK/SPStrngs.h; sourceTree = "<group>"; };
@@ -306,6 +315,12 @@
 		08FB77AFFE84173DC02AAC07 /* CCRift */ = {
 			isa = PBXGroup;
 			children = (
+				3C47C46C1BC85E9D000F0E45 /* PlatformUtils.cpp */,
+				3C47C46D1BC85E9D000F0E45 /* PlatformUtils.h */,
+				3C47C4601BC85E66000F0E45 /* CCRiftTimer.cpp */,
+				3C47C4611BC85E66000F0E45 /* CCRiftTimer.h */,
+				3C47C4621BC85E66000F0E45 /* GuiManager.cpp */,
+				3C47C4631BC85E66000F0E45 /* GuiManager.h */,
 				3CB4548C1BBDB40900CC57C2 /* CocoaUtils.mm */,
 				3CB4548D1BBDB40900CC57C2 /* CocoaUtils.h */,
 				3C681C3A1BBB1D0500E76EB3 /* CCRiftWinPreviewDevice.h */,
@@ -606,6 +621,7 @@
 				3CB4540F1BBC635A00CC57C2 /* widget.cpp in Sources */,
 				3CB4540E1BBC635A00CC57C2 /* window.cpp in Sources */,
 				3CB454171BBC635A00CC57C2 /* popup.cpp in Sources */,
+				3C47C4641BC85E66000F0E45 /* CCRiftTimer.cpp in Sources */,
 				3CB4541C1BBC635A00CC57C2 /* imageview.cpp in Sources */,
 				3CB454221BBC635A00CC57C2 /* colorwheel.cpp in Sources */,
 				3CB454161BBC635A00CC57C2 /* popupbutton.cpp in Sources */,
@@ -618,6 +634,7 @@
 				3CB4541B1BBC635A00CC57C2 /* label.cpp in Sources */,
 				3C681C511BBB1D0500E76EB3 /* CCRiftFrameTexture.cpp in Sources */,
 				3CB454111BBC635A00CC57C2 /* theme.cpp in Sources */,
+				3C47C46E1BC85E9D000F0E45 /* PlatformUtils.cpp in Sources */,
 				3CB454191BBC635A00CC57C2 /* messagedialog.cpp in Sources */,
 				3CB454281BBC636A00CC57C2 /* fontResources.cpp in Sources */,
 				3C681C4E1BBB1D0500E76EB3 /* CCRiftOGLPlatform.cpp in Sources */,
@@ -625,6 +642,7 @@
 				3CB454141BBC635A00CC57C2 /* screen.cpp in Sources */,
 				3CB454201BBC635A00CC57C2 /* darwin.mm in Sources */,
 				3C681C371BBB1C7600E76EB3 /* SDK_File.cpp in Sources */,
+				3C47C4651BC85E66000F0E45 /* GuiManager.cpp in Sources */,
 				3C681C4B1BBB1D0500E76EB3 /* CCRiftWinPreviewDevice.cpp in Sources */,
 				3C681C571BBB1D1A00E76EB3 /* CCRiftPluginEntryPoint.cpp in Sources */,
 				3C681C361BBB1C7600E76EB3 /* SDK_Segment_Utils.cpp in Sources */,
@@ -670,7 +688,10 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "/Library/Application Support/Adobe/Common/Plug-ins/7.0/MediaCore";
-				LIBRARY_SEARCH_PATHS = "../../deps/glfw-3.1.1/mac/x86_64/Debug";
+				LIBRARY_SEARCH_PATHS = (
+					"../../deps/glfw-3.1.1/mac/x86_64/Debug",
+					"../../deps/glew-1.13.0/lib",
+				);
 				OTHER_CFLAGS = "-Wall";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
@@ -693,7 +714,7 @@
 					CoreFoundation,
 					"-framework",
 					CoreVideo,
-					/usr/lib/libGLEW.a,
+					"../../deps/glew-1.13.0/lib/libGLEW.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:rfc1034Identifier}";
 				PRODUCT_NAME = CCRiftPlugin;
@@ -731,7 +752,10 @@
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "/Library/Application Support/Adobe/Common/Plug-ins/7.0/MediaCore";
-				LIBRARY_SEARCH_PATHS = "../../deps/glfw-3.1.1/mac/x86_64/Release";
+				LIBRARY_SEARCH_PATHS = (
+					"../../deps/glfw-3.1.1/mac/x86_64/Release",
+					"../../deps/glew-1.13.0/lib",
+				);
 				OTHER_CFLAGS = (
 					"-DNDEBUG",
 					"-Wall",
@@ -757,7 +781,7 @@
 					CoreFoundation,
 					"-framework",
 					CoreVideo,
-					/usr/lib/libGLEW.a,
+					"../../deps/glew-1.13.0/lib/libGLEW.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:rfc1034Identifier}";
 				PRODUCT_NAME = CCRiftPlugin;
