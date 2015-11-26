@@ -57,7 +57,6 @@ CCRiftPlugin::~CCRiftPlugin()
 	{
 		mPreviewDevice->stop();
 	}
-
 }
 
 tmResult CCRiftPlugin::SetupDialog(
@@ -107,8 +106,9 @@ void CCRiftPlugin::DisposeInstance(
 	tmInstance* inInstance)
 {
 	delete (CCRiftInstance*)inInstance->ioPrivateInstanceData;
-	if (mPreviewDevice)
+	
+	/*if (mPreviewDevice)
 	{
 		mPreviewDevice->stop();
-	}
+	}*/
 }
