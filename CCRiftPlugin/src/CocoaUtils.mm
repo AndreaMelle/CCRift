@@ -19,6 +19,43 @@
 
 @implementation CocoaUtils
 
++ (CCRift::ImageData*) LoadBitmapRaw:(NSString*)file
+{
+#ifdef IS_PLUGIN
+    NSBundle* myBundle = [NSBundle bundleWithIdentifier:@"com.yourcompany.CCRiftPlugin"];
+    NSString* bundlepath = [myBundle pathForResource:@"gridUpsideDown" ofType:@"BMP"];
+    NSImage * image = [[NSImage alloc] initWithContentsOfFile:bundlepath];
+#else
+    NSImage * image = [[NSImage alloc] initWithContentsOfFile:file];
+#endif
+    
+    if(!image) return nullptr;
+    
+    NSBitmapImageRep* bitmap = [NSBitmapImageRep alloc];
+    
+    if(!bitmap) return nullptr;
+    
+    NSSize imgSize = [image size];
+    
+    [image lockFocus];
+    [bitmap initWithFocusedViewRect: NSMakeRect(0.0, 0.0, imgSize.width, imgSize.height)];
+    [image unlockFocus];
+
+    CCRift::ImageData* rawimg = new CCRift::ImageData();
+    
+    rawimg->channels = (int)[bitmap samplesPerPixel];
+    rawimg->width = (unsigned int)[bitmap pixelsWide];
+    rawimg->height = (unsigned int)[bitmap pixelsHigh];
+    
+    size_t size = CCRift::ImageData::AllocEmptyImage(rawimg);
+    
+    memcpy(rawimg->data, (unsigned char*)[bitmap bitmapData], size);
+    
+    [bitmap release];
+    
+    return rawimg;
+}
+
 + (CCRift::FrameTexture*) LoadBitmap:(NSString*)file
 {
 #ifdef IS_PLUGIN
@@ -62,6 +99,8 @@
     return tex;
 }
 
+
+
 + (void)ShowMessagePopup:(NSString*) msg
 {
     NSAlert *alert = [[NSAlert alloc] init];
@@ -83,19 +122,24 @@
 void CocoaSetWindowAlwaysOnTop(GLFWwindow* window)
 {
     NSWindow* h = (NSWindow*)glfwGetCocoaWindow(window);
-    //h.level = kCGMaximumWindowLevelKey;
+    h.level = kCGMaximumWindowLevelKey;
 }
 
 void CocoaResetWindowAlwaysOnTop(GLFWwindow* window)
 {
     NSWindow* h = (NSWindow*)glfwGetCocoaWindow(window);
-    //h.level = kCGBaseWindowLevelKey;
+    h.level = kCGBaseWindowLevelKey;
 }
 
 void CocoaHideWindowCloseButton(GLFWwindow* window)
 {
     NSWindow* h = (NSWindow*)glfwGetCocoaWindow(window);
     [[h standardWindowButton:NSWindowCloseButton] setHidden:YES];
+}
+
+CCRift::ImageData* CocoaLoadBitmapRaw(const char* filename)
+{
+    return [CocoaUtils LoadBitmapRaw:[NSString stringWithUTF8String:filename]];
 }
 
 CCRift::FrameTexture* CocoaLoadBitmap(const char* filename)

@@ -40,6 +40,9 @@
 		3CB4547A1BBD5B8100CC57C2 /* nanovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4545E1BBD5B8100CC57C2 /* nanovg.c */; settings = {ASSET_TAGS = (); }; };
 		3CB4547E1BBD5D4000CC57C2 /* fontResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4547D1BBD5D4000CC57C2 /* fontResources.cpp */; settings = {ASSET_TAGS = (); }; };
 		3CB4548B1BBDB3B600CC57C2 /* CocoaUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3CB454891BBDB3B600CC57C2 /* CocoaUtils.mm */; settings = {ASSET_TAGS = (); }; };
+		3CE12D791BC90366005D6827 /* logo.BMP in Resources */ = {isa = PBXBuildFile; fileRef = 3CE12D781BC90366005D6827 /* logo.BMP */; settings = {ASSET_TAGS = (); }; };
+		3CE12D7B1BC90570005D6827 /* logo_transp.BMP in Resources */ = {isa = PBXBuildFile; fileRef = 3CE12D7A1BC90570005D6827 /* logo_transp.BMP */; settings = {ASSET_TAGS = (); }; };
+		3CE12D7F1BC96373005D6827 /* PresetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CE12D7D1BC96373005D6827 /* PresetManager.cpp */; settings = {ASSET_TAGS = (); }; };
 		3CEAE66D1BC8605100A6BC49 /* CCRiftTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAE6691BC8605100A6BC49 /* CCRiftTimer.cpp */; settings = {ASSET_TAGS = (); }; };
 		3CEAE66E1BC8605100A6BC49 /* GuiManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAE66B1BC8605100A6BC49 /* GuiManager.cpp */; settings = {ASSET_TAGS = (); }; };
 		3CEAE6761BC860B000A6BC49 /* PlatformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C0B7A351BBE7515009C9670 /* PlatformUtils.cpp */; settings = {ASSET_TAGS = (); }; };
@@ -127,6 +130,10 @@
 		3CB4547D1BBD5D4000CC57C2 /* fontResources.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fontResources.cpp; path = ../../resources/fonts/fontResources.cpp; sourceTree = "<group>"; };
 		3CB454891BBDB3B600CC57C2 /* CocoaUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CocoaUtils.mm; path = ../../src/CocoaUtils.mm; sourceTree = "<group>"; };
 		3CB4548A1BBDB3B600CC57C2 /* CocoaUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CocoaUtils.h; path = ../../src/CocoaUtils.h; sourceTree = "<group>"; };
+		3CE12D781BC90366005D6827 /* logo.BMP */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = logo.BMP; path = ../../resources/logo.BMP; sourceTree = "<group>"; };
+		3CE12D7A1BC90570005D6827 /* logo_transp.BMP */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = logo_transp.BMP; path = ../../resources/logo_transp.BMP; sourceTree = "<group>"; };
+		3CE12D7D1BC96373005D6827 /* PresetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PresetManager.cpp; path = ../../src/PresetManager.cpp; sourceTree = "<group>"; };
+		3CE12D7E1BC96373005D6827 /* PresetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresetManager.h; path = ../../src/PresetManager.h; sourceTree = "<group>"; };
 		3CEAE6691BC8605100A6BC49 /* CCRiftTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftTimer.cpp; path = ../../src/CCRiftTimer.cpp; sourceTree = "<group>"; };
 		3CEAE66A1BC8605100A6BC49 /* CCRiftTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftTimer.h; path = ../../src/CCRiftTimer.h; sourceTree = "<group>"; };
 		3CEAE66B1BC8605100A6BC49 /* GuiManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GuiManager.cpp; path = ../../src/GuiManager.cpp; sourceTree = "<group>"; };
@@ -147,6 +154,8 @@
 		3C8157191BB68E18008E68E7 = {
 			isa = PBXGroup;
 			children = (
+				3CE12D7A1BC90570005D6827 /* logo_transp.BMP */,
+				3CE12D781BC90366005D6827 /* logo.BMP */,
 				3C0B7A321BBE74E5009C9670 /* gridUpsideDown.BMP */,
 				3CB4547B1BBD5D2500CC57C2 /* Resources */,
 				3CB454291BBD5B5000CC57C2 /* nanogui */,
@@ -201,6 +210,8 @@
 				3C81574A1BB6FF09008E68E7 /* CCRiftFrameTexture.cpp */,
 				3C81574B1BB6FF09008E68E7 /* CCRiftCommons.h */,
 				3C81574C1BB6FF09008E68E7 /* CCRiftBufferHelpers.h */,
+				3CE12D7D1BC96373005D6827 /* PresetManager.cpp */,
+				3CE12D7E1BC96373005D6827 /* PresetManager.h */,
 			);
 			name = CCRift;
 			sourceTree = "<group>";
@@ -332,6 +343,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CE12D7B1BC90570005D6827 /* logo_transp.BMP in Resources */,
+				3CE12D791BC90366005D6827 /* logo.BMP in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +385,7 @@
 				3CB454641BBD5B8100CC57C2 /* vscrollpanel.cpp in Sources */,
 				3C81574E1BB6FF09008E68E7 /* CCRiftUVSphere.cpp in Sources */,
 				3CB454661BBD5B8100CC57C2 /* textbox.cpp in Sources */,
+				3CE12D7F1BC96373005D6827 /* PresetManager.cpp in Sources */,
 				3CB4547A1BBD5B8100CC57C2 /* nanovg.c in Sources */,
 				3CB454731BBD5B8100CC57C2 /* glutil.cpp in Sources */,
 				3CB454671BBD5B8100CC57C2 /* slider.cpp in Sources */,

@@ -14,6 +14,9 @@ public:
     inline const std::string &title() const { return mTitle; }
     /// Set the window title
     inline void setTitle(const std::string &title) { mTitle = title; }
+    
+    inline void setUseCustomBackgroundColor(bool use) { mUseCustomBackgroundColor = use; }
+    inline void setCustomBackgroundColor(Color color) { mCustomBackgroundColor = color; }
 
     /// Is this a model dialog?
     inline bool modal() const { return mModal; }
@@ -41,6 +44,8 @@ protected:
 protected:
     std::string mTitle;
     bool mModal;
+    bool mUseCustomBackgroundColor;
+    Color mCustomBackgroundColor;
 };
 
 NANOGUI_NAMESPACE_END

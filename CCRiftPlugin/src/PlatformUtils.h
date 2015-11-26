@@ -6,6 +6,7 @@
 extern "C"
 {
 	CCRift::FrameTexture* LoadTextureFromBitmap(const char* filename);
+    CCRift::ImageData* LoadBitmapRaw(const char* filename);
 
 	void ShowMessagePopup(GLFWwindow* window, const char* msg, const char* title);
 

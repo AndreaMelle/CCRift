@@ -1,4 +1,6 @@
 #include "GuiManager.h"
+#include "nanovg.h"
+#include "PlatformUtils.h"
 
 using namespace nanogui;
 using namespace CCRift;
@@ -6,12 +8,38 @@ using namespace CCRift;
 void GuiManager::create(int winWidth, int winHeight)
 {
 	mSplashscreen = new nanogui::Window(this, "");
+    //mSplashscreen->setLayout(new nanogui::GroupLayout());
 
-	splashScreenSize = Vector2i(400, 300);
+	splashScreenSize = Vector2i(winWidth / 2, winHeight / 2 );
 	splashScreenPosition = (Vector2i(winWidth, winHeight) - splashScreenSize) / 2;
 
 	mSplashscreen->setFixedSize(splashScreenSize);
 	mSplashscreen->setPosition(splashScreenPosition);
+    mSplashscreen->setUseCustomBackgroundColor(true);
+    mSplashscreen->setCustomBackgroundColor(Color(38, 255));
+    
+    mLogo = new ImageView(mSplashscreen);
+    CCRift::ImageData* logoImg = LoadBitmapRaw("logo.BMP");
+    
+    if(logoImg)
+    {
+        int logotex = nvgCreateImageRGBA(mNVGContext, logoImg->width, logoImg->height, 0, logoImg->data);
+        mLogo->setImage(logotex);
+        CCRift::ImageData::FreeImage(logoImg);
+    }
+    
+    mLogo->setPosition(nanogui::Vector2i(30,30));
+    mLogo->setFixedWidth(splashScreenSize[0] - 60);
+    
+    Widget *ssContainer = new Widget(mSplashscreen);
+    ssContainer->setFixedWidth(splashScreenSize[0]);
+    GroupLayout *ssContainerLayout = new GroupLayout();
+    ssContainerLayout->setSpacing(0);
+    ssContainerLayout->setMargin(0);
+    ssContainer->setLayout(ssContainerLayout);
+    ssContainer->setPosition(nanogui::Vector2i(30, 150));
+    new nanogui::Label(ssContainer, "OmniPreview Transmitter Plugin v0.1", "sans-bold");
+    new nanogui::Label(ssContainer, "\xc2\xa9 2015 Andrea Melle", "sans-bold");
 
 	popupMenu = new nanogui::Window(this, "");
 
@@ -40,11 +68,8 @@ void GuiManager::create(int winWidth, int winHeight)
 	new nanogui::Label(popupMenu, "Field of View", "sans-bold");
 
 	fovComboBox = new nanogui::ComboBox(popupMenu, {
-		gFovOptions[FOV_DK2].name,
-		gFovOptions[FOV_GEARVR].name,
-		gFovOptions[FOV_CARDBOARD].name,
-		gFovOptions[FOV_HANDHELD].name,
-		gFovOptions[FOV_CUSTOM_DEFAULT].name
+		gPreviewPresets[PP_SMARTPHONE].name,
+        gPreviewPresets[PP_EDITING_DEFAULT].name
 	});
 
 	fovComboBox->popup()->setAnchorHeight(120);
@@ -53,59 +78,31 @@ void GuiManager::create(int winWidth, int winHeight)
 	customFovContainer->setLayout(new nanogui::BoxLayout(nanogui::BoxLayout::Horizontal,
 		nanogui::BoxLayout::Middle, 0, 4));
 
-	nanogui::Slider *slider = new nanogui::Slider(customFovContainer);
+	slider = new nanogui::Slider(customFovContainer);
 	slider->setFixedWidth(110);
-	nanogui::TextBox *textBox = new nanogui::TextBox(customFovContainer);
+	textBox = new nanogui::TextBox(customFovContainer);
 	textBox->setUnits("\xc2\xb0");
 	textBox->setFixedSize(nanogui::Vector2i(60, 25));
 
-	fovComboBox->setCallback([&, slider, textBox](int value) {
-
-		bool showSlider = false;
-
+	fovComboBox->setCallback([&](int value) {
 		switch (value)
 		{
 		case 0:
-			//Oculus Rift DK2
-			mFovChangedCallback(gFovOptions[FOV_DK2].fovDegrees);
+            mPPChangedCallback(PP_SMARTPHONE);
 			break;
 		case 1:
-			//Gear VR
-			mFovChangedCallback(gFovOptions[FOV_GEARVR].fovDegrees);
-			break;
-		case 2:
-			//Google Cardboard
-			mFovChangedCallback(gFovOptions[FOV_CARDBOARD].fovDegrees);
-			break;
-		case 3:
-			//Handheld
-			mFovChangedCallback(gFovOptions[FOV_HANDHELD].fovDegrees);
-			break;
-		case 4:
-			showSlider = true;
-			mFovChangedCallback(std::max<float>(gFovOptions[FOV_MINIMUM].fovDegrees, slider->value() * gFovOptions[FOV_MAXIMUM].fovDegrees));
+            mPPChangedCallback(PP_EDITING_DEFAULT);
 			break;
 		default:
 			break;
 		}
-
-		slider->setEnabled(showSlider);
-		slider->setVisible(showSlider);
-		textBox->setVisible(showSlider);
-
 	});
 
-	textBox->setValue(std::to_string((int)(gFovOptions[FOV_CUSTOM_DEFAULT].fovDegrees)));
-	textBox->setVisible(false);
-	slider->setEnabled(false);
-	slider->setVisible(false);
-	slider->setValue(gFovOptions[FOV_CUSTOM_DEFAULT].fovDegrees / gFovOptions[FOV_MAXIMUM].fovDegrees);
-
-	slider->setCallback([&, textBox](float value) {
-		textBox->setValue(std::to_string((int)(std::max<float>(gFovOptions[FOV_MINIMUM].fovDegrees, value * gFovOptions[FOV_MAXIMUM].fovDegrees))));
+	slider->setCallback([&](float value) {
+		textBox->setValue(std::to_string((int)(std::max<float>(FOV_MINIMUM, value * FOV_MAXIMUM))));
 	});
 	slider->setFinalCallback([&](float value) {
-		mFovChangedCallback(std::max<float>(gFovOptions[FOV_MINIMUM].fovDegrees, value * gFovOptions[FOV_MAXIMUM].fovDegrees));
+        mSliderChangeCallback(std::max<float>(FOV_MINIMUM, value * FOV_MAXIMUM));
 	});
 
 	bAbout->setCallback([&](){
@@ -139,7 +136,16 @@ void GuiManager::create(int winWidth, int winHeight)
 	setVisible(true);
 	popupMenu->setVisible(false);
 	mSplashscreen->setVisible(false);
+    
+    showCustomSettingsBox(false);
 
+}
+
+void GuiManager::showCustomSettingsBox(bool show)
+{
+    slider->setEnabled(show);
+    slider->setVisible(show);
+    textBox->setVisible(show);
 }
 
 void GuiManager::showSplashScreen(bool show)
@@ -150,14 +156,35 @@ void GuiManager::showSplashScreen(bool show)
 void GuiManager::didResize(int winWidth, int winHeight)
 {
 	mSettingsBtn->setPosition(nanogui::Vector2i(20, winHeight - 20 - mSettingsBtn->width()));
-	splashScreenPosition = (Vector2i(winWidth, winHeight) - splashScreenSize) / 2;
+	
+    //splashScreenSize = Vector2i(winWidth / 2, winHeight / 2 );
+    splashScreenPosition = (Vector2i(winWidth, winHeight) - splashScreenSize) / 2;
 	mSplashscreen->setPosition(splashScreenPosition);
+//    mSplashscreen->setFixedSize(splashScreenSize);
+//    mLogo->setFixedSize(splashScreenSize - nanogui::Vector2i(60,60));
+    performLayout(nvgContext());
+    
 }
 
-void GuiManager::setFovOption(FOVInfo fovInfo)
+void GuiManager::setPresetOption(PreviewPreset option)
 {
-	//FIXME: hack
-	fovComboBox->setSelectedIndex(3);
+    switch (option)
+    {
+        case PP_SMARTPHONE:
+            fovComboBox->setSelectedIndex(0);
+            break;
+        case PP_EDITING_DEFAULT:
+            fovComboBox->setSelectedIndex(1);
+            break;
+        default:
+            break;
+    }
+}
+
+void GuiManager::setCustomEditingOptions(PreviewSettings settings)
+{
+    textBox->setValue(std::to_string((int)(settings.fov)));
+    slider->setValue(settings.fov / FOV_MAXIMUM);
 }
 
 //TODO: do we call the callback for setters?

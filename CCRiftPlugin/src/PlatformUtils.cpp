@@ -8,6 +8,16 @@
 #include "WinUtils.h"
 #endif
 
+CCRift::ImageData* LoadBitmapRaw(const char* filename)
+{
+#ifdef CCRIFT_MSW
+    return WinLoadBitmapRaw(IDB_BITMAP1); //?? still this shit to fix??
+#endif
+    
+#ifdef CCRIFT_MAC
+    return CocoaLoadBitmapRaw(filename);
+#endif
+}
 
 CCRift::FrameTexture* LoadTextureFromBitmap(const char* filename)
 {

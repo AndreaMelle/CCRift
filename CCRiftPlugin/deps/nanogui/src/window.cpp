@@ -16,9 +16,17 @@ void Window::draw(NVGcontext *ctx) {
     nvgSave(ctx);
     nvgBeginPath(ctx);
     nvgRoundedRect(ctx, mPos.x(), mPos.y(), mSize.x(), mSize.y(), cr);
-
-    nvgFillColor(ctx, mMouseFocus ? mTheme->mWindowFillFocused
-                                  : mTheme->mWindowFillUnfocused);
+    
+    if(mUseCustomBackgroundColor)
+    {
+        nvgFillColor(ctx, mCustomBackgroundColor);
+    }
+    else
+    {
+        nvgFillColor(ctx, mMouseFocus ? mTheme->mWindowFillFocused
+                     : mTheme->mWindowFillUnfocused);
+    }
+    
     nvgFill(ctx);
 
     /* Draw a drop shadow */

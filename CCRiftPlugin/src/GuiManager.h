@@ -15,7 +15,9 @@
 #include "nanogui/textbox.h"
 #include "nanogui/combobox.h"
 #include "nanogui/entypo.h"
+#include "nanogui/imageview.h"
 #include "CCRiftTimer.h"
+#include "PresetManager.h"
 
 namespace CCRift
 {
@@ -28,7 +30,8 @@ namespace CCRift
 		virtual void create(int winWidth, int winHeight) override;
 		virtual void didResize(int winWidth, int winHeight) override;
 
-		void setFovChangeOptionCallback(std::function<void(float)> callback) { mFovChangedCallback = callback; }
+		void setPresetChangeOptionCallback(std::function<void(PreviewPreset)> callback) { mPPChangedCallback = callback; }
+        void setSliderChangeCallback(std::function<void(float)> callback) { mSliderChangeCallback = callback; }
 		
 		void setAboutOptionCallback(std::function<void()> callback) { mAboutOptionCallback = callback; }
 		void setResetOptionCallback(std::function<void()> callback) { mResetOptionCallback = callback; }
@@ -38,15 +41,20 @@ namespace CCRift
 
 		void setGridOption(bool on);
 		void setAlwaysOnTopOption(bool on);
-		void setFovOption(FOVInfo fovInfo);
+        
+		void setPresetOption(PreviewPreset option);
+        void setCustomEditingOptions(PreviewSettings settings);
 
 		void showSplashScreen(bool show);
 
 		void dismissPopupMenu();
+        
+        void showCustomSettingsBox(bool show);
 
 	private:
 
 		nanogui::Window *mSplashscreen;
+        nanogui::ImageView* mLogo;
 
 		nanogui::Button* mSettingsBtn;
 		nanogui::Window *popupMenu;
@@ -55,19 +63,21 @@ namespace CCRift
 		nanogui::Button *cGrid;
 		nanogui::Button *cTop;
 		nanogui::ComboBox* fovComboBox;
+        
+        nanogui::Slider *slider;
+        nanogui::TextBox *textBox;
 
 		nanogui::Vector2i splashScreenSize;
 		nanogui::Vector2i splashScreenPosition;
 
-		std::function<void(float)> mFovChangedCallback;
+		std::function<void(PreviewPreset)> mPPChangedCallback;
+        std::function<void(float)> mSliderChangeCallback;
 
 		std::function<void()> mAboutOptionCallback;
 		std::function<void()> mResetOptionCallback;
 
 		std::function<void(bool)> mGridOptionCallback;
 		std::function<void(bool)> mAlwaysOnTopOptionCallback;
-
-		
 
 	};
 }

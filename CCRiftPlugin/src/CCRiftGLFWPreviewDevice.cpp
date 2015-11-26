@@ -7,9 +7,9 @@ using namespace std;
 using namespace CCRift;
 
 GLFWPreviewDevice::GLFWPreviewDevice()
-: mWindowSize(glm::ivec2(960, 540))
+    : mSplashScreenTimeout(1000.0f)
+    , mShouldShowSplashScreen(true)
     , mFrameSize(glm::ivec2(1920, 960))
-
 	, mDeviceRunning(false)
     , mFrameBufferDepth(4)
     , mXPos(0)
@@ -27,14 +27,9 @@ GLFWPreviewDevice::GLFWPreviewDevice()
 #endif
     , mAlwaysOnTop(false)
     , mActive(false)
-	, mShouldShowSplashScreen(true)
 {
 	mFrameBufferLength = mFrameSize.x * mFrameSize.y * mFrameBufferDepth;
 	mFrameDataBuffer = new unsigned char[mFrameBufferLength];
-
-	mAspectRatio = (float)mWindowSize.x / (float)mWindowSize.y;
-
-	setFieldOfView(60.0f);
 }
 
 GLFWPreviewDevice::~GLFWPreviewDevice()
@@ -44,11 +39,42 @@ GLFWPreviewDevice::~GLFWPreviewDevice()
 		delete[] mFrameDataBuffer;
 }
 
+void GLFWPreviewDevice::updateProjectionMatrix()
+{
+    float verticalFovRadians = mCurrentSettings.fov * M_PI / 180.0f;
+    mProj = glm::perspectiveFovRH(verticalFovRadians, (float)mCurrentSettings.width, (float)mCurrentSettings.height, 0.1f, 100.0f); //RH
+    
+    glViewport(0, 0, mCurrentSettings.width, mCurrentSettings.height);
+}
+
 void GLFWPreviewDevice::setFieldOfView(float vFOV)
 {
-	verticalFovDegrees = vFOV;
-	float verticalFovRadians = verticalFovDegrees * M_PI / 180.0f;
-	mProj = glm::perspectiveFovRH(verticalFovRadians, (float)mWindowSize.x, (float)mWindowSize.y, 0.1f, 100.0f); //RH
+    mCurrentSettings.fov = vFOV;
+}
+
+void GLFWPreviewDevice::setWindowSize(int width, int height)
+{
+    mCurrentSettings.width = width;
+    mCurrentSettings.height = height;
+    mCurrentSettings.aspectratio = (float)mCurrentSettings.width / (float)mCurrentSettings.height;
+}
+
+void GLFWPreviewDevice::setPreviewSettings(PreviewSettings ps)
+{
+    if(ps.width != mCurrentSettings.width || ps.height != mCurrentSettings.height)
+    {
+        glfwSetWindowSize(window, ps.width, ps.height);
+        setFieldOfView(ps.fov);
+        setWindowSize(ps.width, ps.height);
+        updateProjectionMatrix();
+        
+        mGUI->onResize(window, ps.width, ps.height);
+    }
+    else if(ps.fov != mCurrentSettings.fov)
+    {
+        setFieldOfView(ps.fov);
+        updateProjectionMatrix();
+    }
 }
 
 void GLFWPreviewDevice::pushFrame(const void* data)
@@ -63,109 +89,10 @@ void GLFWPreviewDevice::pushFrame(const void* data)
 
 void GLFWPreviewDevice::setActive(bool active)
 {
-	if (active)
-	{
-	}
-	else
-	{
-		
-	}
-
+//	if (active)
+//	else
 	mActive = active;
 }
-
-void GLFWPreviewDevice::start(HINSTANCE hinst)
-{
-	if (mDeviceRunning) return;
-
-	mDeviceRunning = true;
-
-	//mModuleHandle = hinst;
-
-	mProcess.mThreadCallback = [&]()
-	{
-		HRESULT hr;
-		hr = deviceSetup();
-
-		if (FAILED(hr))
-		{
-			deviceTeardown();
-			mDeviceRunning = false;
-			return;
-		}
-
-		while (mProcess.mRunning)
-		{
-			hr = deviceUpdate();
-
-			if (FAILED(hr))
-			{
-				std::this_thread::sleep_for(std::chrono::milliseconds(33));
-				continue;
-			}
-		}
-
-		deviceTeardown();
-
-		mDeviceRunning = false;
-	};
-    
-#ifndef IS_PLUGIN
-    #ifdef CCRIFT_MAC
-    
-    HRESULT hr;
-    hr = deviceSetup();
-    
-    if (FAILED(hr))
-    {
-        deviceTeardown();
-        mDeviceRunning = false;
-        return;
-    }
-    
-    size_t demoDataSize = preferredFrameHeight()
-    * preferredFrameWidth()
-    * preferredFrameDepth();
-    
-    unsigned char *demoData = new unsigned char[demoDataSize];
-    
-    memset(demoData, 0, demoDataSize);
-        
-        for (int i = 0; i < demoDataSize; i++)
-        {
-            demoData[i] = rand() % 255;
-        }
-
-    pushFrame(demoData);
-    
-    mProcess.mRunning = true;
-    while (mProcess.mRunning)
-    {
-        hr = deviceUpdate();
-        
-        if (FAILED(hr))
-        {
-            std::this_thread::sleep_for(std::chrono::milliseconds(33));
-            continue;
-        }
-    }
-    
-    deviceTeardown();
-    
-    mDeviceRunning = false;
-    #endif
-#endif
-    
-	mProcess.start();
-
-}
-
-void GLFWPreviewDevice::stop()
-{
-	if (mProcess.mRunning)
-		mProcess.stop();
-}
-
 
 HRESULT GLFWPreviewDevice::deviceSetup()
 {
@@ -200,7 +127,10 @@ HRESULT GLFWPreviewDevice::deviceSetup()
     glfwWindowHint(GLFW_STENCIL_BITS, 8);
     glfwWindowHint(GLFW_DEPTH_BITS, 24);
 
-	window = glfwCreateWindow(mWindowSize.x, mWindowSize.y, gWindowTitle.c_str(), NULL, NULL);
+    
+    mCurrentSettings = gPreviewPresets[PP_EDITING_DEFAULT];
+    
+	window = glfwCreateWindow(mCurrentSettings.width, mCurrentSettings.height, gWindowTitle.c_str(), NULL, NULL);
 
 	if (!window)
 	{
@@ -232,20 +162,22 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 	
 	mScene = new Scene();
 
-	if (!mScene->init(mWindowSize, mFrameSize))
+    if (!mScene->init(glm::ivec2(mCurrentSettings.width, mCurrentSettings.height), mFrameSize))
 	{
 		//MessageBoxA(NULL, "Failed to initialize Scene.", "CCRift Preview", MB_ICONERROR | MB_OK);
 		return E_FAIL;
 	}
 
+    updateProjectionMatrix();
+    
 	mGUI = new GuiManager(window);
-	mGUI->create(mWindowSize.x, mWindowSize.y);
+	mGUI->create(mCurrentSettings.width, mCurrentSettings.height);
+    
+    mPresetManager = new PresetManager(mGUI, PP_EDITING_DEFAULT);
     
     mGUI->setGridOption(mScene->getSphere()->Grid());
     mGUI->setAlwaysOnTopOption(mAlwaysOnTop);
-    mGUI->setFovOption(gFovOptions[FOV_HANDHELD]);
-    setFieldOfView(gFovOptions[FOV_HANDHELD].fovDegrees);
-
+    
 	mGUI->setAboutOptionCallback([&](){
 		ShowMessagePopup(window, "v0.1\n\nSeptember 2015\n\nandrea.melle@happyfinish.com", "About");
 	});
@@ -269,9 +201,9 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 #endif
 	});
     
-	mGUI->setFovChangeOptionCallback([&](float value) {
-		setFieldOfView(value);
-	});
+    mPresetManager->setPreviewSettingsChangeCallback([&](PreviewSettings value){
+        setPreviewSettings(value);
+    });
 
 	glfwSetCursorPosCallback(window, [](GLFWwindow *w, double x, double y){
 		IDevice<GLFWPreviewDevice>::Instance().glfwCursorPosCallback(w, x, y);
@@ -314,6 +246,8 @@ HRESULT GLFWPreviewDevice::deviceSetup()
 		mGUI->showSplashScreen(true);
 		mSplashScreenTimer.start();
 	}
+    
+    glfwShowWindow(window);
 
 	return S_OK;
 }
@@ -348,7 +282,7 @@ HRESULT GLFWPreviewDevice::deviceUpdate()
 {
 	if (!glfwWindowShouldClose(window))
 	{
-		if (mShouldShowSplashScreen && mSplashScreenTimer.getSeconds() > 2.0)
+		if (mShouldShowSplashScreen && mSplashScreenTimer.getSeconds() > mSplashScreenTimeout)
 		{
 			mGUI->showSplashScreen(false);
 			mSplashScreenTimer.stop();
@@ -390,6 +324,7 @@ HRESULT GLFWPreviewDevice::deviceTeardown()
 {
 	mScene->release();
 	delete mScene;
+    delete mPresetManager;
 	delete mGUI;
 
 	//if (popupMenu)
@@ -444,15 +379,18 @@ void GLFWPreviewDevice::glfwScrollCallback(GLFWwindow* w, double x, double y)
 void GLFWPreviewDevice::glfwResizeCallback(GLFWwindow* w, int width, int height)
 {
 	if (window != w) return;
-
-	mWindowSize.x = width;
-	mWindowSize.y = height;
-
-	mAspectRatio = (float)mWindowSize.x / (float)mWindowSize.y;
-	float verticalFovRadians = verticalFovDegrees * M_PI / 180.0f;
-	mProj = glm::perspectiveFovRH(verticalFovRadians, (float)mWindowSize.x, (float)mWindowSize.y, 0.1f, 100.0f); //RH
-	glViewport(0, 0, mWindowSize.x, mWindowSize.y);
-	mGUI->onResize(w, width, height);
+    
+    setWindowSize(width, height);
+    
+    updateProjectionMatrix();
+    mGUI->onResize(window, width, height);
+    
+    if (mShouldShowSplashScreen)
+    {
+        mGUI->showSplashScreen(false);
+        mSplashScreenTimer.stop();
+        mShouldShowSplashScreen = false;
+    }
 }
 
 void GLFWPreviewDevice::glfwKeyCallback(GLFWwindow* w, int key, int scancode, int action, int mods)
@@ -473,4 +411,96 @@ void GLFWPreviewDevice::glfwKeyCallback(GLFWwindow* w, int key, int scancode, in
 void GLFWPreviewDevice::glfwErrorCallback(int error, const char* description)
 {
 
+}
+
+void GLFWPreviewDevice::start(HINSTANCE hinst)
+{
+    if (mDeviceRunning) return;
+    
+    mDeviceRunning = true;
+    
+    //mModuleHandle = hinst;
+    
+    mProcess.mThreadCallback = [&]()
+    {
+        HRESULT hr;
+        hr = deviceSetup();
+        
+        if (FAILED(hr))
+        {
+            deviceTeardown();
+            mDeviceRunning = false;
+            return;
+        }
+        
+        while (mProcess.mRunning)
+        {
+            hr = deviceUpdate();
+            
+            if (FAILED(hr))
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(33));
+                continue;
+            }
+        }
+        
+        deviceTeardown();
+        
+        mDeviceRunning = false;
+    };
+    
+#ifndef IS_PLUGIN
+#ifdef CCRIFT_MAC
+    
+    HRESULT hr;
+    hr = deviceSetup();
+    
+    if (FAILED(hr))
+    {
+        deviceTeardown();
+        mDeviceRunning = false;
+        return;
+    }
+    
+    size_t demoDataSize = preferredFrameHeight()
+    * preferredFrameWidth()
+    * preferredFrameDepth();
+    
+    unsigned char *demoData = new unsigned char[demoDataSize];
+    
+    memset(demoData, 0, demoDataSize);
+    
+    for (int i = 0; i < demoDataSize; i++)
+    {
+        demoData[i] = rand() % 255;
+    }
+    
+    pushFrame(demoData);
+    
+    mProcess.mRunning = true;
+    while (mProcess.mRunning)
+    {
+        hr = deviceUpdate();
+        
+        if (FAILED(hr))
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(33));
+            continue;
+        }
+    }
+    
+    deviceTeardown();
+    
+    mDeviceRunning = false;
+#endif
+#endif
+    
+    mProcess.start();
+    
+}
+
+void GLFWPreviewDevice::stop()
+{
+    if (mProcess.mRunning)
+        mProcess.stop();
 }

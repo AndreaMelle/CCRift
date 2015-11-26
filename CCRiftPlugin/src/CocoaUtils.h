@@ -13,7 +13,10 @@
 
 extern "C"
 {
+    
     CCRift::FrameTexture* CocoaLoadBitmap(const char* filename);
+    
+    CCRift::ImageData* CocoaLoadBitmapRaw(const char* filename);
     
     void CocoaShowMessagePopup(GLFWwindow* window, const char* msg, const char* title);
     

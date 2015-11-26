@@ -158,41 +158,39 @@ static HMODULE GetMyModuleHandle()
 
 namespace CCRift
 {
-	typedef enum FOVOption
-	{
-		FOV_MINIMUM,
-		FOV_HANDHELD,
-		FOV_DK2,
-		FOV_GEARVR,
-		FOV_CARDBOARD,
-		FOV_CUSTOM_DEFAULT,
-		FOV_MAXIMUM
-	} FOVOption;
-
-	typedef struct FOVInfo
-	{
-	public:
-		FOVInfo() {}
-		FOVInfo(FOVOption _option, float _fovDeg, std::string _name)
-			: option(_option)
-			, fovDegrees(_fovDeg)
-			, name(_name) {}
-
-		FOVOption option;
-		float fovDegrees;
-		std::string name;
-	} FOVInfo;
-
-	static std::map<FOVOption, FOVInfo> gFovOptions =
-	{
-		{ FOV_MINIMUM, FOVInfo(FOV_MINIMUM, 10.0f, "Minimum (10\xc2\xb0)") },
-		{ FOV_HANDHELD, FOVInfo(FOV_HANDHELD, 60.0f, "Handheld (60\xc2\xb0)") },
-		{ FOV_DK2, FOVInfo(FOV_DK2, 100.0f, "Oculus Rift DK2 (100\xc2\xb0)") },
-		{ FOV_GEARVR, FOVInfo(FOV_GEARVR, 90.0f, "Samsung GearVR (90\xc2\xb0)") },
-		{ FOV_CARDBOARD, FOVInfo(FOV_CARDBOARD, 85.0f, "Google Cardboard (85\xc2\xb0)") },
-		{ FOV_CUSTOM_DEFAULT, FOVInfo(FOV_CUSTOM_DEFAULT, 70.0f, "Custom") },
-		{ FOV_MAXIMUM, FOVInfo(FOV_MAXIMUM, 150.0f, "Maximum (150\xc2\xb0)") },
-	};
+    // reference to uncompressed, simple image data. Does not manage memory
+    typedef struct ImageData
+    {
+    public:
+        ImageData() {}
+        ImageData(int widthIn, int heightIn, int channelsIn, unsigned char *dataIn)
+        : width(widthIn)
+        , height(heightIn)
+        , channels(channelsIn)
+        , data(dataIn) {}
+        
+        virtual ~ImageData() {}
+        
+        int width;
+        int height;
+        int channels;
+        unsigned char *data;
+        
+        // returns number of bytes allocated
+        static size_t AllocEmptyImage(ImageData* img)
+        {
+            if(img == nullptr) return 0;
+            size_t size = img->channels * img->width * img->height * sizeof(unsigned char);
+            img->data = (unsigned char*)malloc(size);
+            return size;
+        }
+        
+        static void FreeImage(ImageData* img)
+        {
+            if(img == nullptr) return;
+            free(img->data);
+        }
+    } ImageData;
 
 	static std::string gWindowTitle = "Panorama Preview";
 

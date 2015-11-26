@@ -194,8 +194,6 @@
 		3C681C541BBB1D1A00E76EB3 /* CCRiftPlugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftPlugin.cpp; path = ../../src/CCRiftPlugin/CCRiftPlugin.cpp; sourceTree = "<group>"; };
 		3C681C551BBB1D1A00E76EB3 /* CCRiftInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftInstance.h; path = ../../src/CCRiftPlugin/CCRiftInstance.h; sourceTree = "<group>"; };
 		3C681C561BBB1D1A00E76EB3 /* CCRiftInstance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftInstance.cpp; path = ../../src/CCRiftPlugin/CCRiftInstance.cpp; sourceTree = "<group>"; };
-		3CA554601BBB2F60007EC2B9 /* DummyPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DummyPopupView.h; path = ../../src/DummyPopupView.h; sourceTree = "<group>"; };
-		3CA554611BBB2F60007EC2B9 /* DummyPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DummyPopupView.m; path = ../../src/DummyPopupView.m; sourceTree = "<group>"; };
 		3CB453D71BBC635A00CC57C2 /* window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = window.cpp; path = ../../deps/nanogui/src/window.cpp; sourceTree = "<group>"; };
 		3CB453D81BBC635A00CC57C2 /* widget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = widget.cpp; path = ../../deps/nanogui/src/widget.cpp; sourceTree = "<group>"; };
 		3CB453D91BBC635A00CC57C2 /* vscrollpanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vscrollpanel.cpp; path = ../../deps/nanogui/src/vscrollpanel.cpp; sourceTree = "<group>"; };
@@ -342,8 +340,6 @@
 				3C681C481BBB1D0500E76EB3 /* CCRiftFrameTexture.cpp */,
 				3C681C491BBB1D0500E76EB3 /* CCRiftCommons.h */,
 				3C681C4A1BBB1D0500E76EB3 /* CCRiftBufferHelpers.h */,
-				3CA554601BBB2F60007EC2B9 /* DummyPopupView.h */,
-				3CA554611BBB2F60007EC2B9 /* DummyPopupView.m */,
 			);
 			name = CCRift;
 			sourceTree = "<group>";
@@ -697,12 +693,9 @@
 					"../../deps/glfw-3.1.1/mac/x86_64/Debug",
 					"../../deps/glew-1.13.0/lib",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = "-Wall";
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-I",
-					/usr/include,
-				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-Wl,-search_paths_first",
 					"-Wl,-headerpad_max_install_names",
@@ -761,15 +754,12 @@
 					"../../deps/glfw-3.1.1/mac/x86_64/Release",
 					"../../deps/glew-1.13.0/lib",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = (
 					"-DNDEBUG",
 					"-Wall",
 				);
-				OTHER_CPLUSPLUSFLAGS = (
-					"$(OTHER_CFLAGS)",
-					"-I",
-					/usr/include,
-				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"-Wl,-search_paths_first",
 					"-Wl,-headerpad_max_install_names",
