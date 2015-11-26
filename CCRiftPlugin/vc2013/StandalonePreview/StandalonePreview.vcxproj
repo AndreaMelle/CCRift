@@ -176,6 +176,7 @@
     <ClCompile Include="..\..\src\CCRiftWinPreviewDevice.cpp" />
     <ClCompile Include="..\..\src\GuiManager.cpp" />
     <ClCompile Include="..\..\src\PlatformUtils.cpp" />
+    <ClCompile Include="..\..\src\PresetManager.cpp" />
     <ClCompile Include="..\..\src\StandalonePreview\StandalonePreview.cpp" />
     <ClCompile Include="..\..\src\CCRiftTimer.cpp" />
     <ClCompile Include="..\..\src\WinUtils.cpp" />

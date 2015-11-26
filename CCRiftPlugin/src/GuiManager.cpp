@@ -8,9 +8,10 @@ using namespace CCRift;
 void GuiManager::create(int winWidth, int winHeight)
 {
 	mSplashscreen = new nanogui::Window(this, "");
-    //mSplashscreen->setLayout(new nanogui::GroupLayout());
+	mSplashscreen->setLayout(new nanogui::BoxLayout(nanogui::BoxLayout::Vertical,
+		nanogui::BoxLayout::Middle, 10, 0));
 
-	splashScreenSize = Vector2i(winWidth / 2, winHeight / 2 );
+	splashScreenSize = Vector2i(winWidth / 4, winHeight / 5);
 	splashScreenPosition = (Vector2i(winWidth, winHeight) - splashScreenSize) / 2;
 
 	mSplashscreen->setFixedSize(splashScreenSize);
@@ -18,31 +19,11 @@ void GuiManager::create(int winWidth, int winHeight)
     mSplashscreen->setUseCustomBackgroundColor(true);
     mSplashscreen->setCustomBackgroundColor(Color(38, 255));
     
-    mLogo = new ImageView(mSplashscreen);
-    CCRift::ImageData* logoImg = LoadBitmapRaw("logo.BMP");
-    
-    if(logoImg)
-    {
-        int logotex = nvgCreateImageRGBA(mNVGContext, logoImg->width, logoImg->height, 0, logoImg->data);
-        mLogo->setImage(logotex);
-        CCRift::ImageData::FreeImage(logoImg);
-    }
-    
-    mLogo->setPosition(nanogui::Vector2i(30,30));
-    mLogo->setFixedWidth(splashScreenSize[0] - 60);
-    
-    Widget *ssContainer = new Widget(mSplashscreen);
-    ssContainer->setFixedWidth(splashScreenSize[0]);
-    GroupLayout *ssContainerLayout = new GroupLayout();
-    ssContainerLayout->setSpacing(0);
-    ssContainerLayout->setMargin(0);
-    ssContainer->setLayout(ssContainerLayout);
-    ssContainer->setPosition(nanogui::Vector2i(30, 150));
-    new nanogui::Label(ssContainer, "OmniPreview Transmitter Plugin v0.1", "sans-bold");
-    new nanogui::Label(ssContainer, "\xc2\xa9 2015 Andrea Melle", "sans-bold");
+	new nanogui::Label(mSplashscreen, "OmniPreview Transmitter Plugin", "sans-bold");
+	new nanogui::Label(mSplashscreen, gVersion + " - " + gYear, "sans-bold");
 
 	popupMenu = new nanogui::Window(this, "");
-
+	popupMenu->setCustomBackgroundColor(Color(38, 255));
 	popupMenu->setFixedWidth(200);
 
 	nanogui::GroupLayout *layout = new nanogui::GroupLayout();

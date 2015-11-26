@@ -33,8 +33,10 @@
     <ClInclude Include="..\..\src\CCRiftTimer.h" />
     <ClInclude Include="..\..\src\CCRiftUVSphere.h" />
     <ClInclude Include="..\..\src\CCRiftWinPreviewDevice.h" />
+    <ClInclude Include="..\..\src\CocoaUtils.h" />
     <ClInclude Include="..\..\src\GuiManager.h" />
     <ClInclude Include="..\..\src\PlatformUtils.h" />
+    <ClInclude Include="..\..\src\PresetManager.h" />
     <ClInclude Include="..\..\src\WinUtils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +53,7 @@
     <ClCompile Include="..\..\src\CCRiftWinPreviewDevice.cpp" />
     <ClCompile Include="..\..\src\GuiManager.cpp" />
     <ClCompile Include="..\..\src\PlatformUtils.cpp" />
+    <ClCompile Include="..\..\src\PresetManager.cpp" />
     <ClCompile Include="..\..\src\PrSDK\SDK_File.cpp" />
     <ClCompile Include="..\..\src\WinUtils.cpp" />
   </ItemGroup>

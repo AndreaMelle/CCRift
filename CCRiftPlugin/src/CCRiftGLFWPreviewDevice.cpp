@@ -7,7 +7,7 @@ using namespace std;
 using namespace CCRift;
 
 GLFWPreviewDevice::GLFWPreviewDevice()
-    : mSplashScreenTimeout(1000.0f)
+    : mSplashScreenTimeout(2.0f)
     , mShouldShowSplashScreen(true)
     , mFrameSize(glm::ivec2(1920, 960))
 	, mDeviceRunning(false)
@@ -179,7 +179,10 @@ HRESULT GLFWPreviewDevice::deviceSetup()
     mGUI->setAlwaysOnTopOption(mAlwaysOnTop);
     
 	mGUI->setAboutOptionCallback([&](){
-		ShowMessagePopup(window, "v0.1\n\nSeptember 2015\n\nandrea.melle@happyfinish.com", "About");
+
+		std::string msg = gVersion + "\n\n" + gMonth + " " + gYear + "\n\n" + gContact;
+
+		ShowMessagePopup(window, msg.c_str(), "About");
 	});
 
 	mGUI->setResetOptionCallback([&](){

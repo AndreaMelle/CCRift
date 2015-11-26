@@ -59,6 +59,35 @@ CCRift::FrameTexture* WinLoadBitmap(DWORD resourcename)
 	return tex;
 }
 
+CCRift::ImageData* WinLoadBitmapRaw(DWORD resourcename)
+{
+	HBITMAP hBMP;
+	BITMAP  BMP;
+
+	hBMP = (HBITMAP)LoadImage(GetMyModuleHandle(), MAKEINTRESOURCE(resourcename), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
+
+	if (!hBMP)
+	{
+		return nullptr;
+	}
+
+	GetObject(hBMP, sizeof(BMP), &BMP);
+
+	CCRift::ImageData* rawimg = new CCRift::ImageData();
+
+	rawimg->channels = (int)BMP.bmPlanes;
+	rawimg->width = (unsigned int)BMP.bmWidth;
+	rawimg->height = (unsigned int)BMP.bmHeight;
+
+	size_t size = CCRift::ImageData::AllocEmptyImage(rawimg);
+
+	memcpy(rawimg->data, (unsigned char*)BMP.bmBits, size);
+
+	DeleteObject(hBMP);
+
+	return rawimg;
+}
+
 
 //int count;
 //GLFWmonitor** monitors = glfwGetMonitors(&count);

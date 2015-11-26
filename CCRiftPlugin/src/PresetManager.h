@@ -10,6 +10,7 @@
 #define PresetManager_hpp
 
 #include "CCRiftCommons.h"
+#include <functional>
 
 namespace CCRift
 {
