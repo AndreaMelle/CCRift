@@ -6,6 +6,7 @@
 #include "CCRiftOGLPlatform.h"
 #include "CCRiftIDevice.h"
 #include "GuiManager.h"
+#include "PresetManager.h"
 #include <map>
 
 namespace CCRift
@@ -32,9 +33,9 @@ namespace CCRift
 		virtual size_t preferredFrameDepth() const override { return mFrameBufferDepth; }
         virtual glm::ivec2 preferredFrameSize() const override { return mFrameSize; }
 
-		int windowWidth() const { return mWindowSize.x; }
-		int windowHeight() const { return mWindowSize.y; }
-		glm::ivec2 windowSize() const { return mWindowSize; }
+		int windowWidth() const { return mCurrentSettings.width; }
+		int windowHeight() const { return mCurrentSettings.height; }
+        glm::ivec2 windowSize() const { return glm::ivec2(mCurrentSettings.width, mCurrentSettings.height); }
 
 		virtual bool isRunning() const override { return mDeviceRunning; }
 
@@ -48,18 +49,23 @@ namespace CCRift
 		void glfwKeyCallback(GLFWwindow* w, int key, int scancode, int action, int mods);
 		void glfwScrollCallback(GLFWwindow* w, double x, double y);
 
-		void setFieldOfView(float vFOV);
+		
+        void setPreviewSettings(PreviewSettings ps);
 
 	protected:
 		GLFWPreviewDevice();
 		GLFWwindow* window;
 
 		GuiManager *mGUI;
+        PresetManager *mPresetManager;
 		Timer mSplashScreenTimer;
+        double mSplashScreenTimeout;
 		bool mShouldShowSplashScreen;
 
+        PreviewSettings mCurrentSettings;
+        
 		Scene* mScene;
-		glm::ivec2 mWindowSize;
+		//glm::ivec2 mWindowSize;
 		glm::ivec2 mFrameSize;
 
 		Process mProcess;
@@ -91,9 +97,13 @@ namespace CCRift
 		
 
         glm::vec3 handleMouseInput();
+        
+        void updateProjectionMatrix();
+        void setFieldOfView(float vFOV);
+        void setWindowSize(int width, int height);
 
-		float verticalFovDegrees;
-		float mAspectRatio;
+		//float verticalFovDegrees;
+		//float mAspectRatio;
         glm::mat4 mProj;
 
 

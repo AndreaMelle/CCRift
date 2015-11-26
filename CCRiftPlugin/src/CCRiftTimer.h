@@ -32,4 +32,4 @@ namespace CCRift
 
 }
 
-#endif /__CCRIFT_TIMER_H__
+#endif //__CCRIFT_TIMER_H__
