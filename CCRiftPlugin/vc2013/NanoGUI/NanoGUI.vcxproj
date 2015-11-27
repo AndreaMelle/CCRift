@@ -129,7 +129,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\deps\glfw-3.1.1\$(Platform)\include;$(SolutionDir)\..\deps\glew-1.13.0\include;$(SolutionDir)\..\deps\nanogui\ext\nanovg\src;$(SolutionDir)\..\deps\nanogui\ext\eigen\;$(SolutionDir)\..\resources\fonts\;$(SolutionDir)\..\deps\nanogui\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\deps\glfw-3.1.1\win\include;$(SolutionDir)\..\deps\glew-1.13.0\include;$(SolutionDir)\..\deps\nanogui\ext\nanovg\src;$(SolutionDir)\..\deps\nanogui\ext\eigen\;$(SolutionDir)\..\resources\fonts\;$(SolutionDir)\..\deps\nanogui\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>

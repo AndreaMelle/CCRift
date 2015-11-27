@@ -54,7 +54,7 @@ namespace CCRift
 	private:
 
 		nanogui::Window *mSplashscreen;
-        nanogui::ImageView* mLogo;
+        //nanogui::ImageView* mLogo;
 
 		nanogui::Button* mSettingsBtn;
 		nanogui::Window *popupMenu;

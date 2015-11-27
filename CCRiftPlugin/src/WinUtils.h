@@ -10,6 +10,7 @@
 extern "C"
 {
 	CCRift::FrameTexture* WinLoadBitmap(DWORD resourcename);
+	CCRift::ImageData* WinLoadBitmapRaw(DWORD resourcename);
 
 	void WinShowMessagePopup(GLFWwindow* window, const char* msg, const char* title);
 

@@ -192,11 +192,16 @@ namespace CCRift
         }
     } ImageData;
 
-	static std::string gWindowTitle = "Panorama Preview";
+	static std::string gWindowTitle = "OmniPreview";
+	static std::string gVersion = "1.0";
+	static std::string gMonth = "November";
+	static std::string gYear = "2015";
+	static std::string gAuthor = "Andrea Melle";
+	static std::string gContact = "andrea.melle86@gmail.com";
 
 }
 
-#define	PLUGIN_DISPLAY_NAME	L"Panorama Preview"
+#define	PLUGIN_DISPLAY_NAME	L"OmniPreview"
 
 
 #endif //__CCRIFT_COMMONS_H__s

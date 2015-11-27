@@ -8,9 +8,9 @@ using namespace CCRift;
 void GuiManager::create(int winWidth, int winHeight)
 {
 	mSplashscreen = new nanogui::Window(this, "");
-    //mSplashscreen->setLayout(new nanogui::GroupLayout());
+	mSplashscreen->setLayout(new nanogui::GroupLayout());
 
-	splashScreenSize = Vector2i(winWidth / 2, winHeight / 2 );
+	splashScreenSize = Vector2i(205, 80);
 	splashScreenPosition = (Vector2i(winWidth, winHeight) - splashScreenSize) / 2;
 
 	mSplashscreen->setFixedSize(splashScreenSize);
@@ -18,31 +18,14 @@ void GuiManager::create(int winWidth, int winHeight)
     mSplashscreen->setUseCustomBackgroundColor(true);
     mSplashscreen->setCustomBackgroundColor(Color(38, 255));
     
-    mLogo = new ImageView(mSplashscreen);
-    CCRift::ImageData* logoImg = LoadBitmapRaw("logo.BMP");
-    
-    if(logoImg)
-    {
-        int logotex = nvgCreateImageRGBA(mNVGContext, logoImg->width, logoImg->height, 0, logoImg->data);
-        mLogo->setImage(logotex);
-        CCRift::ImageData::FreeImage(logoImg);
-    }
-    
-    mLogo->setPosition(nanogui::Vector2i(30,30));
-    mLogo->setFixedWidth(splashScreenSize[0] - 60);
-    
-    Widget *ssContainer = new Widget(mSplashscreen);
-    ssContainer->setFixedWidth(splashScreenSize[0]);
-    GroupLayout *ssContainerLayout = new GroupLayout();
-    ssContainerLayout->setSpacing(0);
-    ssContainerLayout->setMargin(0);
-    ssContainer->setLayout(ssContainerLayout);
-    ssContainer->setPosition(nanogui::Vector2i(30, 150));
-    new nanogui::Label(ssContainer, "OmniPreview Transmitter Plugin v0.1", "sans-bold");
-    new nanogui::Label(ssContainer, "\xc2\xa9 2015 Andrea Melle", "sans-bold");
+	nanogui::Label* splashTitleLabel = new nanogui::Label(mSplashscreen, "OmniPreview Transmitter Plugin", "sans-bold");
+	nanogui::Label* splashSubtitleLabel = new nanogui::Label(mSplashscreen, "v" + gVersion + " - " + gYear, "sans-bold");
+
+	splashTitleLabel->setFixedWidth(splashScreenSize[0]);
+	splashSubtitleLabel->setFixedWidth(splashScreenSize[0]);
 
 	popupMenu = new nanogui::Window(this, "");
-
+	popupMenu->setCustomBackgroundColor(Color(38, 255));
 	popupMenu->setFixedWidth(200);
 
 	nanogui::GroupLayout *layout = new nanogui::GroupLayout();
@@ -69,7 +52,9 @@ void GuiManager::create(int winWidth, int winHeight)
 
 	fovComboBox = new nanogui::ComboBox(popupMenu, {
 		gPreviewPresets[PP_SMARTPHONE].name,
-        gPreviewPresets[PP_EDITING_DEFAULT].name
+		gPreviewPresets[PP_SMARTPHONE_WIDE].name,
+		gPreviewPresets[PP_CARDBOARD].name,
+		gPreviewPresets[PP_EDITING_DEFAULT].name
 	});
 
 	fovComboBox->popup()->setAnchorHeight(120);
@@ -91,11 +76,20 @@ void GuiManager::create(int winWidth, int winHeight)
             mPPChangedCallback(PP_SMARTPHONE);
 			break;
 		case 1:
-            mPPChangedCallback(PP_EDITING_DEFAULT);
+			mPPChangedCallback(PP_SMARTPHONE_WIDE);
+			break;
+		case 2:
+			mPPChangedCallback(PP_CARDBOARD);
+			break;
+		case 3:
+			mPPChangedCallback(PP_EDITING_DEFAULT);
 			break;
 		default:
 			break;
 		}
+
+		dismissPopupMenu();
+
 	});
 
 	slider->setCallback([&](float value) {
@@ -173,8 +167,14 @@ void GuiManager::setPresetOption(PreviewPreset option)
         case PP_SMARTPHONE:
             fovComboBox->setSelectedIndex(0);
             break;
+		case PP_SMARTPHONE_WIDE:
+			fovComboBox->setSelectedIndex(1);
+			break;
+		case PP_CARDBOARD:
+			fovComboBox->setSelectedIndex(2);
+			break;
         case PP_EDITING_DEFAULT:
-            fovComboBox->setSelectedIndex(1);
+            fovComboBox->setSelectedIndex(3);
             break;
         default:
             break;
