@@ -131,9 +131,9 @@
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.prm</TargetExt>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TransmitterSDK</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.prm</TargetExt>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">CCRiftPreview</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">OmniPreview</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.prm</TargetExt>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CCRiftPreview</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">OmniPreview</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.prm</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

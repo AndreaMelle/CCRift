@@ -7,7 +7,7 @@ using namespace std;
 using namespace CCRift;
 
 GLFWPreviewDevice::GLFWPreviewDevice()
-    : mSplashScreenTimeout(2.0f)
+    : mSplashScreenTimeout(200.0f)
     , mShouldShowSplashScreen(true)
     , mFrameSize(glm::ivec2(1920, 960))
 	, mDeviceRunning(false)
@@ -61,6 +61,9 @@ void GLFWPreviewDevice::setWindowSize(int width, int height)
 
 void GLFWPreviewDevice::setPreviewSettings(PreviewSettings ps)
 {
+
+	glfwSetWindowTitle(window, (gWindowTitle + " (" + ps.name + ")").c_str());
+
     if(ps.width != mCurrentSettings.width || ps.height != mCurrentSettings.height)
     {
         glfwSetWindowSize(window, ps.width, ps.height);
@@ -132,6 +135,7 @@ HRESULT GLFWPreviewDevice::deviceSetup()
     
 	window = glfwCreateWindow(mCurrentSettings.width, mCurrentSettings.height, gWindowTitle.c_str(), NULL, NULL);
 
+
 	if (!window)
 	{
 		//MessageBoxA(NULL, "Failed to open window.", "CCRift Preview", MB_ICONERROR | MB_OK);
@@ -180,7 +184,7 @@ HRESULT GLFWPreviewDevice::deviceSetup()
     
 	mGUI->setAboutOptionCallback([&](){
 
-		std::string msg = gVersion + "\n\n" + gMonth + " " + gYear + "\n\n" + gContact;
+		std::string msg = "v" + gVersion + "\n\n" + gMonth + " " + gYear + "\n\n" + gContact;
 
 		ShowMessagePopup(window, msg.c_str(), "About");
 	});

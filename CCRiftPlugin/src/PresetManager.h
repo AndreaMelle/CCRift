@@ -46,16 +46,19 @@ namespace CCRift
     
     typedef enum PreviewPreset
     {
-        PP_SMARTPHONE,
+		PP_SMARTPHONE,
+		PP_SMARTPHONE_WIDE,
+		PP_CARDBOARD,
         //PP_DK2,
         //PP_GEARVR,
-        //PP_CARDBOARD,
         PP_EDITING_DEFAULT
     } PreviewPreset;
     
     static std::map<PreviewPreset, PreviewSettings> gPreviewPresets =
     {
-        { PP_SMARTPHONE, PreviewSettings(16.0f / 9.0f, 667, 375, 75, false, "Smartphone") },
+		{ PP_SMARTPHONE, PreviewSettings(667.0f / 375.0f, 667, 375, 75, false, "Smartphone - 75\xc2\xb0") },
+		{ PP_SMARTPHONE_WIDE, PreviewSettings(736.0f / 414.0f, 736, 414, 75, false, "Large Smartphone - 75\xc2\xb0") },
+		{ PP_CARDBOARD, PreviewSettings(667.0f / 375.0f, 667, 375, 90, true, "Cardboard - 90\xc2\xb0") },
         { PP_EDITING_DEFAULT, PreviewSettings(4.0f / 3.0f, 960, 720, 60, false, "Editing") }
     };
     

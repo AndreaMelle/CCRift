@@ -8,10 +8,9 @@ using namespace CCRift;
 void GuiManager::create(int winWidth, int winHeight)
 {
 	mSplashscreen = new nanogui::Window(this, "");
-	mSplashscreen->setLayout(new nanogui::BoxLayout(nanogui::BoxLayout::Vertical,
-		nanogui::BoxLayout::Middle, 10, 0));
+	mSplashscreen->setLayout(new nanogui::GroupLayout());
 
-	splashScreenSize = Vector2i(winWidth / 4, winHeight / 5);
+	splashScreenSize = Vector2i(205, 80);
 	splashScreenPosition = (Vector2i(winWidth, winHeight) - splashScreenSize) / 2;
 
 	mSplashscreen->setFixedSize(splashScreenSize);
@@ -19,8 +18,11 @@ void GuiManager::create(int winWidth, int winHeight)
     mSplashscreen->setUseCustomBackgroundColor(true);
     mSplashscreen->setCustomBackgroundColor(Color(38, 255));
     
-	new nanogui::Label(mSplashscreen, "OmniPreview Transmitter Plugin", "sans-bold");
-	new nanogui::Label(mSplashscreen, gVersion + " - " + gYear, "sans-bold");
+	nanogui::Label* splashTitleLabel = new nanogui::Label(mSplashscreen, "OmniPreview Transmitter Plugin", "sans-bold");
+	nanogui::Label* splashSubtitleLabel = new nanogui::Label(mSplashscreen, "v" + gVersion + " - " + gYear, "sans-bold");
+
+	splashTitleLabel->setFixedWidth(splashScreenSize[0]);
+	splashSubtitleLabel->setFixedWidth(splashScreenSize[0]);
 
 	popupMenu = new nanogui::Window(this, "");
 	popupMenu->setCustomBackgroundColor(Color(38, 255));
@@ -50,7 +52,9 @@ void GuiManager::create(int winWidth, int winHeight)
 
 	fovComboBox = new nanogui::ComboBox(popupMenu, {
 		gPreviewPresets[PP_SMARTPHONE].name,
-        gPreviewPresets[PP_EDITING_DEFAULT].name
+		gPreviewPresets[PP_SMARTPHONE_WIDE].name,
+		gPreviewPresets[PP_CARDBOARD].name,
+		gPreviewPresets[PP_EDITING_DEFAULT].name
 	});
 
 	fovComboBox->popup()->setAnchorHeight(120);
@@ -72,11 +76,20 @@ void GuiManager::create(int winWidth, int winHeight)
             mPPChangedCallback(PP_SMARTPHONE);
 			break;
 		case 1:
-            mPPChangedCallback(PP_EDITING_DEFAULT);
+			mPPChangedCallback(PP_SMARTPHONE_WIDE);
+			break;
+		case 2:
+			mPPChangedCallback(PP_CARDBOARD);
+			break;
+		case 3:
+			mPPChangedCallback(PP_EDITING_DEFAULT);
 			break;
 		default:
 			break;
 		}
+
+		dismissPopupMenu();
+
 	});
 
 	slider->setCallback([&](float value) {
@@ -154,8 +167,14 @@ void GuiManager::setPresetOption(PreviewPreset option)
         case PP_SMARTPHONE:
             fovComboBox->setSelectedIndex(0);
             break;
+		case PP_SMARTPHONE_WIDE:
+			fovComboBox->setSelectedIndex(1);
+			break;
+		case PP_CARDBOARD:
+			fovComboBox->setSelectedIndex(2);
+			break;
         case PP_EDITING_DEFAULT:
-            fovComboBox->setSelectedIndex(1);
+            fovComboBox->setSelectedIndex(3);
             break;
         default:
             break;
