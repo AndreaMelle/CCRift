@@ -7,51 +7,52 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C47C4641BC85E66000F0E45 /* (null) in Sources */ = {isa = PBXBuildFile; settings = {ASSET_TAGS = (); }; };
-		3C47C4651BC85E66000F0E45 /* (null) in Sources */ = {isa = PBXBuildFile; settings = {ASSET_TAGS = (); }; };
-		3C47C46E1BC85E9D000F0E45 /* (null) in Sources */ = {isa = PBXBuildFile; settings = {ASSET_TAGS = (); }; };
-		3C681C361BBB1C7600E76EB3 /* SDK_Segment_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681BD71BBB1C7600E76EB3 /* SDK_Segment_Utils.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C681C371BBB1C7600E76EB3 /* SDK_File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681BD91BBB1C7600E76EB3 /* SDK_File.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C681C381BBB1C7600E76EB3 /* adobesdk in Resources */ = {isa = PBXBuildFile; fileRef = 3C681C351BBB1C7600E76EB3 /* adobesdk */; settings = {ASSET_TAGS = (); }; };
-		3C681C4B1BBB1D0500E76EB3 /* CCRiftWinPreviewDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C3B1BBB1D0500E76EB3 /* CCRiftWinPreviewDevice.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C681C4C1BBB1D0500E76EB3 /* CCRiftUVSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C3D1BBB1D0500E76EB3 /* CCRiftUVSphere.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C681C4D1BBB1D0500E76EB3 /* CCRiftScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C3F1BBB1D0500E76EB3 /* CCRiftScene.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C681C4E1BBB1D0500E76EB3 /* CCRiftOGLPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C411BBB1D0500E76EB3 /* CCRiftOGLPlatform.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C681C4F1BBB1D0500E76EB3 /* CCRiftIDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C441BBB1D0500E76EB3 /* CCRiftIDevice.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C681C501BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C451BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C681C511BBB1D0500E76EB3 /* CCRiftFrameTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C481BBB1D0500E76EB3 /* CCRiftFrameTexture.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C681C571BBB1D1A00E76EB3 /* CCRiftPluginEntryPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C521BBB1D1A00E76EB3 /* CCRiftPluginEntryPoint.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C681C581BBB1D1A00E76EB3 /* CCRiftPlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C541BBB1D1A00E76EB3 /* CCRiftPlugin.cpp */; settings = {ASSET_TAGS = (); }; };
-		3C681C591BBB1D1A00E76EB3 /* CCRiftInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C561BBB1D1A00E76EB3 /* CCRiftInstance.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB4540E1BBC635A00CC57C2 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453D71BBC635A00CC57C2 /* window.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB4540F1BBC635A00CC57C2 /* widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453D81BBC635A00CC57C2 /* widget.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454101BBC635A00CC57C2 /* vscrollpanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453D91BBC635A00CC57C2 /* vscrollpanel.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454111BBC635A00CC57C2 /* theme.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453DA1BBC635A00CC57C2 /* theme.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454121BBC635A00CC57C2 /* textbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453DB1BBC635A00CC57C2 /* textbox.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454131BBC635A00CC57C2 /* slider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453DC1BBC635A00CC57C2 /* slider.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454141BBC635A00CC57C2 /* screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453DD1BBC635A00CC57C2 /* screen.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454151BBC635A00CC57C2 /* progressbar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453DE1BBC635A00CC57C2 /* progressbar.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454161BBC635A00CC57C2 /* popupbutton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453DF1BBC635A00CC57C2 /* popupbutton.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454171BBC635A00CC57C2 /* popup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E01BBC635A00CC57C2 /* popup.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454181BBC635A00CC57C2 /* nanogui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E11BBC635A00CC57C2 /* nanogui.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454191BBC635A00CC57C2 /* messagedialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E21BBC635A00CC57C2 /* messagedialog.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB4541A1BBC635A00CC57C2 /* layout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E31BBC635A00CC57C2 /* layout.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB4541B1BBC635A00CC57C2 /* label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E41BBC635A00CC57C2 /* label.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB4541C1BBC635A00CC57C2 /* imageview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E51BBC635A00CC57C2 /* imageview.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB4541D1BBC635A00CC57C2 /* imagepanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E61BBC635A00CC57C2 /* imagepanel.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB4541E1BBC635A00CC57C2 /* graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E71BBC635A00CC57C2 /* graph.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB4541F1BBC635A00CC57C2 /* glutil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E81BBC635A00CC57C2 /* glutil.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454201BBC635A00CC57C2 /* darwin.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E91BBC635A00CC57C2 /* darwin.mm */; settings = {ASSET_TAGS = (); }; };
-		3CB454211BBC635A00CC57C2 /* combobox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453EA1BBC635A00CC57C2 /* combobox.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454221BBC635A00CC57C2 /* colorwheel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453EB1BBC635A00CC57C2 /* colorwheel.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454231BBC635A00CC57C2 /* checkbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453EC1BBC635A00CC57C2 /* checkbox.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454241BBC635A00CC57C2 /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453ED1BBC635A00CC57C2 /* button.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB454251BBC635A00CC57C2 /* nanovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4540A1BBC635A00CC57C2 /* nanovg.c */; settings = {ASSET_TAGS = (); }; };
-		3CB454281BBC636A00CC57C2 /* fontResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB454271BBC636A00CC57C2 /* fontResources.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CB4548E1BBDB40900CC57C2 /* CocoaUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4548C1BBDB40900CC57C2 /* CocoaUtils.mm */; settings = {ASSET_TAGS = (); }; };
-		3CEAE6731BC8605C00A6BC49 /* CCRiftTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAE66F1BC8605C00A6BC49 /* CCRiftTimer.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CEAE6741BC8605C00A6BC49 /* GuiManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAE6711BC8605C00A6BC49 /* GuiManager.cpp */; settings = {ASSET_TAGS = (); }; };
-		3CEAE6751BC860A700A6BC49 /* PlatformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C0B7A381BBE76D2009C9670 /* PlatformUtils.cpp */; settings = {ASSET_TAGS = (); }; };
+		3C47C4641BC85E66000F0E45 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3C47C4651BC85E66000F0E45 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3C47C46E1BC85E9D000F0E45 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3C681C361BBB1C7600E76EB3 /* SDK_Segment_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681BD71BBB1C7600E76EB3 /* SDK_Segment_Utils.cpp */; };
+		3C681C371BBB1C7600E76EB3 /* SDK_File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681BD91BBB1C7600E76EB3 /* SDK_File.cpp */; };
+		3C681C381BBB1C7600E76EB3 /* adobesdk in Resources */ = {isa = PBXBuildFile; fileRef = 3C681C351BBB1C7600E76EB3 /* adobesdk */; };
+		3C681C4B1BBB1D0500E76EB3 /* CCRiftWinPreviewDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C3B1BBB1D0500E76EB3 /* CCRiftWinPreviewDevice.cpp */; };
+		3C681C4C1BBB1D0500E76EB3 /* CCRiftUVSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C3D1BBB1D0500E76EB3 /* CCRiftUVSphere.cpp */; };
+		3C681C4D1BBB1D0500E76EB3 /* CCRiftScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C3F1BBB1D0500E76EB3 /* CCRiftScene.cpp */; };
+		3C681C4E1BBB1D0500E76EB3 /* CCRiftOGLPlatform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C411BBB1D0500E76EB3 /* CCRiftOGLPlatform.cpp */; };
+		3C681C4F1BBB1D0500E76EB3 /* CCRiftIDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C441BBB1D0500E76EB3 /* CCRiftIDevice.cpp */; };
+		3C681C501BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C451BBB1D0500E76EB3 /* CCRiftGLFWPreviewDevice.cpp */; };
+		3C681C511BBB1D0500E76EB3 /* CCRiftFrameTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C481BBB1D0500E76EB3 /* CCRiftFrameTexture.cpp */; };
+		3C681C571BBB1D1A00E76EB3 /* CCRiftPluginEntryPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C521BBB1D1A00E76EB3 /* CCRiftPluginEntryPoint.cpp */; };
+		3C681C581BBB1D1A00E76EB3 /* CCRiftPlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C541BBB1D1A00E76EB3 /* CCRiftPlugin.cpp */; };
+		3C681C591BBB1D1A00E76EB3 /* CCRiftInstance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C681C561BBB1D1A00E76EB3 /* CCRiftInstance.cpp */; };
+		3C91E14A1C08E19E00C6F3B9 /* PresetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C91E1491C08E19E00C6F3B9 /* PresetManager.cpp */; };
+		3CB4540E1BBC635A00CC57C2 /* window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453D71BBC635A00CC57C2 /* window.cpp */; };
+		3CB4540F1BBC635A00CC57C2 /* widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453D81BBC635A00CC57C2 /* widget.cpp */; };
+		3CB454101BBC635A00CC57C2 /* vscrollpanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453D91BBC635A00CC57C2 /* vscrollpanel.cpp */; };
+		3CB454111BBC635A00CC57C2 /* theme.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453DA1BBC635A00CC57C2 /* theme.cpp */; };
+		3CB454121BBC635A00CC57C2 /* textbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453DB1BBC635A00CC57C2 /* textbox.cpp */; };
+		3CB454131BBC635A00CC57C2 /* slider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453DC1BBC635A00CC57C2 /* slider.cpp */; };
+		3CB454141BBC635A00CC57C2 /* screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453DD1BBC635A00CC57C2 /* screen.cpp */; };
+		3CB454151BBC635A00CC57C2 /* progressbar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453DE1BBC635A00CC57C2 /* progressbar.cpp */; };
+		3CB454161BBC635A00CC57C2 /* popupbutton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453DF1BBC635A00CC57C2 /* popupbutton.cpp */; };
+		3CB454171BBC635A00CC57C2 /* popup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E01BBC635A00CC57C2 /* popup.cpp */; };
+		3CB454181BBC635A00CC57C2 /* nanogui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E11BBC635A00CC57C2 /* nanogui.cpp */; };
+		3CB454191BBC635A00CC57C2 /* messagedialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E21BBC635A00CC57C2 /* messagedialog.cpp */; };
+		3CB4541A1BBC635A00CC57C2 /* layout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E31BBC635A00CC57C2 /* layout.cpp */; };
+		3CB4541B1BBC635A00CC57C2 /* label.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E41BBC635A00CC57C2 /* label.cpp */; };
+		3CB4541C1BBC635A00CC57C2 /* imageview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E51BBC635A00CC57C2 /* imageview.cpp */; };
+		3CB4541D1BBC635A00CC57C2 /* imagepanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E61BBC635A00CC57C2 /* imagepanel.cpp */; };
+		3CB4541E1BBC635A00CC57C2 /* graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E71BBC635A00CC57C2 /* graph.cpp */; };
+		3CB4541F1BBC635A00CC57C2 /* glutil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E81BBC635A00CC57C2 /* glutil.cpp */; };
+		3CB454201BBC635A00CC57C2 /* darwin.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453E91BBC635A00CC57C2 /* darwin.mm */; };
+		3CB454211BBC635A00CC57C2 /* combobox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453EA1BBC635A00CC57C2 /* combobox.cpp */; };
+		3CB454221BBC635A00CC57C2 /* colorwheel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453EB1BBC635A00CC57C2 /* colorwheel.cpp */; };
+		3CB454231BBC635A00CC57C2 /* checkbox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453EC1BBC635A00CC57C2 /* checkbox.cpp */; };
+		3CB454241BBC635A00CC57C2 /* button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB453ED1BBC635A00CC57C2 /* button.cpp */; };
+		3CB454251BBC635A00CC57C2 /* nanovg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4540A1BBC635A00CC57C2 /* nanovg.c */; };
+		3CB454281BBC636A00CC57C2 /* fontResources.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CB454271BBC636A00CC57C2 /* fontResources.cpp */; };
+		3CB4548E1BBDB40900CC57C2 /* CocoaUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4548C1BBDB40900CC57C2 /* CocoaUtils.mm */; };
+		3CEAE6731BC8605C00A6BC49 /* CCRiftTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAE66F1BC8605C00A6BC49 /* CCRiftTimer.cpp */; };
+		3CEAE6741BC8605C00A6BC49 /* GuiManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEAE6711BC8605C00A6BC49 /* GuiManager.cpp */; };
+		3CEAE6751BC860A700A6BC49 /* PlatformUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C0B7A381BBE76D2009C9670 /* PlatformUtils.cpp */; };
 		7E48CD0F1700FCA400D1EFDC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E48CD0E1700FCA400D1EFDC /* Cocoa.framework */; };
 		7EFEE1D115E5641300B7561D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EFEE1D015E5641300B7561D /* Foundation.framework */; };
 		8D576314048677EA00EA77CD /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AA1909FFE8422F4C02AAC07 /* CoreFoundation.framework */; };
@@ -194,6 +195,7 @@
 		3C681C541BBB1D1A00E76EB3 /* CCRiftPlugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftPlugin.cpp; path = ../../src/CCRiftPlugin/CCRiftPlugin.cpp; sourceTree = "<group>"; };
 		3C681C551BBB1D1A00E76EB3 /* CCRiftInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CCRiftInstance.h; path = ../../src/CCRiftPlugin/CCRiftInstance.h; sourceTree = "<group>"; };
 		3C681C561BBB1D1A00E76EB3 /* CCRiftInstance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CCRiftInstance.cpp; path = ../../src/CCRiftPlugin/CCRiftInstance.cpp; sourceTree = "<group>"; };
+		3C91E1491C08E19E00C6F3B9 /* PresetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PresetManager.cpp; path = ../../src/PresetManager.cpp; sourceTree = "<group>"; };
 		3CB453D71BBC635A00CC57C2 /* window.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = window.cpp; path = ../../deps/nanogui/src/window.cpp; sourceTree = "<group>"; };
 		3CB453D81BBC635A00CC57C2 /* widget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = widget.cpp; path = ../../deps/nanogui/src/widget.cpp; sourceTree = "<group>"; };
 		3CB453D91BBC635A00CC57C2 /* vscrollpanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vscrollpanel.cpp; path = ../../deps/nanogui/src/vscrollpanel.cpp; sourceTree = "<group>"; };
@@ -259,7 +261,7 @@
 		3CEAE6721BC8605C00A6BC49 /* GuiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GuiManager.h; path = ../../src/GuiManager.h; sourceTree = "<group>"; };
 		7E48CD0E1700FCA400D1EFDC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		7EFEE1D015E5641300B7561D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		8D576316048677EA00EA77CD /* CCRiftPlugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CCRiftPlugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D576316048677EA00EA77CD /* OmniPreview.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OmniPreview.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D576317048677EA00EA77CD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -315,6 +317,7 @@
 		08FB77AFFE84173DC02AAC07 /* CCRift */ = {
 			isa = PBXGroup;
 			children = (
+				3C91E1491C08E19E00C6F3B9 /* PresetManager.cpp */,
 				3CEAE66F1BC8605C00A6BC49 /* CCRiftTimer.cpp */,
 				3CEAE6701BC8605C00A6BC49 /* CCRiftTimer.h */,
 				3CEAE6711BC8605C00A6BC49 /* GuiManager.cpp */,
@@ -347,7 +350,7 @@
 		19C28FB6FE9D52B211CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D576316048677EA00EA77CD /* CCRiftPlugin.bundle */,
+				8D576316048677EA00EA77CD /* OmniPreview.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -561,7 +564,7 @@
 			name = CCRiftPlugin;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = Transmitter;
-			productReference = 8D576316048677EA00EA77CD /* CCRiftPlugin.bundle */;
+			productReference = 8D576316048677EA00EA77CD /* OmniPreview.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -626,6 +629,7 @@
 				3CB4541D1BBC635A00CC57C2 /* imagepanel.cpp in Sources */,
 				3C681C4C1BBB1D0500E76EB3 /* CCRiftUVSphere.cpp in Sources */,
 				3CB4541E1BBC635A00CC57C2 /* graph.cpp in Sources */,
+				3C91E14A1C08E19E00C6F3B9 /* PresetManager.cpp in Sources */,
 				3CB4548E1BBDB40900CC57C2 /* CocoaUtils.mm in Sources */,
 				3CB454101BBC635A00CC57C2 /* vscrollpanel.cpp in Sources */,
 				3CB454231BBC635A00CC57C2 /* checkbox.cpp in Sources */,
@@ -715,7 +719,7 @@
 					"../../deps/glew-1.13.0/lib/libGLEW.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:rfc1034Identifier}";
-				PRODUCT_NAME = CCRiftPlugin;
+				PRODUCT_NAME = OmniPreview;
 				SDKROOT = macosx;
 				SYMROOT = "/Library/Application Support/Adobe/Common/Plug-ins/7.0/MediaCore";
 			};
@@ -779,7 +783,7 @@
 					"../../deps/glew-1.13.0/lib/libGLEW.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:rfc1034Identifier}";
-				PRODUCT_NAME = CCRiftPlugin;
+				PRODUCT_NAME = OmniPreview;
 				SDKROOT = macosx;
 				SYMROOT = "/Library/Application Support/Adobe/Common/Plug-ins/7.0/MediaCore";
 			};
