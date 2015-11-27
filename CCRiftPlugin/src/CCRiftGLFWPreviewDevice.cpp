@@ -7,7 +7,7 @@ using namespace std;
 using namespace CCRift;
 
 GLFWPreviewDevice::GLFWPreviewDevice()
-    : mSplashScreenTimeout(200.0f)
+    : mSplashScreenTimeout(2.0f)
     , mShouldShowSplashScreen(true)
     , mFrameSize(glm::ivec2(1920, 960))
 	, mDeviceRunning(false)
