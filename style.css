@@ -35,10 +35,8 @@ h3 {
 }
 
 .panel-default {
-  float: left;
-  max-width: 46%;
-  margin-left: 2%;
-  margin-right: 2%;
+  margin: 0 auto;
+  height: 150px;
 }
 
 .img-preview {
